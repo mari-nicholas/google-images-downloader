@@ -10,4 +10,6 @@ This project is a reimplementation of: https://github.com/hardikvasa/google-imag
 
 The folders and files for this project are as follows:  
 Doc - Documentation for the project  
-Code - Implementation  
+ProjectSchedule - Project schedules and Gantt Chart
+ReferenceMaterial - External materials referenced during the project
+src - Source files for the project
