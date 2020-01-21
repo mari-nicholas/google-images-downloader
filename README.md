@@ -1,6 +1,6 @@
 # google-images-downloader
 
-A command-line Python application which can download hundreds of Google images based on a key phrase. It will be a good program.
+A command-line Python application which can download hundreds of Google images based on a key phrase.
 
 Team Name: CAS Dream Team
 
