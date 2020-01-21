@@ -8,6 +8,6 @@ Team Members: Joshua Guinness (@guinnesj), Sam Crawford (@crawfs1), Nicholas Mar
 
 This project is a reimplementation of: https://github.com/hardikvasa/google-images-download
 
-The folders and files for this project are as follows:
-Doc - Documentation for the project
-Code - Implementation
+The folders and files for this project are as follows:  
+Doc - Documentation for the project  
+Code - Implementation  
