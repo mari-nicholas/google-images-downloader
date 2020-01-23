@@ -2,4 +2,6 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+ProblemStatement.pdf - PDF version of Problem Statement  
+ProblemStatement.tex - LaTeX version of Problem Statement  
+
