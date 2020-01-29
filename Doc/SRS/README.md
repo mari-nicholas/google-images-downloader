@@ -2,4 +2,9 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+```
+    README.md
+    SRS.bib
+    SRS.pdf
+    SRS.tex
+```
