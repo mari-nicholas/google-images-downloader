@@ -2,4 +2,9 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+```
+    bibfile.bib
+    DevelopmentPlan.pdf
+    DevelopmentPlan.tex
+    README.md
+```

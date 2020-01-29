@@ -1,9 +1,9 @@
-# Problem Statement
+# Project Proposal
 
 The folders and files for this folder are as follows:
 
 ```
-    ProblemStatement.pdf
-    ProblemStatement.tex
+    ProjectProposal.pdf
+    ProjectProposal.tex
     README.md
 ```

@@ -9,7 +9,76 @@ Team Members: Joshua Guinness (@guinnesj), Sam Crawford (@crawfs1), Nicholas Mar
 This project is a reimplementation of: https://github.com/hardikvasa/google-images-download
 
 The folders and files for this project are as follows:  
-Doc - Documentation for the project  
-ProjectSchedule - Project schedules and Gantt Chart  
-ReferenceMaterial - External materials referenced during the project  
-src - Source files for the project  
+
+```
+|   .gitignore
+|   LICENSE
+|   README.md
+|   
++---Doc
+|   |   README.md
+|   |   
+|   +---Design
+|   |   |   README.md
+|   |   |   
+|   |   +---MG
+|   |   |       MG.bib
+|   |   |       MG.pdf
+|   |   |       MG.tex
+|   |   |       README.md
+|   |   |       
+|   |   \---MIS
+|   |           README.md
+|   |           
+|   +---DevelopmentPlan
+|   |       bibfile.bib
+|   |       DevelopmentPlan.pdf
+|   |       DevelopmentPlan.tex
+|   |       README.md
+|   |       
+|   +---FinalPresentation
+|   |       README.md
+|   |       
+|   +---ProblemStatement
+|   |       ProblemStatement.pdf
+|   |       ProblemStatement.tex
+|   |       README.md
+|   |       
+|   +---ProjectProposal
+|   |       ProjectProposal.pdf
+|   |       ProjectProposal.tex
+|   |       README.md
+|   |       
+|   +---SRS
+|   |       README.md
+|   |       SRS.bib
+|   |       SRS.pdf
+|   |       SRS.tex
+|   |       
+|   +---TestPlan
+|   |       README.md
+|   |       TestPlan.pdf
+|   |       TestPlan.tex
+|   |       
+|   +---TestReport
+|   |       README.md
+|   |       TestReport.pdf
+|   |       TestReport.tex
+|   |       
+|   \---UserGuide
+|           README.md
+|           
++---ProjectSchedule
+|       .gitkeep
+|       Gantt-Chart.gan
+|       Gantt-Chart.pdf
+|       README.md
+|       
++---ReferenceMaterial
+|       .gitkeep
+|       README.md
+|       
+\---src
+        .gitkeep
+        README.md
+```
