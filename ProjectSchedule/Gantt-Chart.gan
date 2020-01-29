@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-01-28" view-index="0" gantt-divider-location="332" resource-divider-location="300" version="2.8.10" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-02-22" view-index="0" gantt-divider-location="332" resource-divider-location="300" version="2.8.10" locale="en_CA">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="182" order="0"/>
@@ -57,7 +57,18 @@
             <task id="72" name="Non-functional Requirements" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
             <task id="73" name="Project Issues" color="#8cb6ce" meeting="false" start="2020-02-04" duration="4" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="87" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2020-02-08" duration="1" complete="0" thirdDate="2020-01-29" thirdDate-constraint="0" expand="true"/>
+        <task id="87" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2020-02-08" duration="4" complete="0" thirdDate="2020-01-29" thirdDate-constraint="0" expand="true">
+            <depend id="95" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="95" name="Test Plan" color="#000000" meeting="false" start="2020-02-17" duration="12" complete="0" thirdDate="2020-02-17" thirdDate-constraint="0" expand="true">
+            <task id="96" name="General Information" color="#8cb6ce" meeting="false" start="2020-02-17" duration="5" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="97" name="Plan" color="#8cb6ce" meeting="false" start="2020-02-17" duration="10" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="98" name="System Test Description" color="#8cb6ce" meeting="false" start="2020-02-17" duration="12" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="99" name="Tests for Proof of Concept" color="#8cb6ce" meeting="false" start="2020-02-17" duration="8" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="100" name="Comparison to Existing Implementation" color="#8cb6ce" meeting="false" start="2020-02-17" duration="8" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="101" name="Unit Testing Plan" color="#8cb6ce" meeting="false" start="2020-02-17" duration="10" complete="0" thirdDate="2020-01-30" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="109" name="Design Document" meeting="false" start="2020-02-22" duration="1" complete="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Joshua Guinness" function="Default:1" contacts="joshua.guinness@gmail.com" phone="647 880 9670">
@@ -77,6 +88,10 @@
         <allocation task-id="70" resource-id="0" function="Default:1" responsible="true" load="33.0"/>
         <allocation task-id="71" resource-id="0" function="Default:1" responsible="true" load="33.0"/>
         <allocation task-id="73" resource-id="0" function="Default:1" responsible="true" load="34.0"/>
+        <allocation task-id="87" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="96" resource-id="0" function="Default:1" responsible="true" load="20.0"/>
+        <allocation task-id="98" resource-id="0" function="Default:1" responsible="true" load="15.0"/>
+        <allocation task-id="101" resource-id="0" function="Default:1" responsible="true" load="15.0"/>
         <allocation task-id="6" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="30" resource-id="1" function="1" responsible="true" load="50.0"/>
         <allocation task-id="32" resource-id="1" function="1" responsible="true" load="50.0"/>
@@ -84,6 +99,10 @@
         <allocation task-id="71" resource-id="1" function="1" responsible="false" load="33.0"/>
         <allocation task-id="72" resource-id="1" function="1" responsible="true" load="33.0"/>
         <allocation task-id="73" resource-id="1" function="1" responsible="false" load="34.0"/>
+        <allocation task-id="87" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="97" resource-id="1" function="1" responsible="true" load="20.0"/>
+        <allocation task-id="98" resource-id="1" function="1" responsible="false" load="15.0"/>
+        <allocation task-id="100" resource-id="1" function="1" responsible="true" load="20.0"/>
         <allocation task-id="6" resource-id="2" function="1" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="2" function="1" responsible="true" load="50.0"/>
         <allocation task-id="29" resource-id="2" function="1" responsible="true" load="50.0"/>
@@ -91,6 +110,11 @@
         <allocation task-id="70" resource-id="2" function="1" responsible="false" load="33.0"/>
         <allocation task-id="72" resource-id="2" function="1" responsible="false" load="33.0"/>
         <allocation task-id="73" resource-id="2" function="1" responsible="false" load="34.0"/>
+        <allocation task-id="87" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="97" resource-id="2" function="1" responsible="false" load="20.0"/>
+        <allocation task-id="98" resource-id="2" function="1" responsible="false" load="15.0"/>
+        <allocation task-id="99" resource-id="2" function="1" responsible="true" load="20.0"/>
+        <allocation task-id="101" resource-id="2" function="1" responsible="false" load="15.0"/>
     </allocations>
     <vacations/>
     <previous/>
