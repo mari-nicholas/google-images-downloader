@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-01-05" view-index="0" gantt-divider-location="332" resource-divider-location="300" version="2.8.10" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-01-18" view-index="0" gantt-divider-location="332" resource-divider-location="300" version="2.8.10" locale="en_CA">
     <description/>
-    <view zooming-state="default:5" id="gantt-chart">
+    <view zooming-state="default:3" id="gantt-chart">
         <field id="tpd3" name="Name" width="182" order="0"/>
         <field id="tpd4" name="Begin date" width="73" order="1"/>
         <field id="tpd5" name="End date" width="73" order="2"/>
