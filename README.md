@@ -69,7 +69,6 @@ The folders and files for this project are as follows:
 |           README.md
 |           
 +---ProjectSchedule
-|       .gitkeep
 |       Gantt-Chart.gan
 |       Gantt-Chart.pdf
 |       README.md
