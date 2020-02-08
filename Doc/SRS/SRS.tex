@@ -36,6 +36,7 @@
 \midrule
 1/21/2020 & 1.0 & Added to Repo\\
 1/28/2020 & 1.1 & Filled in name of project and team\\
+2/08/2020 & 1.2 & Initial draft of SRS \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -53,21 +54,92 @@ to the template, you should explicitly state what modifications were made.
 
 \subsection{The Purpose of the Project}
 
+The purpose of this project is to re-create an open source software application following the software development life cycle, for the software engineering course 3XA3. This project will give the group exposure and experience in how to properly develop a software product from beginning to end.
+
+The project chosen is a google images downloader command line tool that will allow end users to download a certain number of google images given keywords. We want this product primarily to be able to help those involved in machine learning, and secondarily those involved in art.
+
 \subsection{The Stakeholders}
+
+The following subsections will discuss various stakeholders in the product being developed.
 
 \subsubsection{The Client}
 
+Dr. Asghar Bokhari, the professor of our course, and the TA responsible for marking all our deliverables, Andrew Lucentini.
+
 \subsubsection{The Customers}
+
+There are two main types of customers who would use the product, those involved in machine learning and those in art.
+
+Individuals, or companies who are using machine learning algorithms or neural networks for image recognition purposes could benefit from this product as it would allow them to quickly obtain a large variety of images on a specific keyword. This can help them make their models more accurate and robust.
+
+Artists may use this tool for projects requiring many images based off a single keyword such as collages or reference work.
 
 \subsubsection{Other Stakeholders}
 
+Other stakeholders include Google Images because their service is being used to scrape images off of it.
+
 \subsection{Mandated Constraints}
+
+\subsubsection{Schedule Constraints}
+
+The project deliverables must be met on time according to the project description. The remaining ones are included below.
+
+\begin{itemize}
+    \item Proof of Concept Demonstration - February 11, 2020
+    \item Test Plan Revision 0 - February 28, 2020
+    \item Design \& Document Revision 0 - March 13, 2020
+    \item Revision 0 Demonstration - March 17, 2020
+    \item Final Demonstration (Revision 1) - March 31, 2020
+    \item Final Documentation (Revision 1) - April 6, 2020
+\end{itemize}
+
+Further breakdown of these deliverables their respective group member assignments can be found in our Gantt Chart.
+
+\subsubsection{Solution Constraints}
+
+Description: The product shall be developed in Python 3.
+Rationale: The existing implementation of the software is in Python 3, making it easier to re-develop if it is in the same language.
+Fit criterion: The software is programmed in Python 3.
+
+Description: The product shall get the image URLs from Google Images by scraping the HTML code returned.
+Rationale: The existing implementation of the software designed its solution in this was so since we are re-developing it, that component of the solution will remain the same.
+Fit criterion: The application works by scraping HTML code to get URLs
+
+\subsubsection{Budget Constraints}
+
+The budget for this project is \$0 so the software must be able to built without spending any money.
+
+\subsubsection{Off-the-Shelf Software}
+
+Since the purpose of the project is to re-implement an existing open source project, the existing version of the software will be reference heavily when developing this version. The existing software can be found at \url{https://github.com/hardikvasa/google-images-download}.
+
+In addition to some common python libraries, urllib, urllib2, \& httplib will be used to manage and navigate URLs in the application.
+
+\subsubsection{Partner or Collaborative Applications}
+
+The software product being developed will use the Google Images application to download images onto the local computer. The application will use the image URL links that are embedded in the HTML code for the image returned in a Google Images search query. These URLs are stored in 'data-iurl' under the 'img' tag.
+
+\subsubsection{Implementation Environment of the Current System}
+
+The software product being developed will be installed on users local machines, or on servers, to function as a command line tool.
 
 \subsection{Naming Conventions and Terminology}
 
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+ \textbf{Name/Term} & \textbf{Definition}\\ 
+ HTML & Hypertext Markup Language \\ 
+ URL & The address of a website or file on the internet \\ 
+ Python 3 & The third version of the python programming language \\
+ 
+ \hline
+\end{tabular}
+\end{center}
+
 \subsection{Relevant Facts and Assumptions}
 
-User characteristics should go under assumptions.
+It is assumed that users of the application have basic computer skills and are able to type commands on a command line given examples. It is also being assumed that users have basic knowledge of pictures, like what aspect ratio means, or colour type refers to.
 
 \section{Functional Requirements}
 
