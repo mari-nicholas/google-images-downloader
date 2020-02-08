@@ -1,6 +1,7 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
+\usepackage{enumitem}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \hypersetup{
@@ -147,9 +148,42 @@ It is assumed that users of the application have basic computer skills and are a
 
 \subsubsection{The Context of the Work}
 
+In order for the product to function as intended, the system must interact with Google Images. As a result there is a need to understand how Google Images works. This is because the original implementation of this product scrapes the HTML off of Google Images and then finds the links to the original images in the scraped HTML. Therefore, the specifics of what is required background knowledge for this product is how images are stored on the website so they can be effectively found in the scraped HTML. 
+
 \subsubsection{Work Partitioning}
 
+\begin{enumerate}
+    \item [BE1:] The User Requests an Image.
+        \begin{itemize}[wide=0pt, leftmargin=*]
+            \item [Inputs:] \phantom{empty}
+                \begin{itemize} [wide=0pt, leftmargin=*]
+                    \item Keyword
+                    \item Limit
+                    \item Search Constraints
+                \end{itemize}
+                
+            \item [Outputs:] \phantom{empty}
+                \begin{itemize} [wide=0pt, leftmargin=*]
+                    \item Images downloaded to computer
+                \end{itemize}
+            \item [Summary:] \phantom{empty}
+                \begin{itemize} [wide=0pt, leftmargin=*]
+                    \item Download a number of images equal to the limit of the given keyword that also match any other given search constraints.
+                \end{itemize}
+        \end{itemize}
+\end{enumerate}
+
 \subsubsection{Individual Product Use Cases}
+
+The main use case of this product is the user actor requesting an image. This use case can include the user specifying optional input arguments such as a limit of images, or other search constraints such as prefixes for searching or the size of images wanted.\\
+
+\noindent The following scenarios will outline a general interaction between a user actor and the system for both the main use case, and sub use cases. 
+
+\begin{enumerate}[label=Scenario \arabic*:, wide=0pt, leftmargin=*]
+    \item The user requests an image without specifying a keyword. The system will return a message with the proper format for an image request and remind the user that a keyword is required.
+    
+    \item The user requests an image with a specified keyword. The system will retrieve images from Google Images that match the specified keyword. Since a limit on images was not specified the system will download the 100 images matching the search criteria. Since an output directory was not specified, the system will download the images into a downloads directory located in the same directory where the program was executed.
+\end{enumerate}
 
 \subsection{Functional Requirements}
 
