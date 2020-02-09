@@ -124,19 +124,28 @@ The software product being developed will use the Google Images application to d
 
 The software product being developed will be installed on users local machines, or on servers, to function as a command line tool.
 
+\newpage
+
 \subsection{Naming Conventions and Terminology}
 
-\begin{center}
+\begin{table}[ht]
+\caption{\bf Naming Conventions and Terminology}
 \begin{tabular}{ |c|c| } 
  \hline
  \textbf{Name/Term} & \textbf{Definition}\\ 
+ The System & The product defined in this document\\
  HTML & Hypertext Markup Language \\ 
  URL & The address of a website or file on the internet \\ 
  Python 3 & The third version of the python programming language \\
+ Keyword & The search term used to find images\\
+ Limit & The number of images the user wished to download\\
+ Google Images & The image search engine provided by Google\\
+ Search Constraints & restrictions images must follow such as size or file type\\
+ JPEG & A format for image files\\ 
  
  \hline
 \end{tabular}
-\end{center}
+\end{table}
 
 \subsection{Relevant Facts and Assumptions}
 
@@ -183,9 +192,24 @@ The main use case of this product is the user actor requesting an image. This us
     \item The user requests an image without specifying a keyword. The system will return a message with the proper format for an image request and remind the user that a keyword is required.
     
     \item The user requests an image with a specified keyword. The system will retrieve images from Google Images that match the specified keyword. Since a limit on images was not specified the system will download the 100 images matching the search criteria. Since an output directory was not specified, the system will download the images into a downloads directory located in the same directory where the program was executed.
+    
+    \item The user requests a limit of 50 images with the keyword "Cat". The system will retrieve the first 50 images off of Google Images when Cat is used as the search term. Since an output directory was not specified, the system will download the images into a downloads directory located in the same directory where the program was executed.
+    
+    \item The user requests a limit of 50 images with the keyword "Cat". The user specifies a download directory of "./Images/Cat/". The system will retrieve the first 50 images off of Google Images when Cat is used as the search term. Since an output directory was specified, the system will create a new directory named images then inside images create a new directory called cats. The images will then be downloaded into the new cats directory. If the images and cats directory already exists, the system will use the existing directory rather than creating a new one.
+    
+    \item The user requests a limit of 100 images with a specified keyword and download directory. The user also specifies specific search constraints. The system will search with the keyword and download 100 images that match the keyword and don't violate any of the search constraints. For example if the search constraint is a file type of JPEG, the system will only download JPEG images. The images will be downloaded into the specified directory, creating it if it does not already exist.
+    
 \end{enumerate}
 
 \subsection{Functional Requirements}
+
+\begin{enumerate}[label=FR \arabic*:, wide=0pt, leftmargin=*]
+    \item The user shall be able to download images that match a given keyword.
+    \item[Rationale:] This is the main functionality of the product. With this, users will be able to download multiple images that all match the keyword given with just one command.
+    \\
+    \item The user shall be able to specify the number of images they want
+    \item[Rationale:] This allows the user to select how many images they want and will be a useful quality of life feature when the user knows approximately how many images they want.
+\end{enumerate}
 
 \section{Non-functional Requirements}
 
