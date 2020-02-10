@@ -28,9 +28,8 @@
 \pagenumbering{roman}
 \tableofcontents
 \listoftables
-\listoffigures
 
-\begin{table}[bp]
+\begin{table}[htp]
 \caption{\bf Revision History}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
@@ -38,6 +37,7 @@
 1/21/2020 & 1.0 & Added to Repo\\
 1/28/2020 & 1.1 & Filled in name of project and team\\
 2/08/2020 & 1.2 & Initial draft of SRS \\
+2/09/2020 & 1.2 & Completed sections 3 and 4 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -48,31 +48,30 @@
 
 This document describes the requirements for google-images-downloader.  The 
 template for the Software Requirements Specification (SRS) is a subset of the Volere
-template~\citep{RobertsonAndRobertson2012}.  If you make further modifications
-to the template, you should explicitly state what modifications were made.
+template~\citep{RobertsonAndRobertson2012}.
 
 \section{Project Drivers}
 
 \subsection{The Purpose of the Project}
 
 The purpose of this project is to re-create an open source software application following the software development life cycle, for the software engineering course 3XA3. This project will give the group exposure and experience in how to properly develop a software product from beginning to end.
-
-The project chosen is a google images downloader command line tool that will allow end users to download a certain number of google images given keywords. We want this product primarily to be able to help those involved in machine learning, and secondarily those involved in art.
+\\ \\
+The project chosen is a google images downloader command line tool that will allow end users to download a certain number of google images given specific keywords. We want this product primarily to be able to help those involved in machine learning, and secondarily those involved in art.
 
 \subsection{The Stakeholders}
 
-The following subsections will discuss various stakeholders in the product being developed.
+The following subsections will discuss various stakeholders of the product being developed.
 
 \subsubsection{The Client}
 
-Dr. Asghar Bokhari, the professor of our course, and the TA responsible for marking all our deliverables, Andrew Lucentini.
+Dr. Asghar Bokhari, the professor of our course, and the TA responsible for marking all the deliverables, Andrew Lucentini.
 
 \subsubsection{The Customers}
 
 There are two main types of customers who would use the product, those involved in machine learning and those in art.
-
+\\ \\
 Individuals, or companies who are using machine learning algorithms or neural networks for image recognition purposes could benefit from this product as it would allow them to quickly obtain a large variety of images on a specific keyword. This can help them make their models more accurate and robust.
-
+\\ \\
 Artists may use this tool for projects requiring many images based off a single keyword such as collages or reference work.
 
 \subsubsection{Other Stakeholders}
@@ -94,16 +93,16 @@ The project deliverables must be met on time according to the project descriptio
     \item Final Documentation (Revision 1) - April 6, 2020
 \end{itemize}
 
-Further breakdown of these deliverables their respective group member assignments can be found in our Gantt Chart.
+Further breakdown of these deliverables their respective group member assignments can be found in the \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/master/ProjectSchedule/Gantt-Chart.pdf}{Gantt Chart}.
 
 \subsubsection{Solution Constraints}
 
-Description: The product shall be developed in Python 3.
-Rationale: The existing implementation of the software is in Python 3, making it easier to re-develop if it is in the same language.
+Description: The product shall be developed in Python 3.\\
+Rationale: The existing implementation of the software is in Python 3, making it easier to re-develop if it is in the same language.\\
 Fit criterion: The software is programmed in Python 3.
-
-Description: The product shall get the image URLs from Google Images by scraping the HTML code returned.
-Rationale: The existing implementation of the software designed its solution in this was so since we are re-developing it, that component of the solution will remain the same.
+\\ \\
+Description: The product shall get the image URLs from Google Images by scraping the HTML code returned.\\
+Rationale: The existing implementation of the software designed its solution in this was so since we are re-developing it, that component of the solution will remain the same.\\
 Fit criterion: The application works by scraping HTML code to get URLs
 
 \subsubsection{Budget Constraints}
@@ -112,8 +111,8 @@ The budget for this project is \$0 so the software must be able to built without
 
 \subsubsection{Off-the-Shelf Software}
 
-Since the purpose of the project is to re-implement an existing open source project, the existing version of the software will be reference heavily when developing this version. The existing software can be found at \url{https://github.com/hardikvasa/google-images-download}.
-
+Since the purpose of the project is to re-implement an existing open source project, the existing version of the software will be referenced heavily when developing this version. The existing software can be found \href{https://github.com/hardikvasa/google-images-download}{here}.
+\\ \\
 In addition to some common python libraries, urllib, urllib2, \& httplib will be used to manage and navigate URLs in the application.
 
 \subsubsection{Partner or Collaborative Applications}
@@ -145,6 +144,8 @@ The software product being developed will be installed on users local machines, 
  config file & A file that contains configurations for the system\\
  API & application programming interface\\
  GUI & Graphical User Interface\\
+ git & A version control software used for co-working on code\\
+ GitLab & A product which stores projects using git\\
  \hline
 \end{tabular}
 \end{table}
@@ -159,7 +160,7 @@ It is assumed that users of the application have basic computer skills and are a
 
 \subsubsection{The Context of the Work}
 
-In order for the product to function as intended, the system must interact with Google Images. As a result there is a need to understand how Google Images works. This is because the original implementation of this product scrapes the HTML off of Google Images and then finds the links to the original images in the scraped HTML. Therefore, the specifics of what is required background knowledge for this product is how images are stored on the website so they can be effectively found in the scraped HTML. 
+In order for the product to function as intended, the system must interact with Google Images. As a result there is a need to understand how Google Images works. This is because the original implementation of this product scrapes the HTML off of Google Images and then finds the links to the original images in the scraped HTML. Therefore, the required background knowledge for the development of this product is how images are stored on the website so they can be effectively found in the scraped HTML. 
 
 \subsubsection{Work Partitioning}
 
@@ -205,32 +206,29 @@ The main use case of this product is the user actor requesting an image. This us
 
 \subsection{Functional Requirements}
 
-\begin{enumerate}[label=FR \arabic*:, wide=0pt, leftmargin=*]
+\begin{enumerate}[label=FR\arabic*:, wide=0pt, leftmargin=*]
     \item The user shall be able to download images that match a given keyword.
     \item[Rationale:] This is the main functionality of the product. With this, users will be able to download multiple images that all match the keyword given with just one command.
     \\
-    \item The user shall be able to specify the number of images they want
+    \item The user shall be able to specify the number of images they want.
     \item[Rationale:] This allows the user to select how many images they want and will be a useful quality of life feature when the user knows approximately how many images they want.
     \\
-    \item The user shall be able to specify a directory to download the images into
+    \item The user shall be able to specify a directory to download the images into.
     \item[Rationale:] This allows the user to have better control of the organization of the directories on their computers and will allow the user to have better control over how they use this product.
     \\
-    \item The user shall be able to specify the file type of images they desire
+    \item The user shall be able to specify the file type of images they desire.
     \item[Rationale:] This will give the user greater freedom when using the system as they can have a set of images with a uniform file type which may help in certain situations.
     \\
-    \item The user shall be able to prevent the system from downloading images from specified
+    \item The user shall be able to prevent the system from downloading images from specified websites.
     \item[Rationale:] Allowing the user to blacklist websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
     \\
-    \item The user shall be able to download images only from specified websites
+    \item The user shall be able to download images only from specified websites.
     \item[Rationale:] Allowing the user to white-list websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
     \\
-    \item The user shall be able to prevent the system from downloading images from specified
-    \item[Rationale:] Allowing the user to blacklist websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
-    \\
-    \item The user shall be able to add prefixes and suffixes to their image searches
+    \item The user shall be able to add prefixes and suffixes to their image searches.
     \item[Rationale:] Adding prefixes and suffixes will allow users to find the exact images they want as descriptive searches will narrow the search for the images they want. For example "Red Car" will only return red cars whereas "Car" would return images with cars of multiple different colours
     \\
-    \item The user shall be able to specify the size of images they want
+    \item The user shall be able to specify the size of images they want.
     \item[Rationale:] Allowing the user to specify size would be useful to artists aiming to make collages which depend on the placement and size of images used.
     \\
     \item The user shall be able to pass all search constraints, image limits and keywords through a config file.
@@ -242,45 +240,124 @@ The main use case of this product is the user actor requesting an image. This us
 
 \subsection{Look and Feel Requirements}
 
+\subsubsection{Appearance Requirements}
+
+\begin{enumerate}[label=AR\arabic*:, wide=0pt, leftmargin=*]
+    \item Output messages will be formatted to fit the console.
+    \item [Fit Criterion:] 80\% of users find that the output messages fit the console nicely. 
+\end{enumerate}
+
 \subsection{Usability and Humanity Requirements}
+
+\subsubsection{Ease of Use Requirements}
+
+\begin{enumerate}[label=EUR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must be easy to use.
+    \item [Fit Criterion:] 90\% of users should successfully download images after reading the sample inputs and explanations for the first time.
+\end{enumerate}
+
+\subsubsection{Learning Requirements}
+\begin{enumerate}[label=LR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must be easy to learn and find information about.
+    \item [Fit Criterion:] 80\% of users should be able to find the information they need within two minutes of searching.
+    \\
+    \item The product must be easy to download for individuals familiar with using the command line.
+    \item [Fit Criterion:] 90\% of users are able to have the product downloaded and functioning within five minutes.
+\end{enumerate}
 
 \subsection{Performance Requirements}
 
+\subsubsection{Robustness Requirements}
+\begin{enumerate}[label=RR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must provide a helpful error message after improper input parameters.
+    \item [Fit Criterion:] 75\% of users are able to identity their mistake from the error message returned.
+\end{enumerate}
+
 \subsection{Operational and Environmental Requirements}
+
+\subsubsection{Requirements for Interacting with Adjacent Systems}
+
+\begin{enumerate}[label=IAR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must work on the most recent version of the google images HTML return code.
+    \item [Fit Criterion:] The application downloads all the images that use the newest format.
+\end{enumerate}
+
+\subsubsection{Productization Requirements}
+\begin{enumerate}[label=PDR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must be available to download on a public GitLab repository.
+    \item [Fit Criterion:] The git repository is public and includes download instructions.
+\end{enumerate}
+
 
 \subsection{Maintainability and Support Requirements}
 
+\subsubsection{Maintenance Requirements}
+\begin{enumerate}[label=MSR\arabic*:, wide=0pt, leftmargin=*]
+    \item The application will be maintained by the developers and the open source community.
+    \item [Fit Criterion:] The git repository is public.
+    \\
+    \item The application will require approved pull requests to be modified.
+    \item [Fit Criterion:] The application guidelines for the modification of the system clearly state that pull requests are required.
+\end{enumerate}
+
+\subsubsection{Adaptability Requirements}
+\begin{enumerate}[label=ADR\arabic*:, wide=0pt, leftmargin=*]
+    \item The product must run under Linux, Windows, and Mac platforms.
+    \item [Fit Criterion:] All test cases run successfully on each platform.
+\end{enumerate}
+
 \subsection{Security Requirements}
 
+\subsubsection{Access Requirements}
+\begin{enumerate}[label=ACR\arabic*:, wide=0pt, leftmargin=*]
+    \item The application will be open source for anyone to access.
+    \item [Fit Criterion:] The git repository is public.
+\end{enumerate}
+
 \subsection{Cultural Requirements}
+\begin{enumerate}[label=CR\arabic*:, wide=0pt, leftmargin=*]
+    \item The naming conventions of the product does not offend any groups or cultures.
+    \item [Fit Criterion:] Users questioned in annonymous surveys do not find the product offensive.
+\end{enumerate}
 
 \subsection{Legal Requirements}
 
+\subsubsection{Compliance Requirements}
+\begin{enumerate}[label=CPR\arabic*:, wide=0pt, leftmargin=*]
+    \item The application must state explicitly in a disclaimer in the README.md that the application does not take responsibility for any copyright violations by the users.
+    \item [Fit Criterion:] The disclaimer is in the README.md.
+\end{enumerate}
+
+\subsubsection{Standards Requirements}
+\begin{enumerate}[label=SR\arabic*:, wide=0pt, leftmargin=*]
+    \item The application must be developed using Google's python coding style and either flake8 or pylint as a linter.
+    \item [Fit Criterion:] The code matches the guidelines set out in the Google coding style and the linter returns no errors.
+\end{enumerate}
+
 \subsection{Health and Safety Requirements}
 
-This section is not in the original Volere template, but health and safety are
-issues that should be considered for every engineering project.
+There are no health and safety requirements that need to be considered for this project.
 
 \section{Project Issues}
 
 \subsection{Open Issues}
 
-As the original implementation of this product relies on scraping the HTML of Google Images and finding the original image URL to download the images, there is uncertainty on if this implementation is sustainable. This is because if Google Images changes how the images are stored in the HTML, a new version must be pushed for the product to retain functionality. As Google Images has recently changed how the images are stored in the HTML, the current implementation of this project is now functional. As a result this is an issue that must be kept in mind throughout the development process.
+As the original implementation of this product relies on scraping the HTML of Google Images to download the images, there is uncertainty if this implementation is sustainable. This is because if Google Images changes how the images are stored in the HTML, a new version must be pushed for the product to retain functionality. As Google Images has recently changed how the images are stored in the HTML, the current implementation of this project is not functional. As a result this is an issue that must be kept in mind throughout the development process.
 
 \subsection{Off-the-Shelf Solutions}
 
-Since the purpose of the project is to re-implement an existing open source project,  the existing version of the software will be reference heavily when developing  this  version.   The existing software can be found at https://github.com/hardikvasa/google-images-download.
+Since the purpose of the project is to re-implement an open source project, the existing version of the software will be reference heavily when developing  this  version.   The existing software can be found \href{https://github.com/hardikvasa/google-images-download.}{here}.
 \\
 \\
 Additionally, The implementation of this project could use an existing API or Python Library such as urllib, urllib2, httplib or SerpApi to query  and scrape Google Images.
 
 \subsection{New Problems}
 
-A potential problem that could arise due to this product is the unauthorized use of copyrighted materials. As the product only gets images off of Google Images, there is the possibility that a user could use a copyrighted image in a way that goes against the copyright holders wishes.
+A potential problem that could arise due to this product is the unauthorized use of copyrighted materials. As the product only gets images off of Google Images, there is the possibility that a user could use a copyrighted image in a way that goes against the copyright holders wishes. This could cause undesired legal issues, and should be kept in mind when a licence is chosen for the product.
 
 \subsection{Tasks}
 
-The tasks for this project are the project deliverables that must be completed by their respective due dates. Detailed breakdowns of timing and due dates for the project deliverables can be found on the Gantt Chat found  \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/master/ProjectSchedule/Gantt-Chart.pdf}{here}. 
+The tasks for this project are the project deliverables that must be completed by their respective due dates. Detailed breakdowns of timing and due dates for the project deliverables can be found on the Gantt Chat found \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/master/ProjectSchedule/Gantt-Chart.pdf}{here}. 
 \\ \\
 For a quick summary, the upcoming deliverables and their due dates are as follows:
 \begin{itemize}
@@ -331,13 +408,32 @@ As the purpose of this project is to re-implement an open source project, our so
 
 \section{Appendix}
 
-This section has been added to the Volere template.  This is where you can place
-additional information.
+This section has been added to the Volere template.
 
 \subsection{Symbolic Parameters}
 
-The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\begin{table}[ht]
+\caption{\bf Symbolic Constants}
+\centering
+\begin{tabular}{ |c|c| } 
+ \hline
+ \textbf{Constant} & \textbf{Definition}\\ 
+FR & Functional Requirements\\
+AR & Appearance Requirements\\
+EUR & Ease of Use Requirements\\
+LR & Learning Requirements\\
+RR & Robustness Requirements\\
+IAR & Requirements for Interacting with Adjacent Systems\\
+PDR & Productization Requirements\\
+MSR & Maintainability and Support Requirements\\
+ADR & Adaptability Requirements\\
+ACR & Access Requirements\\
+CR & Cultural Requirements\\
+CPR & Compliance Requirements\\
+SR & Standards Requirements\\
+ \hline
+\end{tabular}
+\end{table}
 
 
 \end{document}
