@@ -142,7 +142,9 @@ The software product being developed will be installed on users local machines, 
  Google Images & The image search engine provided by Google\\
  Search Constraints & restrictions images must follow such as size or file type\\
  JPEG & A format for image files\\ 
- 
+ config file & A file that contains configurations for the system\\
+ API & application programming interface\\
+ GUI & Graphical User Interface\\
  \hline
 \end{tabular}
 \end{table}
@@ -209,6 +211,31 @@ The main use case of this product is the user actor requesting an image. This us
     \\
     \item The user shall be able to specify the number of images they want
     \item[Rationale:] This allows the user to select how many images they want and will be a useful quality of life feature when the user knows approximately how many images they want.
+    \\
+    \item The user shall be able to specify a directory to download the images into
+    \item[Rationale:] This allows the user to have better control of the organization of the directories on their computers and will allow the user to have better control over how they use this product.
+    \\
+    \item The user shall be able to specify the file type of images they desire
+    \item[Rationale:] This will give the user greater freedom when using the system as they can have a set of images with a uniform file type which may help in certain situations.
+    \\
+    \item The user shall be able to prevent the system from downloading images from specified
+    \item[Rationale:] Allowing the user to blacklist websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
+    \\
+    \item The user shall be able to download images only from specified websites
+    \item[Rationale:] Allowing the user to white-list websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
+    \\
+    \item The user shall be able to prevent the system from downloading images from specified
+    \item[Rationale:] Allowing the user to blacklist websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
+    \\
+    \item The user shall be able to add prefixes and suffixes to their image searches
+    \item[Rationale:] Adding prefixes and suffixes will allow users to find the exact images they want as descriptive searches will narrow the search for the images they want. For example "Red Car" will only return red cars whereas "Car" would return images with cars of multiple different colours
+    \\
+    \item The user shall be able to specify the size of images they want
+    \item[Rationale:] Allowing the user to specify size would be useful to artists aiming to make collages which depend on the placement and size of images used.
+    \\
+    \item The user shall be able to pass all search constraints, image limits and keywords through a config file.
+    \item[Rationale:] Using a config file would allow groups of users to use the same settings which would be a useful features for businesses or teams using the product.
+
 \end{enumerate}
 
 \section{Non-functional Requirements}
@@ -238,23 +265,63 @@ issues that should be considered for every engineering project.
 
 \subsection{Open Issues}
 
+As the original implementation of this product relies on scraping the HTML of Google Images and finding the original image URL to download the images, there is uncertainty on if this implementation is sustainable. This is because if Google Images changes how the images are stored in the HTML, a new version must be pushed for the product to retain functionality. As Google Images has recently changed how the images are stored in the HTML, the current implementation of this project is now functional. As a result this is an issue that must be kept in mind throughout the development process.
+
 \subsection{Off-the-Shelf Solutions}
+
+Since the purpose of the project is to re-implement an existing open source project,  the existing version of the software will be reference heavily when developing  this  version.   The existing software can be found at https://github.com/hardikvasa/google-images-download.
+\\
+\\
+Additionally, The implementation of this project could use an existing API or Python Library such as urllib, urllib2, httplib or SerpApi to query  and scrape Google Images.
 
 \subsection{New Problems}
 
+A potential problem that could arise due to this product is the unauthorized use of copyrighted materials. As the product only gets images off of Google Images, there is the possibility that a user could use a copyrighted image in a way that goes against the copyright holders wishes.
+
 \subsection{Tasks}
+
+The tasks for this project are the project deliverables that must be completed by their respective due dates. Detailed breakdowns of timing and due dates for the project deliverables can be found on the Gantt Chat found  \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/master/ProjectSchedule/Gantt-Chart.pdf}{here}. 
+\\ \\
+For a quick summary, the upcoming deliverables and their due dates are as follows:
+\begin{itemize}
+    \item Proof of Concept Demonstration - February 11, 2020
+    \item Test Plan Revision 0 - February 28, 2020
+    \item Design \& Document Revision 0 - March 13, 2020
+    \item Revision 0 Demonstration - March 17, 2020
+    \item Final Demonstration (Revision 1) - March 31, 2020
+    \item Final Documentation (Revision 1) - April 6, 2020
+\end{itemize}
 
 \subsection{Migration to the New Product}
 
+In order for users to migrate to the new product, they must first uninstall the previous version of the product. This is to ensure that no errors occur during the install process. Once the previous version has been uninstalled, the users can then install the new product and use it as intended.
+
 \subsection{Risks}
+
+A big risk for this project is the reliance on a third party platform. This is because due to the current implementation of the original product if Google Images changes how the images are stored in the HTML, the entire product looses functionality and a new version must be created and pushed before the product can be used as intended. This is a high priority risk as it has a high probability of becoming a problem during the life of the product.
 
 \subsection{Costs}
 
+For this project, there are two types of cost, monetary cost and cost of effort. As one of the budget constraints for this product is that we do not spend any money to produce the product, the monetary cost for this project is \$0. For the cost of effort, based on the low number of business events and functional requirements, the cost of effort is expected to be low. This could however change as requirements are refined and more work is required to make a functional product.
+
 \subsection{User Documentation and Training}
+
+The product will have the following documentation provided to the user to help them learn the software and guide them as they use the product.
+
+\begin{itemize}
+    \item Installation Guide to setup the product
+    \item Sample Inputs with explanations of each input argument
+\end{itemize}
 
 \subsection{Waiting Room}
 
+The creation of the GUI and functional requirements surrounding the GUI have been put on hold due to time constraints surrounding the release of this project.
+\\ \\
+Ideally these features will be implemented in a future release. A GUI would allow users that are less com-fordable with using the command line still have access to the product and all it's features.
+
 \subsection{Ideas for Solutions}
+
+As the purpose of this project is to re-implement an open source project, our solutions will be inspired by the original material. One such solution provided by the original material is scraping the HTML from google images and using the image links found through the HTML to download the images. However, due to the changes made to how images are stored on Google Images, this solution would have to be updated to accommodate for this issue.
 
 \bibliographystyle{plainnat}
 
