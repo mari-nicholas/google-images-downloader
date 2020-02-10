@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-01-18" view-index="0" gantt-divider-location="332" resource-divider-location="300" version="2.8.10" locale="en_CA">
     <description/>
     <view zooming-state="default:3" id="gantt-chart">
-        <field id="tpd3" name="Name" width="182" order="0"/>
-        <field id="tpd4" name="Begin date" width="73" order="1"/>
-        <field id="tpd5" name="End date" width="73" order="2"/>
+        <field id="tpd3" name="Name" width="173" order="0"/>
+        <field id="tpd4" name="Begin date" width="70" order="1"/>
+        <field id="tpd5" name="End date" width="70" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -50,15 +50,15 @@
             <task id="33" name="Coding Style" color="#8cb6ce" meeting="false" start="2020-01-28" duration="1" complete="100" thirdDate="2020-01-16" thirdDate-constraint="0" expand="true"/>
             <task id="34" name="Project Schedule" color="#8cb6ce" meeting="false" start="2020-01-29" duration="1" complete="100" thirdDate="2020-01-16" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="69" name="Requirements Document" color="#000000" meeting="false" start="2020-02-01" duration="7" complete="0" thirdDate="2020-01-20" thirdDate-constraint="0" expand="true">
+        <task id="69" name="Requirements Document" color="#000000" meeting="false" start="2020-02-01" duration="7" complete="100" thirdDate="2020-01-20" thirdDate-constraint="0" expand="true">
             <depend id="87" type="2" difference="0" hardness="Strong"/>
             <depend id="95" type="2" difference="0" hardness="Strong"/>
-            <task id="70" name="Project Drivers" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
-            <task id="71" name="Functional Requirements" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
-            <task id="72" name="Non-functional Requirements" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
-            <task id="73" name="Project Issues" color="#8cb6ce" meeting="false" start="2020-02-04" duration="4" complete="0" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
+            <task id="70" name="Project Drivers" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="100" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
+            <task id="71" name="Functional Requirements" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="100" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
+            <task id="72" name="Non-functional Requirements" color="#8cb6ce" meeting="false" start="2020-02-01" duration="7" complete="100" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
+            <task id="73" name="Project Issues" color="#8cb6ce" meeting="false" start="2020-02-04" duration="4" complete="100" thirdDate="2020-01-31" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="87" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2020-02-08" duration="4" complete="0" thirdDate="2020-01-29" thirdDate-constraint="0" expand="true">
+        <task id="87" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2020-02-08" duration="4" complete="25" thirdDate="2020-01-29" thirdDate-constraint="0" expand="true">
             <depend id="95" type="2" difference="0" hardness="Strong"/>
         </task>
         <task id="95" name="Test Plan" color="#000000" meeting="false" start="2020-02-17" duration="12" complete="0" thirdDate="2020-02-17" thirdDate-constraint="0" expand="true">
