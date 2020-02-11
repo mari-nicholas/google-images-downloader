@@ -7,8 +7,9 @@ from urllib.request import Request, urlopen
 def user_input():
     parser = argparse.ArgumentParser()
     parser.add_argument("keyword", help="keyword for the google images you want")
+    parser.add_argument("limit", help="limit for the number of images you want")
     args = parser.parse_args()
-    return args.keyword
+    return args.keyword, args.limit
 
 def construct_url(keyword):
 
@@ -69,8 +70,7 @@ def write_to_file(image_url, keyword, i):
          print("Something went wrong when downloading and saving image")
 
 
-def download_images(raw_html, keyword):
-    limit = 5
+def download_images(raw_html, keyword, limit):
     sliced_html = raw_html
     for i in range(0, limit):
         #Gets Links
@@ -86,13 +86,13 @@ def download_images(raw_html, keyword):
 
 
 def main():
-    keyword = user_input()
+    keyword, limit = user_input()
 
     url = construct_url(keyword)
     raw_html = get_html(url)
 
     print('\033[1;33m' + "\nDownloading Images...\n" + '\033[0m')
-    download_images(raw_html, keyword)
+    download_images(raw_html, keyword, int(limit))
     print('\033[1;32m' + "Download Complete\n" + '\033[0m')
 
 if __name__ == '__main__':
