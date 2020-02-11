@@ -46,18 +46,45 @@ def get_image_url(raw_html):
         link = str(raw_html[beg_link+11:end_link-2])
         return link, end_link
 
-def download_images(raw_html):
+'''
+
+#Slight Issue with this function:
+#Need to extract file type from raw_HTML so we
+#Can Write the File. I've left you with this
+#as a jumping off point.
+
+def write_to_file(image_url, keyword, i):
+    try:
+        req = Request(image_url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+        response = urlopen(req)
+        data = response.read()
+        response.close()
+        path = "./Images/" + keyword + "/image" + str(i) 
+        print(path)
+        output_file = open(path, 'wb')
+        output_file.write(data)
+        output_file.close()
+    except Exception as e:
+        print("Something Went Wrong...")
+
+'''
+
+def download_images(raw_html, keyword):
     limit = 1
     i = 0
+    sliced_html = raw_html
     for i in range(0, limit):
         #Gets Links
-        image_url, cutoff = get_image_url(raw_html)  
+        image_url, cutoff = get_image_url(sliced_html)  
         #No links => End Program 
         if(image_url == "no_links"):
             break
         else:
-#           print(image_url)
+#            print(image_url, "\n")
+#            write_to_file(image_url, keyword, i)
             print("Image", (i+1), "Downloaded...\n")
+            sliced_html = sliced_html[cutoff:]
+
 
 def main():
     keyword = user_input()
@@ -66,7 +93,7 @@ def main():
     raw_html = get_html(url)
 
     print("Downloading Images...")
-    download_images(raw_html)
+    download_images(raw_html, keyword)
     print("Download Complete")
 
 if __name__ == '__main__':
