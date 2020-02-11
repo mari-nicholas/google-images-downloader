@@ -40,34 +40,44 @@ def get_image_url(raw_html):
         link = "no_links"
         return link, end   
     else:
+        type_of_image = get_image_type(start, raw_html)
         #These lines isolate the link in the raw_html
         beg_link = raw_html.find('data-iurl="', start+1)
         end_link = raw_html.find('jsname="', beg_link+1)
         link = str(raw_html[beg_link+11:end_link-2])
-        return link, end_link
+        return link, end_link, type_of_image
 
-'''
+# Put this in the else statement of the get_image_url function and add another return to the function
+def get_image_type(start, raw_html):
+    try:
+        beg_type = raw_html.find('src="data:image/', start)
+        end_type = raw_html.find(';', beg_link+1)
+        type_of_image = str(raw_html[beg_link+17:end_link])
+        return type_of_image
+    except Exception as e:
+        print("Could not find image type")
+        sys.exit()
+
 
 #Slight Issue with this function:
 #Need to extract file type from raw_HTML so we
 #Can Write the File. I've left you with this
 #as a jumping off point.
 
-def write_to_file(image_url, keyword, i):
-    try:
-        req = Request(image_url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
-        response = urlopen(req)
-        data = response.read()
-        response.close()
-        path = "./Images/" + keyword + "/image" + str(i) 
-        print(path)
-        output_file = open(path, 'wb')
-        output_file.write(data)
-        output_file.close()
-    except Exception as e:
-        print("Something Went Wrong...")
+# def write_to_file(image_url, keyword, i):
+#     try:
+#         req = Request(image_url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+#         response = urlopen(req)
+#         data = response.read()
+#         response.close()
+#         path = "./Images/" + keyword + "/image" + str(i) 
+#         print(path)
+#         output_file = open(path, 'wb')
+#         output_file.write(data)
+#         output_file.close()
+#     except Exception as e:
+#         print("Something Went Wrong...")
 
-'''
 
 def download_images(raw_html, keyword):
     limit = 1
@@ -75,11 +85,12 @@ def download_images(raw_html, keyword):
     sliced_html = raw_html
     for i in range(0, limit):
         #Gets Links
-        image_url, cutoff = get_image_url(sliced_html)  
+        image_url, cutoff, type_of_image = get_image_url(sliced_html)
         #No links => End Program 
         if(image_url == "no_links"):
             break
         else:
+            print(type_of_image)
 #            print(image_url, "\n")
 #            write_to_file(image_url, keyword, i)
             print("Image", (i+1), "Downloaded...\n")
@@ -91,6 +102,7 @@ def main():
 
     url = construct_url(keyword)
     raw_html = get_html(url)
+    print(raw_html)
 
     print("Downloading Images...")
     download_images(raw_html, keyword)
