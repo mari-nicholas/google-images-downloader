@@ -1,7 +1,10 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{lscape}
 \usepackage{tabularx}
+\usepackage{amssymb}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -10,19 +13,19 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
+%\usepackage[round]{natbib}
 
-\title{SE 3XA3: Test Plan\\Title of Project}
+\title{SE 3XA3: Test Plan\\Google Images Downloader}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Team \#201, CAS Dream Team
+		\\ Nicholas Mari, marin
+		\\ Samuel Crawford, crawfs1
+		\\ Joshua Guinness, guinnesj
 }
 
 \date{\today}
 
-\input{../Comments}
+% \input{../Comments}
 
 \begin{document}
 
@@ -31,221 +34,476 @@
 \pagenumbering{roman}
 \tableofcontents
 \listoftables
-\listoffigures
+% \listoffigures Uncomment if figures added
 
-\begin{table}[bp]
-\caption{\bf Revision History}
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{table}[!b]
+\begin{tabularx}{\textwidth}{lllp{7.5cm}}
+\toprule {\bf Date} & {\bf Name} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2/26/2020 & Nick & 1.0 & Created Document\\
+2/27/2020 & Sam & 1.1 & Filled in Tests for Nonfunctional Requirements\\
+2/27/2020 & Josh & 1.2 & Filled in Test Plan and started Unit Test Plan section\\
+2/27/2020 & Nick & 1.2.1 & Started Tests for Functional Requirements\\
+2/27/2020 & Sam & 1.3 & Filled in Purpose and Overview\\
+2/28/2020 & Sam & 1.4 & Filled in Scope\\
+2/28/2020 & Josh & 1.5 & Completed Tests for Proof of Concept and Unit Testing Plan sections\\
+2/28/2020 & Nick & 1.6 & Completed Tests for Functional Requirements and Traceability Matrices\\
+2/28/2020 & Sam & 1.6.1 & Minor consistency and formatting improvements\\
 \bottomrule
 \end{tabularx}
+\caption{\bf Revision History}
 \end{table}
 
 \newpage
 
 \pagenumbering{arabic}
 
-This document ...
-
 \section{General Information}
 
 \subsection{Purpose}
+The purpose of this document is to provide an overview of the testing, validation, and verification of google-images-downloader. These test cases were designed to be used as a reference during the implementation of both the program's source code and its actual testing.
 
 \subsection{Scope}
+The scope of the testing of google-images-downloader will ensure that all testable requirements, both functional and nonfunctional, are met and that the problems found in the proof of concept are addressed. It will also confirm that each distinct part works in isolation and with its collaborators, and that the system as a whole performs its duties as expected.
 
-\subsection{Acronyms, Abbreviations, and Symbols}
+\subsection{Acronyms and Definitions}
 	
 \begin{table}[hbp]
-\caption{\textbf{Table of Abbreviations}} \label{Table}
+\label{TableOfAbbr}
 
 \begin{tabularx}{\textwidth}{p{3cm}X}
 \toprule
 \textbf{Abbreviation} & \textbf{Definition} \\
 \midrule
-Abbreviation1 & Definition1\\
-Abbreviation2 & Definition2\\
+UTF-8 & Unicode Transformation Format - 8-bit\\
 \bottomrule
 \end{tabularx}
+\caption{\textbf{Table of Acronyms}} 
 
 \end{table}
 
 \begin{table}[!htbp]
-\caption{\textbf{Table of Definitions}} \label{Table}
+\label{TableOfDef}
 
 \begin{tabularx}{\textwidth}{p{3cm}X}
 \toprule
 \textbf{Term} & \textbf{Definition}\\
 \midrule
-Term1 & Definition1\\
-Term2 & Definition2\\
+byte encoding & The process of encoding data into a series of bytes.\\
+Gantt chart & A bar chart that illustrates a project schedule.\\
 \bottomrule
 \end{tabularx}
+\caption{\textbf{Table of Definitions}} 
 
 \end{table}	
 
 \subsection{Overview of Document}
 
-\section{Plan}
+This document outlines the testing plan for google-images-downloader. This includes a description of the software, the team of testers, the approach to automated testing, and the tools and schedule used to optimize the testing efficiency and accuracy. This document also includes a description of the testing for the system, outlines the various tests for both the functional and nonfunctional requirements. This will also cover the traceability between the test cases and the requirements. Other tests outlined in this document are those that arose from the proof of concept, and those for testing each individual unit of the system.
+
+% Mine!! - Joshua
+\section{Plan} 
+
+This section will give an overview of the testing plan, including but not limited to tools used, team, and approach.
 	
 \subsection{Software Description}
 
+The software system is a google images downloader command line tool that will allow end users to download a certain number of googles images given specific keywords. The aim of this tool is to provide assistance to those involved in machine learning, and secondarily those involved in art.
+
+The system will consist of two main subsystems. The first subsystem will be responsible for taking in user input, and constructing the google images query. The second system will be responsible for downloading the images from google and storing them. 
+
 \subsection{Test Team}
+
+The test team will consist of the three developers working on the project, Joshua Guinness, Sam Crawford, and Nicholas Mari.
 
 \subsection{Automated Testing Approach}
 
+Besides simple exploratory testing done during development for quick confirmation, the bulk of testing effort will be concentrated on developing three types of automated tests: unit, integration, and system. Each of these can be through of as having a different level of abstraction with unit testing at the lowest level and system testing at the highest level. All of these will be written in pytest, with a separate testing file for each type to provide greater clarity.
+
+Unit tests ensure functions behave according to their design. Unit testing will also focus on boundary cases. These will be written after each module is implemented to ensure correctness.
+
+Integration tests provide assurance that modules work together correctly and they interface properly. These will be done after a group of similar modules is complete, and after a sub-system is complete. They will also be done between sub-systems after the implementation is almost done.
+
+Finally, system testing is concerned with ensuring that the final program adheres to the functional and non-functional requirements. This will be done after almost all of the system is complete.
+
+Since these tests will be written in pytest, they will be run as a regression suite before a developer commits their code to GitLab. Pytest is a command line tool that will be run locally by each developer.
+
 \subsection{Testing Tools}
+
+One of the tools to be used is \href{https://docs.pytest.org/en/latest/}{pytest}, a unit testing framework for python. Pytest is a standalone library that will be used implementing and running the unit tests.
+
+The other tool is \href{https://pypi.org/project/pytest-cov/}{pytest-cov} a plugin that produces coverage metrics using pytest.
+
+The linter \href{https://flake8.pycqa.org/en/latest/}{flake8} will be used as static code quality analysis tool during development.
 
 \subsection{Testing Schedule}
 		
-See Gantt Chart at the following url ...
+See \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/-/blob/master/ProjectSchedule/Gantt-Chart.pdf}{Gantt Chart} here for the testing schedule.
+
+Unit testing will occur parallel to development. See Section \ref{Unit Testing Plan} for further details on that. Integration testing and system testing will be done after development. All three levels of testing are visualized on the Gantt chart.
 
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Search Queries}
 
-\begin{enumerate}
+\begin{enumerate}[label=FR-SQ\arabic*:, wide=0pt, leftmargin=*]
 
-\item{test-id1\\}
+\item \phantom{empty}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\textbf{Type:} Functional, Dynamic, Manual
 
-Type: Functional, Dynamic, Manual, Static etc.
+\textbf{Initial State:} An empty download Repository
+
+\textbf{Input:} A search request with keyword ``McMaster"
+
+\textbf{Output:} Images downloaded all related to McMaster
+
+\textbf{How test will be performed:} The tester will run the program to download the images and manually check if the images downloaded match the keyword given.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Automatic
 					
-Initial State: 
+\textbf{Initial State:} An empty download repository
 					
-Input: 
+\textbf{Input:} A search request with only a specific file type requested
 					
-Output: 
+\textbf{Output:} A download repository with only files of the specified type downloaded
 					
-How test will be performed: 
+\textbf{How test will be performed:} An automated test case will send the request to the system and check that the file extensions on each of the files downloaded are the specified type.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A search query with a request to not download from a specified website
+					
+\textbf{Output:} A download repository full with images, with no images from the blacklisted website
+					
+\textbf{How test will be performed:} The tester will manually start the search query with all the specified inputs and check each downloaded image URL to ensure that it does not come from the blacklisted website.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A search query with a request to only download from a specified website
+					
+\textbf{Output:} A download repository full with images, with no images from the blacklisted website
+					
+\textbf{How test will be performed:} The tester will manually start the search query with all the specified inputs and check each downloaded image URL to ensure that it comes from the white-listed website.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A search request with prefixes and suffixes given
+					
+\textbf{Output:} A download repository filled with images that match the search query and prefix or suffix
+					
+\textbf{How test will be performed:} The tester will manually ensure that each image matches both the search query and the prefixes and suffixes given.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Automatic
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A search request with the size of desired images specified
+					
+\textbf{Output:} A download repository filled with images of the specified size
+					
+\textbf{How test will be performed:} An automated test case will check the size of each image to ensure it matches the size specified in the search request.
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A search request with all constraints and keywords in a configuration file provided to the system when the user makes the request
+					
+\textbf{Output:} Download repository filled with images
+					
+\textbf{How test will be performed:} The tester will manually ensure that all the images downloaded match the keyword and search constraints given in the configuration file.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Download Images}
 
-...
+\begin{enumerate}[label=FR-DL\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Automatic
+
+\textbf{Initial State:} An empty download repository
+
+\textbf{Input:} A search request with a limit of 50 images specified
+
+\textbf{Output:} A download repository contains 50 images in it
+
+\textbf{How test will be performed:} An automatic test case will run the program with the specified input and count the number of new files in the download repository to ensure it is correct.
+
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Automatic
+					
+\textbf{Initial State:} An empty download repository
+					
+\textbf{Input:} A download request with a specified download folder
+					
+\textbf{Output:} Images downloaded to the specified folder
+					
+\textbf{How test will be performed:} An automated test case will request a search with the specified parameters and automatically check to ensure that the images were downloaded to the folder the test case specified in the search.
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Look and Feel Requirements}
+\label{LaFReqs}
 		
-\paragraph{Title for Test}
+\paragraph{Appearance Requirements}
 
-\begin{enumerate}
+\begin{enumerate}[label=NFR-AR\arabic*:, wide=0pt, leftmargin=*]
 
-\item{test-id1\\}
+\item \phantom{empty}
 
-Type: 
+\textbf{Type:} Functional, Dynamic, Manual, Acceptance
 					
-Initial State: 
+\textbf{Initial State:} A clean version of the program
 					
-Input/Condition: 
+\textbf{Input/Condition:} A typical usage of the system
 					
-Output/Result: 
+\textbf{Output/Result:} Output messages displayed on the console
 					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\textbf{How test will be performed:} The tester will use a survey to verify that at least 80\% of users find that the output messages fit the console nicely.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Usability and Humanity Requirements}
+\label{UaHReqs}
+		
+\paragraph{Ease of Use Requirements}
 
-...
+\begin{enumerate}[label=NFR-EUR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual, Acceptance
+					
+\textbf{Initial State:} A clean version of the program
+					
+\textbf{Input/Condition:} A typical usage of the system
+					
+\textbf{Output/Result:} A folder of the desired downloaded images
+					
+\textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users are able to successfully download their images after reading the sample inputs and explanations for the first time.
+
+\end{enumerate}
+
+\paragraph{Learning Requirements}
+
+\begin{enumerate}[label=NFR-LR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Structural, Static, Manual, Acceptance
+					
+\textbf{Initial State:} A computer without the system installed
+					
+\textbf{Input/Condition:} A typical installation of the system from the command line
+					
+\textbf{Output/Result:} A folder of the desired downloaded images
+					
+\textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users that are comfortable using the command line are able to download the program within five minutes.
+
+\end{enumerate}
+
+\subsubsection{Performance Requirements}
+\label{PerfReqs}
+		
+\paragraph{Robustness Requirements}
+
+\begin{enumerate}[label=NFR-RR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual, Acceptance
+					
+\textbf{Initial State:} A clean version of the program
+					
+\textbf{Input/Condition:} An invalid input; an input that would result in an error
+					
+\textbf{Output/Result:} A descriptive error message
+					
+\textbf{How test will be performed:} The tester will use a survey to verify that at least 75\% of users can identify their mistake from the error message.
+
+\end{enumerate}
+
+\subsubsection{Operational and Environmental Requirements}
+		
+\paragraph{Requirements for Interacting with Adjacent Systems}
+
+\begin{enumerate}[label=NFR-IAR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} A clean version of the program installed on a computer with the latest version of the Google Images HTML return code.
+					
+\textbf{Input/Condition:} A typical usage of the program
+					
+\textbf{Output/Result:} A folder of the desired downloaded images
+					
+\textbf{How test will be performed:} The tester will manually verify that the program can download all the images using the latest format.
+
+\end{enumerate}
+
+\subsubsection{Maintainability and Support Requirements}
+		
+\paragraph{Adaptability Requirements}
+
+\begin{enumerate}[label=NFR-ADR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Functional, Dynamic, Manual
+					
+\textbf{Initial State:} A clean version of the program on a Linux, Windows, and Mac platform.
+					
+\textbf{Input/Condition:} A typical usage of the program
+					
+\textbf{Output/Result:} A folder of the desired downloaded images
+					
+\textbf{How test will be performed:} The tester will manually verify that at all test cases pass on all platforms.
+
+\end{enumerate}
+
+\subsubsection{Legal Requirements}
+		
+\paragraph{Standards Requirements}
+
+\begin{enumerate}[label=NFR-SR\arabic*:, wide=0pt, leftmargin=*]
+
+\item \phantom{empty}
+
+\textbf{Type:} Structural, Static, Manual
+					
+\textbf{Initial State:} A clean version of the program
+					
+\textbf{Input/Condition:} An execution of the linter
+					
+\textbf{Output/Result:} A successful linting with no errors to report
+					
+\textbf{How test will be performed:} The tester will perform a code review to manually verify that the code matches Google's coding style and that the linter returns no errors.
+
+\end{enumerate}
+\newpage
 
 \subsection{Traceability Between Test Cases and Requirements}
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Test Id}} & \multicolumn{9}{c|}{\textbf{Requirement}}   \\ \hline
+\textbf{} & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 & FR8  & FR9 \\
+\hline
+FR-SQ1 & \checkmark & \multicolumn{1}{r|}{} & & & & & & &\\ 
+\hline
+FR-SQ2 &  &  &  & \checkmark &  &  &  &  &  \\ \hline
+FR-SQ3        &  &  &  &  & \checkmark &  &  &  &  \\ \hline
+FR-SQ4        &  &  &  &  &  & \checkmark &  &  &  \\ \hline
+FR-SQ5        &  &  &  &  &  &  & \checkmark &  &  \\ \hline
+FR-SQ6        &  &  &  &  &  &  &  & \checkmark &  \\ \hline
+FR-SQ7        &  &  &  &  &  &  &  &  & \checkmark \\ \hline
+FR-DL1        &  & \checkmark &  &  &  &  &  &  &  \\ \hline
+FR-DL2        &  &  & \checkmark &  &  &  &  &  &  \\ \hline
+\end{tabular}
+\end{center}
+\caption{\textbf{Functional Requirements Traceabillity Matrix}}
+\end{table}
 
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Test Id}} & \multicolumn{7}{c|}{\textbf{Requirement}}   \\ \hline
+         & AR1  & EUR1 & LR1  & RR1  & IAR1 & ADR1 & SR1 \\ \hline
+NFR-AR1  & \checkmark &  &  &  &  &  &  \\ \hline
+NFR-EUR1 &  & \checkmark &  &  &  &  &  \\ \hline
+NFR-LR1  &  &  & \checkmark &  &  &  &  \\ \hline
+NFR-RR1  &  &  &  & \checkmark &  &  &  \\ \hline
+NFR-IAR1 &  &  &  &  & \checkmark &  &  \\ \hline
+NFR-ADR1 &  &  &  &  &  & \checkmark &  \\ \hline
+NFR-SR1  &  &  &  &  &  &  & \checkmark \\ \hline
+\end{tabular}
+\end{center}
+\caption{\textbf{Nonfunctional Requirements Traceabillity Matrix}}
+\end{table}
+
+
+The following Nonfunctional Requirements are not included in the Traceabillity Matrix as they do not have a test case associated with them:
+\begin{itemize}
+    \item LR2
+    \item PDR1
+    \item MSR1
+    \item MSR2
+    \item ACR1
+    \item CR1
+    \item CPR1
+\end{itemize}
+
+% Mine - Joshua
 \section{Tests for Proof of Concept}
 
-\subsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+There were two main issues that we ran into while implementing the proof of concept that required significant time to solve.
 
-\begin{enumerate}
+The first is that the Google Images HTML code structure changed from when the original project was first confirmed to run properly, and the start of implementing the proof of concept. This meant that the section of the original project regarding how the HTML is scrapped and the images downloaded was almost useless to us. To solve the issue, we first figured out what the new HTML structure was by using ``Inspect Element" on images. This also took some time as there are multiple links within each image subsection. Once we figured out where the image was stored in the HTML, we could then scrape it and parse it to download it.
 
-\item{test-id1\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsection{Area of Testing2}
-
-...
-
+The second issue occurred after downloading the raw HTML code and trying to parse it for the image links. It would not parse properly, even after it was confirmed that the HTML downloaded contained the links or phrases that were being searched for. We solved the issue by going through each step of the code slowly and printing things out to the console. We discovered that the raw HTML downloaded was actually byte encoded, as evidence by the ``b" in front of the string. Adding a statement to decode it to UTF-8 solved the issue.
 	
-\section{Comparison to Existing Implementation}	
-				
 \section{Unit Testing Plan}
+\label{Unit Testing Plan}
+
+This section will go over the unit testing plan for this project including the plan for the testing of internal functions, and output files. The tool pytest will be used for all unit testing.
 		
 \subsection{Unit testing of internal functions}
+
+The purpose of unit testing is to ensure that a specific unit of software performs as intended. On a software function level, this is done by sending an input to a function, and asserting that the output is the expected output of the function.
+
+For this project, after every module is complete, it will be unit tested before the developer starts work on the next module. This means that unit testing will be done during the development process, not all at the end. The developers can then work from a place of confidence and assurance that previous code written functions as intended.
+
+The coverage metrics we will be using are 85\% statement coverage and 80\% branch coverage. This data will be found using the pytest-cov tool. There are no stubs or drivers needed for testing.
 		
-\subsection{Unit testing of output files}		
+\subsection{Unit testing of output files}
 
-\bibliographystyle{plainnat}
+The only output files produced are the downloaded images themselves. The contents of the file will not be unit tested at all; unit testing will revolve around the properties (eg. name, aspect ratio, bit-depth) of the images and the number of images downloaded.
 
-\bibliography{SRS}
+%\bibliographystyle{plainnat}
+
+%\bibliography{SRS}
 
 \newpage
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+The test cases listed here do not call for the use of any symbolic constants.
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 
-This is a section that would be appropriate for some teams.
+In addition to relevant questions for testing the appropriate nonfunctional requirements (see Sections \ref{LaFReqs}, \ref{UaHReqs}, and \ref{PerfReqs}), users will also be asked to confirm that no part of the product (eg. naming conventions) are offensive to them.
 
 \end{document}

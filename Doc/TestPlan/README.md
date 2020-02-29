@@ -2,4 +2,8 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+```
+    TestPlan.pdf
+    TestPlan.tex
+    README.md
+```
