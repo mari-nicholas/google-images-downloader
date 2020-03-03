@@ -5,8 +5,10 @@ import sys
 import urllib.request
 from urllib.request import Request, urlopen
 
-# Gets the image URL
+# Experimentation File to get image URL given HTML code
 def main():
+
+    # Download the raw HTML from the given URL. Saved as a string
     try:
         headers = {}
         headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
@@ -19,6 +21,8 @@ def main():
 
     # Beautiful Soup Code
     soup = BeautifulSoup(data, "lxml")
+
+    # meta = tag, content = attribute
     print(soup.meta['content'])
 
 if __name__ == '__main__':
