@@ -1,8 +1,10 @@
 import argparse
 import sys
 import urllib.request
+import requests
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+from lxml import html
 
 def user_input():
     parser = argparse.ArgumentParser()
@@ -54,6 +56,15 @@ def get_thumbnail_image_url(raw_html):
         # end_link = raw_html.find('jsname="', beg_link+1)
         # link = str(raw_html[beg_link+11:end_link-2])
         # return link, end_link
+
+def get_better_html(url):
+    page = requests.get(url)
+    return page
+
+def get_href_from_raw(raw_html):
+    tree = html.fromstring(raw_html.content)
+    href = tree.xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]')
+    print("Href:", href)
 
 def get_real_image_page(thumbnail_image_url, keyword):
     url = construct_url(keyword) + '#imgrc=' + thumbnail_image_url
@@ -150,13 +161,13 @@ def main():
     keyword, limit = user_input()
 
     url = construct_url(keyword)
-    print('Got original URL: ' + url)
-    raw_html = get_html(url)
+    # print('Got original URL: ' + url)
+    # raw_html = get_html(url)
     # print(raw_html.find('IE7JUb:e5gl8b;MW7oTe:fL5Ibf;dtRDof:s370ud;R3mad:ZCNXMe;v03O1c:cJhY7b;'))
-
-    print('\033[1;33m' + "\nDownloading Images...\n" + '\033[0m')
-    download_images(raw_html, keyword, int(limit))
-    print('\033[1;32m' + "Download Complete\n" + '\033[0m')
+    get_href_from_raw(get_better_html(url))
+    # print('\033[1;33m' + "\nDownloading Images...\n" + '\033[0m')
+    # download_images(raw_html, keyword, int(limit))
+    # print('\033[1;32m' + "Download Complete\n" + '\033[0m')
 
 if __name__ == '__main__':
     main()
