@@ -5,7 +5,9 @@ import requests
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 from lxml import html
+from bs4 import BeautifulSoup
 
+# Command line input to program
 def user_input():
     parser = argparse.ArgumentParser()
     parser.add_argument("keyword", help="Keyword for the google images you want")
@@ -13,6 +15,7 @@ def user_input():
     args = parser.parse_args()
     return args.keyword, args.limit
 
+# Constructs the search URL based on the keyword and established strings
 def construct_url(keyword):
 
     params = '&tbm='
@@ -21,6 +24,7 @@ def construct_url(keyword):
 
     return url
    
+# Gets the HTML code of the page
 def get_html(url):
     #Requests HTML using urllib library
     try:
@@ -29,10 +33,9 @@ def get_html(url):
         req = urllib.request.Request(url, headers=headers)
         response = urllib.request.urlopen(req)
         data = str(response.read())
-        # print(type(data))
         return data
     except Exception as e:
-        print("Could not get page URL")
+        print("Could not get page URL!")
         sys.exit()
 
 def get_thumbnail_image_url(raw_html):
@@ -57,14 +60,18 @@ def get_thumbnail_image_url(raw_html):
         # link = str(raw_html[beg_link+11:end_link-2])
         # return link, end_link
 
-def get_better_html(url):
-    page = requests.get(url)
-    return page
+def get_href_from_html(raw_html):
+    # Beautiful Soup Code
+    soup = BeautifulSoup(raw_html, "lxml")
+    # meta = tag, content = attribute
+    print(soup.body.contents[8])
+    
 
-def get_href_from_raw(raw_html):
-    tree = html.fromstring(raw_html.content)
-    href = tree.xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]')
-    print("Href:", href)
+    # /html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]
+    
+    # tree = html.fromstring(raw_html.content)
+    # href = tree.xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]')
+    # print("Href:", href)
 
 def get_real_image_page(thumbnail_image_url, keyword):
     url = construct_url(keyword) + '#imgrc=' + thumbnail_image_url
@@ -161,10 +168,11 @@ def main():
     keyword, limit = user_input()
 
     url = construct_url(keyword)
-    # print('Got original URL: ' + url)
-    # raw_html = get_html(url)
-    # print(raw_html.find('IE7JUb:e5gl8b;MW7oTe:fL5Ibf;dtRDof:s370ud;R3mad:ZCNXMe;v03O1c:cJhY7b;'))
-    get_href_from_raw(get_better_html(url))
+    print('Got original URL: ' + url)
+    print("")
+    raw_html = get_html(url)
+    get_href_from_html(raw_html)
+
     # print('\033[1;33m' + "\nDownloading Images...\n" + '\033[0m')
     # download_images(raw_html, keyword, int(limit))
     # print('\033[1;32m' + "Download Complete\n" + '\033[0m')
