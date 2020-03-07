@@ -38,6 +38,33 @@ def get_html(url):
         print("Could not get page URL!")
         sys.exit()
 
+def get_href_from_html(raw_html):
+    # Beautiful Soup Code
+    soup = BeautifulSoup(raw_html, "lxml")
+    # meta = tag, content = attribute
+    print(soup.find(jsaction="IE7JUb:e5gl8b;MW7oTe:fL5Ibf;dtRDof:s370ud;R3mad:ZCNXMe;v03O1c:cJhY7b;").a['src'])
+
+
+    # Headless browswer thing or 
+    # retrieve all elements matching regular expression in beautiful soup
+
+    # f = open("test.txt", "w")
+    # f.write(soup.prettify())
+    # f.close()
+    
+
+    # /html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]
+    
+    # tree = html.fromstring(raw_html.content)
+    # href = tree.xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]')
+    # print("Href:", href)
+
+
+
+
+
+
+
 def get_thumbnail_image_url(raw_html):
 
     start = raw_html.find('IE7JUb:e5gl8b;MW7oTe:fL5Ibf;dtRDof:s370ud;R3mad:ZCNXMe;v03O1c:cJhY7b;')
@@ -59,19 +86,6 @@ def get_thumbnail_image_url(raw_html):
         # end_link = raw_html.find('jsname="', beg_link+1)
         # link = str(raw_html[beg_link+11:end_link-2])
         # return link, end_link
-
-def get_href_from_html(raw_html):
-    # Beautiful Soup Code
-    soup = BeautifulSoup(raw_html, "lxml")
-    # meta = tag, content = attribute
-    print(soup.body.contents[8])
-    
-
-    # /html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]
-    
-    # tree = html.fromstring(raw_html.content)
-    # href = tree.xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]')
-    # print("Href:", href)
 
 def get_real_image_page(thumbnail_image_url, keyword):
     url = construct_url(keyword) + '#imgrc=' + thumbnail_image_url
@@ -165,12 +179,19 @@ def download_images(raw_html, keyword, limit):
 extract_url
 
 def main():
+
+    # Get user input
     keyword, limit = user_input()
 
+    # Get google images URL
     url = construct_url(keyword)
     print('Got original URL: ' + url)
     print("")
+
+    # Get the HTML of the page in the URL above
     raw_html = get_html(url)
+
+
     get_href_from_html(raw_html)
 
     # print('\033[1;33m' + "\nDownloading Images...\n" + '\033[0m')
