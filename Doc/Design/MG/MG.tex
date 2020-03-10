@@ -29,17 +29,17 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
+\title{SE 3XA3: Software Requirements Specification\\Google Images Downloader}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Team \#201, CAS Dream Team
+		\\ Sam Crawford, crawfs1, 400129435
+		\\ Joshua Guinness, guinnesj, 400134735
+		\\ Nicholas Mari, marin, 400132494
 }
 
 \date{\today}
 
-\input{../../Comments}
+% \input{../../Comments}
 
 \begin{document}
 
@@ -51,15 +51,27 @@
 \listoffigures
 
 \begin{table}[bp]
-\caption{\bf Revision History}
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{tabularx}{\textwidth}{lllp{7.5cm}}
+\toprule {\bf Date} & {\bf Name} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2/26/2020 & Nick & 1.0 & Created document\\
+3/9/2020 & Sam & 1.1 & Filled in admin details\\
+3/9/2020 & Sam & 1.1.1 & Started adding modules\\
 \bottomrule
 \end{tabularx}
+\caption{\bf Revision History}
 \end{table}
+
+%\begin{table}[bp]
+%\caption{\bf Revision History}
+%\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+%\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+%\midrule
+%3/9/2020 & 1.0 & Added\\
+%Date 2 & 1.1 & Notes\\
+%\bottomrule
+%\end{tabularx}
+%\end{table}
 
 \newpage
 
@@ -165,7 +177,10 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Format Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Format Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSD}:] Software Decision Module
 \end{description}
 
 
@@ -179,8 +194,8 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input Format Module\\
+& Output Format Module\\
 & ?\\
 & ?\\
 & ?\\
@@ -234,7 +249,7 @@ selected.
 \item[Implemented By:] OS
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
+\subsection{Behaviour-Hiding Module (\mref{mBH})}
 
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
@@ -252,13 +267,22 @@ selected.
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Implemented By:] Google Images Downloader
+\end{description}
+
+\subsubsection{Output Format Module (\mref{mOutput})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the output data.
+\item[Services:]Converts the processed data into output files/folders that will 
+  be written to storage.
+\item[Implemented By:] Google Images Downloader
 \end{description}
 
 \subsubsection{Etc.}
 
 
-\subsection{Software Decision Module}
+\subsection{Software Decision Module (\mref{mSD})}
 
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
