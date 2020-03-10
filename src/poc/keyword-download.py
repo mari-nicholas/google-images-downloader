@@ -40,7 +40,8 @@ def get_image_url(url):
 
     # Create a chrome webdriver
     driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"),   chrome_options=chrome_options) 
-    
+    # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"))
+
     driver.get(url)
 
     # Find and click on the first image thumbnail
