@@ -1,3 +1,8 @@
+% Joshua - Introduction, Anticipated and Unlikely Changes
+% Nick - Module Hierarchy, Connection Between Req and Design, Traceability Matrix
+% Sam - Module Decomposition, Use Hierachy Between Modules
+
+
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{fullpage}
@@ -29,7 +34,7 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
-\title{SE 3XA3: Software Requirements Specification\\Google Images Downloader}
+\title{SE 3XA3: Module Guide\\Google Images Downloader}
 
 \author{Team \#201, CAS Dream Team
 		\\ Sam Crawford, crawfs1, 400129435
@@ -57,6 +62,7 @@
 2/26/2020 & Nick & 1.0 & Created document\\
 3/9/2020 & Sam & 1.1 & Filled in admin details\\
 3/9/2020 & Sam & 1.1.1 & Started adding modules\\
+3/10/2020 & Josh, Sam, Nick & 1.1.2 & First iteration of all sections completed\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -79,42 +85,24 @@
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+The software system being developed is a google images downloader command line tool that
+will allow end users to download a certain number of googles images given
+specific keywords and parameters. The aim of this tool is to provide assistance to those
+involved in machine learning, and secondarily those involved in art.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+After completing the first stage of the design, the Software Requirements Specification (SRS), this document, the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+specifies the modular structure of the system and is intended to allow both
+designers and maintainers to easily identify the parts of the software. After the MG is completed, the Module Interface Specification will be done which specifies the externally observable behaviour of a module using precise mathematical language.
+
+A module is a work assignment for a programmer or programming team\citep{ParnasEtAl1984}. The primary design principle being followed when decomposing the system into modules is the principle of information hiding~\citep{Parnas1972a}. This principle supports design for change, because the ``secrets'' that each module hides represent likely future changes.
+
+Other design principles follow the rules laid out by \citet{ParnasEtAl1984}. They are as follows:
 \begin{itemize}
 \item System details that are likely to change independently should be the
   secrets of separate modules.
 \item Each data structure is used in only one module.
 \item Any other program that requires information stored in a module's data
   structures must obtain it by calling access programs belonging to that module.
-\end{itemize}
-
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
-
-\begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
 \end{itemize}
 
 The rest of the document is organized as follows. Section
@@ -144,11 +132,8 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acHTML}:] Google Images will likely change the way that their HTML is presented, warranting a change in the Navigate Page Module.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] As use of the application grows, there will be demand for new features.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -162,10 +147,8 @@ decisions will be changed.
 
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+  (Input: File and/or Keyboard, Output: Images downloaded to a directory).
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The system will always take in user input from either from the command line or from a file.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -177,10 +160,11 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Format Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Format Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSD}:] Software Decision Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSQ}:] Search Query Module
+\item [\refstepcounter{mnum} \mthemnum \label{mNP}:] Navigate Page Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mMain}:] Main Module
 \end{description}
 
 
@@ -194,19 +178,15 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input Format Module\\
-& Output Format Module\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{4}{0.3\textwidth}{Behaviour-Hiding Module} 
+& Input Module\\
+& Search Query Module\\
+& Navigate Page Module\\
+& Output Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{1}{0.3\textwidth}{Software Decision Module} 
+& Main Module\\
 \bottomrule
 
 \end{tabular}
@@ -216,9 +196,7 @@ actually be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table \ref{TblRT}.
+The design of the system is intended to satisfy the requirements developed in the SRS. In this stage, the system is decomposed into modules with high cohesion and low coupling, to implement proper software design principles. These include  The connection between requirements and modules is listed in Table \ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -249,7 +227,7 @@ selected.
 \item[Implemented By:] OS
 \end{description}
 
-\subsection{Behaviour-Hiding Module (\mref{mBH})}
+\subsection{Behaviour-Hiding Module}
 
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
@@ -267,22 +245,35 @@ selected.
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
-\item[Implemented By:] Google Images Downloader
+\item[Implemented By:]Google Images Downloader
+\end{description}
+
+\subsubsection{Search Query Module (\mref{mSQ})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the Google search query.
+\item[Services:]Converts the processed data from the input module into a URL string representing the desired Google search query.
+\item[Implemented By:]Google Images Downloader
+\end{description}
+
+\subsubsection{Navigate Page Module (\mref{mNP})}
+
+\begin{description}
+\item[Secrets:]The layout of the Google search page.
+\item[Services:]Uses the processed Google search query to obtain the URL of each individual image.
+\item[Implemented By:]Google Images Downloader
 \end{description}
 
 \subsubsection{Output Format Module (\mref{mOutput})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the output data.
-\item[Services:]Converts the processed data into output files/folders that will 
-  be written to storage.
-\item[Implemented By:] Google Images Downloader
+\item[Services:]Converts the processed data into output 
+files/folders that will be written to storage.
+\item[Implemented By:]Google Images Downloader
 \end{description}
 
-\subsubsection{Etc.}
-
-
-\subsection{Software Decision Module (\mref{mSD})}
+\subsection{Software Decision Module}
 
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
@@ -295,7 +286,15 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Main Module (\mref{mMain})}
+
+\begin{description}
+\item[Secrets:]The control flow logic of the system.
+\item[Services:]Controls the flow of data.
+\item[Implemented By:]Google Images Downloader
+\end{description}
+
+\newpage
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -310,17 +309,28 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR1 & \mref{mInput}, \mref{mSQ}, \mref{mOutput}\\
+FR2 & \mref{mInput}, \mref{mSQ}\\
+FR3 & \mref{mOutput}\\
+FR4 & \mref{mInput}, \mref{mSQ}\\
+FR5 & \mref{mInput}, \mref{mNP}\\
+FR6 & \mref{mInput}, \mref{mNP}\\
+FR7 & \mref{mInput}, \mref{mSQ}\\
+FR8 & \mref{mInput}, \mref{mSQ}\\
+FR9 & \mref{mHH}, \mref{mInput}, \mref{mSQ}\\
+EUR1 & \mref{mHH}, \mref{mOutput}\\
+LR1 & \\
+LR2 & \\
+RR1 & \mref{mInput}\\
+IAR1 & \mref{mSQ}, \mref{mNP}\\
+PDR1 & \\
+MSR1 & \\
+MSR2 & \\
+ADR1 & \mref{mOutput}\\
+ACR1 & \\
+CR1 & \mref{mInput}\\
+CPR1 & \\
+SR1 & \mref{mInput}, \mref{mSQ}, \mref{mNP}, \mref{mOutput}, \mref{mMain}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -333,23 +343,15 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acHTML} & \mref{mNP}\\
+\acref{acInput} & \mref{mInput}, \mref{mSQ}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
+
+\newpage
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
