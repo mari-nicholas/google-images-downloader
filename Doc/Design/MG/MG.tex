@@ -63,6 +63,7 @@
 3/9/2020 & Sam & 1.1 & Filled in admin details\\
 3/9/2020 & Sam & 1.1.1 & Started adding modules\\
 3/10/2020 & Josh, Sam, Nick & 1.1.2 & First iteration of all sections completed\\
+3/11/2020 & Sam, Nick & 1.2 & Finishing touches\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -118,18 +119,16 @@ other shows the relation between anticipated changes and the modules. Section
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness
-of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+This section lists possible changes to the system that are classified into two
+categories according to the likeliness of the change. Anticipated changes are 
+listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change.
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHTML}:] Google Images will likely change the way that their HTML is presented, warranting a change in the Navigate Page Module.
@@ -138,10 +137,10 @@ change.
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible. However, a general system is
-more complex. Sometimes this complexity is not necessary. Fixing some design
-decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
+The module design should be as general as possible, which can also, however, 
+lead to unnecessary complexity. Fixing some design decisions at the system 
+architecture stage can simplify the software design. If
+these decisions need to be changed later, then many parts of the design
 will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
@@ -151,19 +150,20 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The system will always take in user input from either from the command line or from a file.
 \end{description}
 
+\newpage
+
 \section{Module Hierarchy} \label{SecMH}
 
 This section provides an overview of the module design. Modules are summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
-below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+below are leaves in the hierarchy tree and will actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Format Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSQ}:] Search Query Module
 \item [\refstepcounter{mnum} \mthemnum \label{mNP}:] Navigate Page Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Format Module
 \item [\refstepcounter{mnum} \mthemnum \label{mMain}:] Main Module
 \end{description}
 
@@ -198,6 +198,8 @@ actually be implemented.
 
 The design of the system is intended to satisfy the requirements developed in the SRS. In this stage, the system is decomposed into modules with high cohesion and low coupling, to implement proper software design principles. These include  The connection between requirements and modules is listed in Table \ref{TblRT}.
 
+\newpage
+
 \section{Module Decomposition} \label{SecMD}
 
 Modules are decomposed according to the principle of ``information hiding''
@@ -207,8 +209,9 @@ module. The \emph{Services} field specifies \emph{what} the module will do
 without documenting \emph{how} to do it. For each module, a suggestion for the
 implementing software is given under the \emph{Implemented By} title. If the
 entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  Also indicate if the
-module will be implemented specifically for the software.
+system or by standard programming language libraries.  If the entry is 
+\emph{Google Images Downloader}, this means that the module will be implemented 
+specifically for the software.
 
 Only the leaf modules in the
 hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
@@ -319,17 +322,17 @@ FR7 & \mref{mInput}, \mref{mSQ}\\
 FR8 & \mref{mInput}, \mref{mSQ}\\
 FR9 & \mref{mHH}, \mref{mInput}, \mref{mSQ}\\
 EUR1 & \mref{mHH}, \mref{mOutput}\\
-LR1 & \\
-LR2 & \\
+LR1 & --\\
+LR2 & --\\
 RR1 & \mref{mInput}\\
 IAR1 & \mref{mSQ}, \mref{mNP}\\
-PDR1 & \\
-MSR1 & \\
-MSR2 & \\
+PDR1 & --\\
+MSR1 & --\\
+MSR2 & --\\
 ADR1 & \mref{mOutput}\\
-ACR1 & \\
+ACR1 & --\\
 CR1 & \mref{mInput}\\
-CPR1 & \\
+CPR1 & --\\
 SR1 & \mref{mInput}, \mref{mSQ}, \mref{mNP}, \mref{mOutput}, \mref{mMain}\\
 \bottomrule
 \end{tabular}
@@ -368,7 +371,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.9\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
