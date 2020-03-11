@@ -2,7 +2,7 @@
 # Services: Controls the flow of data.
 
 def main():
-    print("Main Function")
+    print("Main function")
 
 if __name__ == '__main__':
     main()
