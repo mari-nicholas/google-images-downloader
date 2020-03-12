@@ -9,9 +9,28 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
 import re
 import os
 import time
+
+class element_has_src(object):
+  """An expectation for checking that an element has a src
+
+  locator - used to find the element
+  returns the WebElement once it has a src
+  """
+  def __init__(self, locator):
+    self.locator = locator
+
+  def __call__(self, driver):
+    element = driver.find_element(*self.locator)   # Finding the referenced element
+    if element.get_attribute("src"):
+        return element
+    else:
+        return False
 
 # Command line input to program
 def user_input():
@@ -47,6 +66,12 @@ def get_image_url(url):
     # Find and click on the first image thumbnail
     image_thumbnail = driver.find_elements_by_xpath("/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]")
     image_thumbnail[0].click()
+
+    # https://selenium-python.readthedocs.io/waits.html#explicit-waits, https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.support.expected_conditions
+    # image = WebDriverWait(driver, 10).until(element_has_src((By.XPATH, "/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img")))
+    # print(image.get_attribute("class"))
+    # image_url = image.get_attribute("src")
+
     time.sleep(1) #Instead of waiting for a specified time, can just wait for a specific element to load. Add later
 
     # Find the full image and get its URL embedded in the html
