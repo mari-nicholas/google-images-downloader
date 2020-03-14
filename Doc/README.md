@@ -15,6 +15,8 @@ The folders and files for this folder are as follows:
 |   |       README.md
 |   |       
 |   \---MIS
+|           MIS.pdf
+|           MIS.tex
 |           README.md
 |           
 +---DevelopmentPlan
