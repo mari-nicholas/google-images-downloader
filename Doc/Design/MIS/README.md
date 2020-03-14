@@ -1,3 +1,9 @@
-# Module Interface Specification #
+# Module Interface Specification
 
-Use doxygen (or equivalent) to document the interface for your modules.
+The folders and files for this folder are as follows:
+
+```
+    MIS.pdf
+    MIS.tex
+    README.md
+```
