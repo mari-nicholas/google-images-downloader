@@ -1,8 +1,3 @@
-% Joshua - Introduction, Anticipated and Unlikely Changes
-% Nick - Module Hierarchy, Connection Between Req and Design, Traceability Matrix
-% Sam - Module Decomposition, Use Hierachy Between Modules
-
-
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{fullpage}
@@ -64,6 +59,8 @@
 3/9/2020 & Sam & 1.1.1 & Started adding modules\\
 3/10/2020 & Josh, Sam, Nick & 1.1.2 & First iteration of all sections completed\\
 3/11/2020 & Sam, Nick & 1.2 & Finishing touches\\
+3/13/2020 & Josh & 1.2.1 & Finishing section 2, General edits\\
+3/13/2020 & Nick & 1.2.2 & Gneneral edits\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -95,7 +92,7 @@ After completing the first stage of the design, the Software Requirements Specif
 specifies the modular structure of the system and is intended to allow both
 designers and maintainers to easily identify the parts of the software. After the MG is completed, the Module Interface Specification will be done which specifies the externally observable behaviour of a module using precise mathematical language.
 
-A module is a work assignment for a programmer or programming team\citep{ParnasEtAl1984}. The primary design principle being followed when decomposing the system into modules is the principle of information hiding~\citep{Parnas1972a}. This principle supports design for change, because the ``secrets'' that each module hides represent likely future changes.
+A module is a work assignment for a programmer or programming team~\citep{ParnasEtAl1984}. The primary design principle being followed when decomposing the system into modules is the principle of information hiding~\citep{Parnas1972a}. This principle supports design for change, because the ``secrets'' that each module hides represent likely future changes.
 
 Other design principles follow the rules laid out by \citet{ParnasEtAl1984}. They are as follows:
 \begin{itemize}
@@ -122,32 +119,37 @@ other shows the relation between anticipated changes and the modules. Section
 This section lists possible changes to the system that are classified into two
 categories according to the likeliness of the change. Anticipated changes are 
 listed in Section \ref{SecAchange}, and unlikely changes are listed in Section \ref{SecUchange}.
+Table \ref{table:tracechanges} shows the traceability matrix between the anticipated changes and modules.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
-Anticipated changes are the source of the information that is to be hidden
-inside the modules. Ideally, changing one of the anticipated changes will only
-require changing the one module that hides the associated decision. The approach
-adapted here is called design for change.
+Anticipated changes are the source of the information that are to be hidden
+inside the modules. This was, changing one of the anticipated changes will only
+require changing the one module that hides the associated decision. The is called design for change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHTML}:] Google Images will likely change the way that their HTML is presented, warranting a change in the Navigate Page Module.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] As use of the application grows, there will be demand for new features.
+\item[\refstepcounter{acnum} \actheacnum \label{acHTMLStructure}:] Google Images will likely change the way that their HTML is structured in the future.
+This will require a change in the Navigate Page Module.
+\item[\refstepcounter{acnum} \actheacnum \label{acQueryFormat}:] Google Images will likely change the search query format, requiring a change 
+in the Search Query Module.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputParam}:] Google Images may change the search paramaters available to use, resulting 
+in a change in the Input Module.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible, which can also, however, 
-lead to unnecessary complexity. Fixing some design decisions at the system 
-architecture stage can simplify the software design. If
-these decisions need to be changed later, then many parts of the design
-will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+These are changes that are unlikely to happen as changing them will likely require many parts of the design to 
+be modified. This is obviously not ideal.
 
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: Images downloaded to a directory).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The system will always take in user input from either from the command line or from a file.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The system will take in user input from either from the command line or from a file.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The system will download images to either a local folder, or a specified
+location on a server.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The program will run on a computer or server that has the necessary tools 
+downloaded and installed, not an embedded system.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucFlow}:] The data flow and logic of the system is unlikely to change.
 \end{description}
 
 \newpage
@@ -183,10 +185,10 @@ below are leaves in the hierarchy tree and will actually be implemented.
 & Search Query Module\\
 & Navigate Page Module\\
 & Output Module\\
+& Main Module\\
 \midrule
 
-\multirow{1}{0.3\textwidth}{Software Decision Module} 
-& Main Module\\
+{Software Decision Module} & ~ \\
 \bottomrule
 
 \end{tabular}
@@ -196,7 +198,7 @@ below are leaves in the hierarchy tree and will actually be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
-The design of the system is intended to satisfy the requirements developed in the SRS. In this stage, the system is decomposed into modules with high cohesion and low coupling, to implement proper software design principles. These include  The connection between requirements and modules is listed in Table \ref{TblRT}.
+The design of the system is intended to satisfy the requirements developed in the SRS. In this stage, the system is decomposed into modules with high cohesion and low coupling, to implement proper software design principles. These include the connection between requirements and modules is listed in Table \ref{TblRT}.
 
 \newpage
 
@@ -247,7 +249,7 @@ selected.
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
+  Search Query Module.
 \item[Implemented By:]Google Images Downloader
 \end{description}
 
@@ -255,7 +257,7 @@ selected.
 
 \begin{description}
 \item[Secrets:]The format and structure of the Google search query.
-\item[Services:]Converts the processed data from the input module into a URL string representing the desired Google search query.
+\item[Services:]Converts the processed data from the Input Module into a URL string representing the desired Google search query.
 \item[Implemented By:]Google Images Downloader
 \end{description}
 
@@ -346,11 +348,13 @@ SR1 & \mref{mInput}, \mref{mSQ}, \mref{mNP}, \mref{mOutput}, \mref{mMain}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHTML} & \mref{mNP}\\
-\acref{acInput} & \mref{mInput}, \mref{mSQ}\\
+\acref{acHTMLStructure} & \mref{mNP}\\
+\acref{acQueryFormat} & \mref{mSQ}\\
+\acref{acInputParam} & \mref{mInput}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
+\label{table:tracechanges}
 \label{TblACT}
 \end{table}
 
