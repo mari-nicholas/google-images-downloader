@@ -1,0 +1,391 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+
+\title{SE 3XA3: Module Interface Specification\\Google Images Downloader}
+
+\author{Team \#201, CAS Dream Team
+		\\ Sam Crawford, crawfs1, 400129435
+		\\ Joshua Guinness, guinnesj, 400134735
+		\\ Nicholas Mari, marin, 400132494
+}
+
+%\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% \pagenumbering{roman}
+% \tableofcontents
+% \listoftables
+% \listoffigures
+
+% \newpage
+
+\pagenumbering{arabic}
+
+\section*{Introduction}
+
+This document shows the complete specification for implementing all modules of the Google Images Downloader program.
+
+\begin{table}[bp]
+\begin{tabularx}{\textwidth}{lllp{7.5cm}}
+\toprule {\bf Date} & {\bf Name} & {\bf Version} & {\bf Notes}\\
+\midrule
+1/21/2020 & Joshua & 1.0 & Created document\\
+3/11/2020 & Sam & 1.1 & Set up format of document\\
+3/11/2020 & Sam & 1.1.1 & Set up skeleton of each module\\
+3/11/2020 & Joshua & 1.1.2 & Input and Navigate Page Module\\
+3/12/2020 & Nick & 1.1.3 & Search Query and Main Module\\
+3/13/2020 & Sam & 1.1.4 & Output Module\\
+3/13/2020 & Joshua, Sam, Nick & 1.2 & General Edits\\
+\bottomrule
+\end{tabularx}
+\caption{\bf Revision History}
+\end{table}
+
+\newpage
+
+\section*{Input Format Module}
+
+\subsection* {Module}
+
+Input
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+userInput & N/A & dict & InvalidParam, MissingParam \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+None
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+\item The \texttt{userInput} method is called by Main before any other method.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent userInput():
+\begin{itemize}
+\item output: $\mathit{out} :=$ A dictionary (key:value pair) of parameters and their values. The keys are the parameters and the values are the user input.
+\item exception: $\mathit{exc} :=$ (required parameter missing $\Rightarrow$ $\mathit{MissingParam} ~\vert$ improper format for a parameter $\Rightarrow$ $\mathit{InvalidParam}$)
+\end{itemize}
+
+\subsection* {Local Functions}
+
+keywordFromFile: string $\rightarrow$ dict \\
+keywordFromFile($\mathit{s}$) $\equiv$ Reads in file $\mathit{s}$ of parameters and their associated values.\\
+exception: $exc :=$ (can't find file $\Rightarrow$ $\mathit{InvalidFileName} ~\vert$ can't read file $\Rightarrow$ $\mathit{UnableToParseFile} ~\vert$ required parameter missing $\Rightarrow$ $\mathit{MissingParam} ~\vert$ improper format for a parameter $\Rightarrow$ $\mathit{InvalidParam}$)
+
+\newpage
+
+\section*{Search Query Module}
+
+\subsection* {Module}
+
+SearchQuery
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+buildURL & dict of string & string & None\\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+None
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+\item All input arguments stored in the dictionary of strings are correct and in the proper format
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent buildURL($dS$):
+\begin{itemize}
+\item output: $out :=$ ``https://www.google.com/search?q=\&espv=2\&sxsrf=ACYBGNSwqBUElVjmEWOTu3-\linebreak
+mXPnReqFoLw:1581376760401\&source=lnms" + buildURLParam(dS) + ``isch\&sa=X\&ved=\linebreak
+2ahUKEwiY7bzAj8jnAhUQjq0KHbXwBEYQ\_AUoAXoECBMQAw\&biw=838\&bih=880"
+\item exception: none
+\end{itemize}
+
+\subsection* {Local Functions}
+
+\newpage
+
+\noindent buildURLParam: dict of string $\rightarrow$ string \\
+buildURLParam($\mathit{dS}$) $\equiv s$
+such that:
+
+$s =$ ``"
+
+for all $i$ in $dS$:
+
+$~~~~s = s + i$
+
+\newpage
+\section*{Navigate Page Module}
+
+\subsection* {Module}
+
+NavigatePage
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+getImageURL & string, $\mathbb{Z}$ & list of string & None \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+\item The link passed into the \texttt{getImageURL} method is correct and corresponds to a real link.
+\item The user has setup the program correctly (correct chromedriver in right location, installed selenium, put correct location of Google Chrome binary).
+
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent getImageURL($s$, $n$):
+\begin{itemize}
+\item output: $\mathit{out} :=$ a list ($urls$) of image URLs from $s$ where $\mathit{|urls| = n}$.
+\item exception: None
+\end{itemize}
+
+\newpage
+
+\section*{Output Format Module}
+
+\subsection* {Module}
+
+Output
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+downloadImages & list of string, string, string & None & None\\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+None
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+\item The first string parameter (the download location) in the \texttt{downloadImages} method is optional and has a default value (``./Images").
+\item The \texttt{createDirectory} method creates a directory with the file path $\mathit{loc} + ``/" + \mathit{key}$.
+\end{itemize}
+
+\subsection* {Local Functions}
+
+\noindent createDirectory($loc$, $key$): $\epsilon$ \\
+createDirectory($loc$, $key$) $\equiv$ Null
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent downloadImages($lst$, $loc$, $key$):
+\begin{itemize}
+\item output: save each image represented by a string in $lst$ and save it to the folder created by the \texttt{createDirectory} method.
+\item exception: none
+\end{itemize}
+
+\newpage
+
+\section*{Main Module}
+
+\subsection* {Module}
+
+Main
+
+\subsection* {Uses}
+
+Input, SearchQuery, NavigatePage, Output
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+None
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+System Console
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+    \item The main function in the Main module is used to call all the other modules in order to run them in the right order. The main function will call the modules in the following order: Input, SearchQuery, NavigatePage, Output.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+None
+
+\subsection* {Local Functions}
+
+\noindent main: $\epsilon \rightarrow \epsilon$  \\
+main() $\equiv$ Null\\
+
+\end{document}
