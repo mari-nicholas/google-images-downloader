@@ -10,15 +10,16 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
     fileNum = 0
 
     for img in lst:
-        print("Getting image from: ", img)
+        print("Getting image from:", img)
 
         try:
-            req = Request(img, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
-            response = urlopen(req)
-            data = response.read()
-            response.close()
+            data = getRequest(img)
+            ext = what("", data) # reads file extension
+            if not img.endswith(ext):
+                img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
+                data = getRequest(img)
         except Exception as e:
-            print(e)
+            # print(e)
             print("Something went wrong when downloading image")
 
         try:
@@ -27,10 +28,18 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
             output_file.close()
             print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
         except Exception as e:
-            print(e)
+            # print(e)
             print("Something went wrong when saving image")
 
         fileNum += 1
+
+def getRequest(img):
+    req = Request(img, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+    response = urlopen(req)
+    data = response.read()
+    response.close()
+
+    return data
 
 def createDir(loc, key):
     d = path.join(loc, key)
@@ -48,5 +57,5 @@ def createDir(loc, key):
 
     return d
 
-downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
-    "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
+# downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
+#     "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
