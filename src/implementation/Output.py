@@ -29,18 +29,19 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
             print("Something went wrong when saving image")
 
 def createDir(loc, key):
-    if path.isdir(loc):        
+    d = path.join(loc, key)
+
+    if path.isdir(loc) and not path.exists(d):        
         try:
-            d = path.join(loc, key)
             mkdir(d)
         except Exception as e:
-            print(e)
-            print ("Creation of the directory %s failed" % path)
+            # print(e)
+            print ("Creation of the directory %s failed" % d)
         else:
-            print ("Successfully created the directory %s " % path)
+            print ("Successfully created the directory %s " % d)
     else:
-        print("Directory doesn't exist:", loc)
+        print("Directory %s already exists" % d)
 
     return d
 
-#downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png"], "homestuck")
+downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png"], "homestuck")
