@@ -1,11 +1,13 @@
 # Secrets: The format and structure of the output data.
 # Services: Converts the processed data into output files/folders that will be written to storage
 
+from imghdr import what
 from os import curdir, mkdir, path
 from urllib.request import Request, urlopen
 
 def downloadImages(lst, key, loc=path.join(curdir, "Images")):
     d = createDir(loc, key)
+    fileNum = 0
 
     for img in lst:
         print("Getting image from: ", img)
@@ -20,13 +22,15 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
             print("Something went wrong when downloading image")
 
         try:
-            output_file = open(path.join(d, key), 'wb')
+            output_file = open(path.join(d, key + str(fileNum) + "." + what("", data)), 'wb')
             output_file.write(data)
             output_file.close()
             print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
         except Exception as e:
             print(e)
             print("Something went wrong when saving image")
+
+        fileNum += 1
 
 def createDir(loc, key):
     d = path.join(loc, key)
@@ -44,4 +48,5 @@ def createDir(loc, key):
 
     return d
 
-downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png"], "homestuck")
+downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
+    "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
