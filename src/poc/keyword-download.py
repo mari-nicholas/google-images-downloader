@@ -92,10 +92,12 @@ def main():
     # Get the URL of the image
     image_url = get_image_url(url)
 
+    print(image_url)
+
     # Download the images
-    print('\033[1;33m' + "Downloading Images...\n" + '\033[0m')
-    download_images(image_url, keyword)
-    print('\033[1;32m' + "Download Complete\n" + '\033[0m')
+    # print('\033[1;33m' + "Downloading Images...\n" + '\033[0m')
+    # download_images(image_url, keyword)
+    # print('\033[1;32m' + "Download Complete\n" + '\033[0m')
 
 if __name__ == '__main__':
     main()
