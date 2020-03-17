@@ -2,11 +2,11 @@
 # Services: Converts the processed data into output files/folders that will be written to storage
 
 from imghdr import what
-from os import curdir, mkdir, path
+from os import curdir, extsep, mkdir, path
 from urllib.request import Request, urlopen
 
 def downloadImages(lst, key, loc=path.join(curdir, "Images")):
-    d = createDir(loc, key)
+    dr = createDir(loc, key)
     fileNum = 0
 
     for img in lst:
@@ -17,15 +17,15 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
             ext = what("", data) # reads file extension
             if not img.endswith(ext):
                 img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
+                print("Chopped image URL: ", img)
                 data = getRequest(img)
         except Exception as e:
             # print(e)
             print("Something went wrong when downloading image")
 
         try:
-            output_file = open(path.join(d, key + str(fileNum) + "." + what("", data)), 'wb')
-            output_file.write(data)
-            output_file.close()
+            with open(path.join(dr, key + str(fileNum) + extsep + ext), 'wb') as f:
+                f.write(data)
             print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
         except Exception as e:
             # print(e)
@@ -57,5 +57,5 @@ def createDir(loc, key):
 
     return d
 
-# downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
-#     "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
+downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
+    "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
