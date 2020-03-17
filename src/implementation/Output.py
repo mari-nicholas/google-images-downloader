@@ -3,6 +3,7 @@
 #  @brief Provides the functionality for downloading images.
 #  @date 03/16/2020
 
+from base64 import b64decode
 from math import ceil, log
 from os import curdir, extsep, mkdir, path
 
@@ -30,7 +31,16 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
         try:
             data = getRequest(img)
             ext = what("", data) # reads file extension
-            if not ext:
+            if img.startswith("data:image"): # allows for downloading base64 images
+                base = img.find(";base64,")
+                ext = img[11:base]
+                img = img[base+8:]
+                print("Encoded in base64: ", img)
+                data = b64decode(img)
+            elif img.endswith("jpg"): # circumvents jpg bug
+                ext = "jpg"
+                data = getRequest(img)
+            elif not ext:
                 print("Unrecognized file format")
                 continue
             elif not img.endswith(ext):
@@ -77,10 +87,4 @@ def createDir(loc, d):
     else:
         print("Directory %s already exists" % d)
 
-# downloadImages(["https://cdn.vox-cdn.com/thumbor/0Rjy7vraMge-0yLMb_gkw5kDHuM=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19318851/chrome_2019_10_25_12_25_35.png"], "homestuck")
-
-downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
-"https://www.homestuck2.com/assets/panels/0001.gif", "https://www.homestuck2.com/assets/panels/0081.gif", "https://www.homestuck2.com/assets/panels/0008.gif",
-"https://i.redd.it/kypewqo9tyy21.png", "https://www.homestuck.com/images/storyfiles/hs2/00001.gif", "https://www.homestuck2.com/assets/panels/0082.gif",
-"https://www.homestuck2.com/assets/panels/0083.gif", "https://www.homestuck2.com/assets/panels/0080.gif", "https://www.homestuck2.com/assets/panels/0079.gif",
-"https://www.homestuck2.com/assets/panels/0087.gif", "https://www.homestuck2.com/assets/panels/0088.gif", "https://www.homestuck2.com/assets/panels/0086.gif"], "homestuck")
+#downloadImages([], "")
