@@ -25,8 +25,7 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
-        print()
-        print("Getting image from:", img)
+        print("\nGetting image from:", img)
 
         try:
             data = getRequest(img)
@@ -54,7 +53,6 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
             print("Something went wrong when downloading image")
             continue
 
-        print("num:", str(fileNum).zfill(places))
         with open(path.join(dr, key + str(fileNum).zfill(places) + extsep + ext), 'wb') as f:
             f.write(data)
         print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
