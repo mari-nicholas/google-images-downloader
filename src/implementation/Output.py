@@ -1,12 +1,24 @@
-# Secrets: The format and structure of the output data.
-# Services: Converts the processed data into output files/folders that will be written to storage
+## @file Output.py
+#  @author Samuel Crawford, Joshua Guinness
+#  @brief Provides the functionality for downloading images.
+#  @date 03/16/2020
 
 from imghdr import what
 from os import curdir, extsep, mkdir, path
 from urllib.request import Request, urlopen
 
+
+## @brief downloads images
+#  @details creates the given directory if it doesn't exist;
+#  iterates through a list of image URLs and retrives them;
+#  processes file extensions and saves the images to the directory
+#  @param lst a list of image URLs as strings
+#  @param key the keyword being searched for
+#  @param loc the directory to save the images to
+#  TODO: document exceptions
 def downloadImages(lst, key, loc=path.join(curdir, "Images")):
-    dr = createDir(loc, key)
+    dr = path.join(loc, key)
+    createDir(loc, dr)
     fileNum = 0
 
     for img in lst:
@@ -20,7 +32,6 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
                 print("Chopped image URL: ", img)
                 data = getRequest(img)
         except Exception as e:
-            # print(e)
             print("Something went wrong when downloading image")
 
         try:
@@ -28,11 +39,15 @@ def downloadImages(lst, key, loc=path.join(curdir, "Images")):
                 f.write(data)
             print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
         except Exception as e:
-            # print(e)
             print("Something went wrong when saving image")
 
         fileNum += 1
 
+## @brief retrieves image data for the image
+#  @details uses the urllib library to create a request object
+#  to read the image data
+#  @param img the image URL
+#  TODO: document exceptions
 def getRequest(img):
     req = Request(img, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
     response = urlopen(req)
@@ -41,21 +56,17 @@ def getRequest(img):
 
     return data
 
-def createDir(loc, key):
-    d = path.join(loc, key)
-
+## @brief creates the given directory d in loc if non-existent
+#  @param loc the parent directory
+#  @param d   the name of the subdirectory for images
+#  TODO: document exceptions
+def createDir(loc, d):
     if path.isdir(loc) and not path.exists(d):        
         try:
             mkdir(d)
         except Exception as e:
-            # print(e)
             print ("Creation of the directory %s failed" % d)
         else:
             print ("Successfully created the directory %s " % d)
     else:
         print("Directory %s already exists" % d)
-
-    return d
-
-downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537", 
-    "https://www.homestuck2.com/assets/panels/0075.gif"], "homestuck")
