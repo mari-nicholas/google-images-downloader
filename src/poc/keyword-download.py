@@ -142,6 +142,8 @@ def main():
     # Get the URL of the image
     image_urls = get_image_urls(url, int(limit))
 
+    print(image_url)
+
     # Download the images
     print('\n\033[1;33m' + "Downloading Images...\n" + '\033[0m')
     download_images(image_urls, keyword)

@@ -34,7 +34,7 @@ def getImageURL(url, limit):
     # Setting chrome options, specifically headless (runs without visual browswer)
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
-    chrome_options.binary_location = '/usr/bin/google-chrome'
+    chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
 
     # Create a chrome webdriver
     driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"),   chrome_options=chrome_options) # Headless
