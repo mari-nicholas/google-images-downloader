@@ -25,6 +25,7 @@ def downloadImages(lst, key, loc):
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
+        img = img.lower()
         print("\nGetting image from:", img)
 
         try:
@@ -41,8 +42,11 @@ def downloadImages(lst, key, loc):
                     ext = "jpg"
                     data = getRequest(img)
                 elif not ext:
-                    print("Unrecognized file format")
-                    continue
+                    if "jpg" in img:
+                        ext = "jpg"
+                    else:
+                        print("Unrecognized file format")
+                        continue
 
                 if not img.endswith(ext):
                     img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
