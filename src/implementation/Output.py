@@ -90,7 +90,3 @@ def createDir(loc, d):
             print("Successfully created the directory %s " % d)
     else:
         print("Directory %s already exists" % d)
-
-downloadImages(["https://www.aspcapro.org/sites/default/files/styles/image_component/public/image-paragraph/donkey-nose-to-nose.jpg?itok=6J5wRtJg"], "donkey", ".\\Images")
-# downloadImages(["https://upload.wikimedia.org/wikipedia/commons/7/7b/Donkey_1_arp_750px.jpg"], "donkey", ".\\Images")
-
