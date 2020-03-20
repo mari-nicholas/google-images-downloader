@@ -32,7 +32,7 @@ def UserInput():
 		args = cmdParser.parse_args()
 
 
-		print(vars(args))
+		#print(vars(args))
 		#vars() Turns it into a dict
 		return vars(args)
 
