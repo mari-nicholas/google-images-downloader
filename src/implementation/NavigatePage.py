@@ -56,7 +56,7 @@ def getImageURL(url, limit):
 
     while i < numberOfImages:
 
-        stdout.write('\r' + "Getting " + str(i+1) + " images so far.")
+        print("Getting image #" + str(i+1))
 
         try:
 
