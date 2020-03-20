@@ -3,8 +3,7 @@
 
 from os import path
 from platform import system
-import time
-import sys
+from sys import stdout
 
 from bs4 import BeautifulSoup
 from lxml import html
@@ -37,7 +36,6 @@ def getImageURL(url, limit):
     # Setting chrome options, specifically headless (runs without visual browswer)
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
-    #chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
     
     plt = system()
     if plt == "Windows":
@@ -51,14 +49,14 @@ def getImageURL(url, limit):
         # driver = webdriver.Chrome(executable_path=path.abspath("chromedriver")) # Not Headless (With Visual Chrome)
 
     urls = []
-    numberOfImages = int(limit)
+    numberOfImages = limit
     i = 0
 
     print('\033[38;2;244;208;63m' + "Getting the image URLs, please be patient this may take some time." + '\033[0m')
 
     while i < numberOfImages:
 
-        sys.stdout.write('\r' + "Getting " + str(i+1) + " images so far.")
+        stdout.write('\r' + "Getting " + str(i+1) + " images so far.")
 
         try:
 
@@ -82,6 +80,9 @@ def getImageURL(url, limit):
         except Exception as e:
             # https://askubuntu.com/questions/801299/change-text-color-of-my-output-on-command-prompt
             print('\033[38;2;255;0;0m' + "Error: Could not get image " + str(i+1) + '\033[0m')
+
+            i += 1
+            numberOfImages += 1
 
     # Quit the driver
     driver.quit()
