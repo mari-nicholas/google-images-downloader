@@ -2,6 +2,7 @@
 # Services: Converts  the  input  data  into  the  data  structure  used  by  the  input  parameters module.
 
 import argparse
+import json
 
 def UserInput():
 	parser = argparse.ArgumentParser()
@@ -30,14 +31,19 @@ def UserInput():
 		cmdParser.add_argument('-ar', '--aspectratio', type=str, required=False, default='', help='search based on the aspect ratio of the image', choices=['tall', 'square', 'wide', 'panoramic'])
 		args = cmdParser.parse_args()
 
+
+		print(vars(args))
 		#vars() Turns it into a dict
 		return vars(args)
 
 
 def keywordFromFile(filePath):
-	print(filePath)
-	print('Keyword From File Function')
+	#print('Keyword From File Function')
+	args = {}
+	f = open(filePath)
+	args = json.load(f)
 
+	return args
 
 if __name__ == '__main__':
 	UserInput()
