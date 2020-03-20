@@ -4,6 +4,7 @@
 from os import path
 from platform import system
 import time
+import sys
 
 from bs4 import BeautifulSoup
 from lxml import html
@@ -53,13 +54,13 @@ def getImageURL(url, limit):
     numberOfImages = int(limit)
     i = 0
 
-    print('\033[38;2;0;0;255m' + "Getting the image URLs, please be patient this may take some time." + '\033[0m')
+    print('\033[38;2;244;208;63m' + "Getting the image URLs, please be patient this may take some time." + '\033[0m')
 
     while i < numberOfImages:
 
-        try:
+        sys.stdout.write('\r' + "Getting " + str(i+1) + " images so far.")
 
-            # sys.stdout.write('\r' + "Getting " + i + " image so far.")
+        try:
 
             # Get the URL
             driver.get(url)
