@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from os import path
+import sys
 import time
 
 # Helper function to determine whether element is loaded correctly
@@ -35,11 +36,16 @@ def getImageURL(url, limit):
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
     #chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
-    chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+    
+    if (sys.platform() == 'win32' or sys.platform() == 'cygwin'):
+        chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
 
-    # Create a chrome webdriver
-    driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe"),   chrome_options=chrome_options) # Headless
-    # driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe")) # Not Headless (With Visual Chrome)
+     # Create a chrome webdriver
+        driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe")) # Headless
+
+    elif (sys.platform() == 'linux'):
+        chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
+        driver = webdriver.Chrome(executable_path=path.abspath("chromedriver")) # Not Headless (With Visual Chrome)
 
     urls = []
     numberOfImages = int(limit)
