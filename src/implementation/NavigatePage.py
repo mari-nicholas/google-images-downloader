@@ -58,6 +58,9 @@ def getImageURL(url, limit):
     while i < numberOfImages:
 
         try:
+
+            # sys.stdout.write('\r' + "Getting " + i + " image so far.")
+
             # Get the URL
             driver.get(url)
 

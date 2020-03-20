@@ -1,7 +1,7 @@
 ## @file Output.py
 #  @author Samuel Crawford, Joshua Guinness
 #  @brief Provides the functionality for downloading images.
-#  @date 03/16/2020
+#  @date 03/19/2020
 
 from base64 import b64decode
 from math import ceil, log
@@ -27,34 +27,37 @@ def downloadImages(lst, key, loc):
     for img in lst:
         print("\nGetting image from:", img)
 
-        # deal with
-        # https://www.aspcapro.org/sites/default/files/styles/imae_component/public/image-paragraph/donkey-nose-to-nose.jpg?itok=6J5wRtJg
-
         try:
             data = getRequest(img)
-            ext = what("", data) # reads file extension
             if img.startswith("data:image"): # allows for downloading base64 images
                 base = img.find(";base64,")
                 ext = img[11:base]
                 img = img[base+8:]
                 print("Encoded in base64: ", img)
                 data = b64decode(img)
-            elif img.endswith("jpg"): # circumvents jpg bug
-                ext = "jpg"
-                data = getRequest(img)
-            elif not ext:
-                print("Unrecognized file format")
-                continue
-            elif not img.endswith(ext):
-                img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
-                print("Chopped image URL: ", img)
-                data = getRequest(img)
+            else:
+                ext = what("", data) # reads file extension
+                if ext == "jpeg" and ext not in img: # circumvents jpg bug
+                    ext = "jpg"
+                    data = getRequest(img)
+                elif not ext:
+                    print("Unrecognized file format")
+                    continue
+
+                if not img.endswith(ext):
+                    img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
+                    print("Chopped image URL: ", img)
+                    data = getRequest(img)
         except URLError:
             print("Couldn't find image URL")
             continue
         except Exception as e:
             print("Something went wrong when downloading image")
             continue
+
+        # Might be needed in future to avoid "mismatch between tag" WinError
+        # if ext == "jpg":
+        #     ext = "jpeg"
 
         with open(path.join(dr, key + str(fileNum).zfill(places) + extsep + ext), 'wb') as f:
             f.write(data)
@@ -87,5 +90,3 @@ def createDir(loc, d):
             print("Successfully created the directory %s " % d)
     else:
         print("Directory %s already exists" % d)
-
-#downloadImages([], "")
