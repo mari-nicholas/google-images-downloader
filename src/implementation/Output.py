@@ -19,13 +19,16 @@ from urllib.request import Request, urlopen
 #  @param lst a list of image URLs as strings
 #  @param key the keyword being searched for
 #  @param loc the directory to save the images to
-def downloadImages(lst, key, loc=path.join(curdir, "Images")):
+def downloadImages(lst, key, loc):
     dr = path.join(loc, key)
     createDir(loc, dr)
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
         print("\nGetting image from:", img)
+
+        # deal with
+        # https://www.aspcapro.org/sites/default/files/styles/imae_component/public/image-paragraph/donkey-nose-to-nose.jpg?itok=6J5wRtJg
 
         try:
             data = getRequest(img)

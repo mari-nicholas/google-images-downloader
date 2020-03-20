@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-import os
+from os import path
 import time
 
 # Helper function to determine whether element is loaded correctly
@@ -34,11 +34,12 @@ def getImageURL(url, limit):
     # Setting chrome options, specifically headless (runs without visual browswer)
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
-    chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
+    #chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
+    chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
 
     # Create a chrome webdriver
-    driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"),   chrome_options=chrome_options) # Headless
-    # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver")) # Not Headless (With Visual Chrome)
+    driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe"),   chrome_options=chrome_options) # Headless
+    # driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe")) # Not Headless (With Visual Chrome)
 
     urls = []
     numberOfImages = int(limit)
@@ -69,11 +70,6 @@ def getImageURL(url, limit):
         except Exception as e:
             # https://askubuntu.com/questions/801299/change-text-color-of-my-output-on-command-prompt
             print('\033[38;2;255;0;0m' + "Error: Could not get image " + str(i+1) + '\033[0m')
-            
-            # Since could not download this image, extend the range by one so the correct number of images
-            # are still downloaded.
-            numberOfImages += 1
-            i += 1
 
     # Quit the driver
     driver.quit()

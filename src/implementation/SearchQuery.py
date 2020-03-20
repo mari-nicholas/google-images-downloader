@@ -30,7 +30,4 @@ def buildURL(args):
     if(args['safesearch']):
     	url += "&safe=active"
 
-    print(url)
-
-# if __name__ == '__main__':
-# 	buildURL({'keyword': 'test', 'limit': 100, 'safesearch': False, 'filetype': '', 'directory': '', 'colour': '', 'colourtype': '', 'liscence': '', 'imagetype': '', 'imageage': '', 'aspectratio': ''})
+    return url
