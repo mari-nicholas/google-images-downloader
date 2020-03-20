@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from os import path
 import time
+import sys
 
 # Helper function to determine whether element is loaded correctly
 class element_has_src(object):
@@ -35,11 +36,21 @@ def getImageURL(url, limit):
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
     #chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
-    chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+    # chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
 
     # Create a chrome webdriver
-    driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe"),   chrome_options=chrome_options) # Headless
+    # driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe"),   chrome_options=chrome_options) # Headless
     # driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe")) # Not Headless (With Visual Chrome)
+
+    if (sys.platform.startswith('win32') or sys.platform.startswith('cygwin')):
+        chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+        driver = webdriver.Chrome(executable_path=path.abspath("chromedriver.exe"),   chrome_options=chrome_options) # Headless
+
+    elif (sys.platform.startswith('linux')):
+        chrome_options.binary_location = '/usr/bin/google-chrome' # Needs to change depending on OS
+        driver = webdriver.Chrome(executable_path=path.abspath("chromedriver"),   chrome_options=chrome_options) # Headless
+
+
 
     urls = []
     numberOfImages = int(limit)
@@ -50,6 +61,9 @@ def getImageURL(url, limit):
     while i < numberOfImages:
 
         try:
+
+            # sys.stdout.write('\r' + "Getting " + i + " image so far.")
+
             # Get the URL
             driver.get(url)
 
