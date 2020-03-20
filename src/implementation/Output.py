@@ -25,7 +25,6 @@ def downloadImages(lst, key, loc):
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
-        img = img.lower()
         print("\nGetting image from:", img)
 
         try:
