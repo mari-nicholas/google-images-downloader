@@ -15,6 +15,7 @@ from paramiko import SSHClient, AutoAddPolicy, RSAKey
 from paramiko.auth_handler import AuthenticationException, SSHException
 from scp import SCPClient
 import sys
+import shutil
 
 
 ## @brief downloads images
@@ -90,15 +91,14 @@ def moveToServer(keyword, directory, serverhost, serverusername, serverpassword,
     # SCPCLient takes a paramiko transport as an argument
     scp = SCPClient(ssh.get_transport(), progress=progress)
 
-    # Uploading the 'test' directory with its content in the
-    # '/home/user/dump' remote directory
     scp.put(dr, recursive=True, remote_path=remotepath)
 
     scp.close()
 
-    # print("\n", getcwd())
-    # chdir(dr)
-    # print("\n", getcwd())
+    # Delete the local copy of the images
+    chdir(dr)
+    chdir('../')
+    shutil.rmtree(keyword)
 
     print('\033[38;2;255;0;140m' + "\nTransfer complete!" + '\033[0m')
 
