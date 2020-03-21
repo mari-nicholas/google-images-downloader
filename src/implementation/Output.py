@@ -79,6 +79,7 @@ def moveToServer(keyword, directory, serverhost, serverusername, serverpassword,
     print('\033[38;2;255;0;140m' + "\nTransfering image files to the specified server...\n" + '\033[0m')
 
     dr = path.join(directory, keyword)
+    print("Directory where images will be:", dr)
 
     ssh = SSHClient()
     ssh.load_system_host_keys()
