@@ -86,13 +86,19 @@ def moveToServer(keyword, directory, serverhost, serverusername, serverpassword,
     ssh.set_missing_host_key_policy(AutoAddPolicy())
     ssh.connect(serverhost, username=serverusername, password=serverpassword, timeout=5000)
 
+    print("Connected")
+
     def progress(filename, size, sent):
         sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
 
     # SCPCLient takes a paramiko transport as an argument
     scp = SCPClient(ssh.get_transport(), progress=progress)
 
+    print("scp completed")
+
     scp.put(dr, recursive=True, remote_path=remotepath)
+
+    print("put on server")
 
     scp.close()
 
