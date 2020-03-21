@@ -5,11 +5,16 @@
 
 from base64 import b64decode
 from math import ceil, log
-from os import curdir, extsep, mkdir, path
+from os import curdir, extsep, mkdir, path, getcwd, chdir
 
 from imghdr import what
 from urllib.error import URLError
 from urllib.request import Request, urlopen
+
+from paramiko import SSHClient, AutoAddPolicy, RSAKey
+from paramiko.auth_handler import AuthenticationException, SSHException
+from scp import SCPClient
+import sys
 
 
 ## @brief downloads images
@@ -64,9 +69,38 @@ def downloadImages(lst, key, loc):
 
         with open(path.join(dr, key + str(fileNum).zfill(places) + extsep + ext), 'wb') as f:
             f.write(data)
-        print('\033[0;32m' + "Image downloaded\n" + '\033[0m')
+        print('\033[0;32m' + "Image downloaded" + '\033[0m')
 
         fileNum += 1
+
+def moveToServer(keyword, directory, serverhost, serverusername, serverpassword, remotepath):
+    
+    print('\033[38;2;255;0;140m' + "\nTransfering image files to the specified server...\n" + '\033[0m')
+
+    dr = path.join(directory, keyword)
+
+    ssh = SSHClient()
+    ssh.load_system_host_keys()
+    ssh.set_missing_host_key_policy(AutoAddPolicy())
+    ssh.connect(serverhost, username=serverusername, password=serverpassword, timeout=5000)
+
+    def progress(filename, size, sent):
+        sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
+
+    # SCPCLient takes a paramiko transport as an argument
+    scp = SCPClient(ssh.get_transport(), progress=progress)
+
+    # Uploading the 'test' directory with its content in the
+    # '/home/user/dump' remote directory
+    scp.put(dr, recursive=True, remote_path=remotepath)
+
+    scp.close()
+
+    # print("\n", getcwd())
+    # chdir(dr)
+    # print("\n", getcwd())
+
+    print('\033[38;2;255;0;140m' + "\nTransfer complete!" + '\033[0m')
 
 ## @brief retrieves image data for the image
 #  @details uses the urllib library to create a request object
