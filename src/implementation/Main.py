@@ -4,13 +4,15 @@
 from Input import userInput
 from NavigatePage import getImageURL
 from SearchQuery import buildURL
-from Output import downloadImages
+from Output import downloadImages, moveToServer
 
 def main():
     args = userInput()
     url = buildURL(args)
     urls = getImageURL(url, args["limit"])
     downloadImages(urls, args["keyword"], args["directory"])
+    if (args["serverhost"] != ""):
+        moveToServer(args["keyword"], args["directory"], args["serverhost"], args["serverusername"], args["serverpassword"])
 
 if __name__ == '__main__':
     main()

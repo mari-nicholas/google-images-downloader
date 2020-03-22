@@ -10,7 +10,7 @@ def buildURLParam(args):
 
     #print(args)
     for i in args:
-    	if args[i] and (not (i == 'keyword')) and (not (i == 'limit')) and (not (i == 'safesearch')) and (not (i == 'directory')):
+    	if args[i] and (not (i == 'keyword')) and (not (i == 'limit')) and (not (i == 'safesearch')) and (not (i == 'directory') and (not (i == 'serverhost')) and (not (i == 'serverusername')) and (not (i == 'serverpassword')) and (not (i == 'remotepath'))):
     		if params:
     			params = params + ',' + args[i]
     		else:

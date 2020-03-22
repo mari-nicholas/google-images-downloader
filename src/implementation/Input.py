@@ -30,6 +30,11 @@ def userInput():
 		cmdParser.add_argument('-t', '--imagetype',  type=str, required=False, default='',  help='search for a specific type of image', choices=['face','photo','clipart','line-drawing','animated'])
 		cmdParser.add_argument('-a', '--imageage', type=str, required=False, default='', help='search for how long ago the image was uploaded', choices=['past-24-hours','past-7-days','past-month','past-year'])
 		cmdParser.add_argument('-ar', '--aspectratio', type=str, required=False, default='', help='search based on the aspect ratio of the image', choices=['tall', 'square', 'wide', 'panoramic'])
+		cmdParser.add_argument('-s', '--serverhost', type=str, required=False, default='', help='specify a server hostname to download the images to')
+		cmdParser.add_argument('-u', '--serverusername', type=str, required=False, default='', help='specify a server username')
+		cmdParser.add_argument('-p', '--serverpassword', type=str, required=False, default='', help='specify a server password')
+		# cmdParser.add_argument('-rp', '--remotepath', type=str, required=False, default='', help='specify a remote path to save the images to')
+		
 		args = cmdParser.parse_args()
 
 
