@@ -74,38 +74,35 @@ def downloadImages(lst, key, loc):
 
         fileNum += 1
 
-def moveToServer(keyword, directory, serverhost, serverusername, serverpassword, remotepath):
+def moveToServer(keyword, directory, serverhost, serverusername, serverpassword):
     
     print('\033[38;2;255;0;140m' + "\nTransfering image files to the specified server...\n" + '\033[0m')
 
-    dr = path.join(directory, keyword)
-    print("Directory where images will be:", dr)
+    try: 
+        dr = path.join(directory, keyword)
 
-    ssh = SSHClient()
-    ssh.load_system_host_keys()
-    ssh.set_missing_host_key_policy(AutoAddPolicy())
-    ssh.connect(serverhost, username=serverusername, password=serverpassword, timeout=5000)
+        ssh = SSHClient()
+        ssh.load_system_host_keys()
+        ssh.set_missing_host_key_policy(AutoAddPolicy())
+        ssh.connect(serverhost, username=serverusername, password=serverpassword, timeout=5000)
 
-    print("Connected")
+        def progress(filename, size, sent):
+            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
 
-    def progress(filename, size, sent):
-        sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
+        # SCPCLient takes a paramiko transport as an argument
+        scp = SCPClient(ssh.get_transport(), progress=progress)
 
-    # SCPCLient takes a paramiko transport as an argument
-    scp = SCPClient(ssh.get_transport(), progress=progress)
+        scp.put(dr, recursive=True)
 
-    print("scp completed")
+        scp.close()
 
-    scp.put(dr, recursive=True, remote_path=remotepath)
+        # Delete the local copy of the images
+        chdir(dr)
+        chdir('../')
+        shutil.rmtree(keyword)
 
-    print("put on server")
-
-    scp.close()
-
-    # Delete the local copy of the images
-    chdir(dr)
-    chdir('../')
-    shutil.rmtree(keyword)
+    except:
+        print("There was an issue copying them to the server")
 
     print('\033[38;2;255;0;140m' + "\nTransfer complete!" + '\033[0m')
 

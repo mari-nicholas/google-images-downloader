@@ -12,7 +12,7 @@ def main():
     urls = getImageURL(url, args["limit"])
     downloadImages(urls, args["keyword"], args["directory"])
     if (args["serverhost"] != ""):
-        moveToServer(args["keyword"], args["directory"], args["serverhost"], args["serverusername"], args["serverpassword"], args["remotepath"])
+        moveToServer(args["keyword"], args["directory"], args["serverhost"], args["serverusername"], args["serverpassword"])
 
 if __name__ == '__main__':
     main()
