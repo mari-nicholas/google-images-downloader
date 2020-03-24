@@ -1,11 +1,12 @@
-# Secrets: The layout of the Google search page.
-# Services: Uses the processed Google search query to obtain the URL of each individual image.
+## @file NavigatePage.py
+#  @author Joshua Guinness, Samuel Crawford
+#  @brief Provides the functionality for getting the image URLs to download
+#  @date 03/24/2020
 
 from os import path
 from platform import system
 from sys import stdout
 
-from bs4 import BeautifulSoup
 from lxml import html
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -14,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 
-# Helper function to determine whether element is loaded correctly
+# Helper class to determine whether element is loaded correctly
 class element_has_src(object):
   """An expectation for checking that an element has a src with regex: http*
 
@@ -31,12 +32,21 @@ class element_has_src(object):
     else:
         return False
 
+
+## @brief gets the image URLs
+#  @details Uses selenium to open up the search
+#  query URL and then navigate to each individual
+#  image to get its URL and adding it to a list
+#  @param url search query URL
+#  @param limit number of images to get
+#  @return urls list of image urls to download
 def getImageURL(url, limit):
 
     # Setting chrome options, specifically headless (runs without visual browswer)
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
     
+    # Options for different platforms
     plt = system()
     if plt == "Windows":
         chrome_options.binary_location = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
@@ -53,12 +63,13 @@ def getImageURL(url, limit):
 
     print('\033[38;2;244;208;63m' + "Getting the image URLs, please be patient this may take some time." + '\033[0m')
 
+    # While loop which iterates until the limit #
+    # of images has been added the list
     while len(urls) < limit:
 
         print("Getting image #" + str(i+1))
 
         try:
-
             # Get the URL
             driver.get(url)
 

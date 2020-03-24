@@ -74,26 +74,41 @@ def downloadImages(lst, key, loc):
 
         fileNum += 1
 
+
+## @brief moves all images to a specified server
+#  @details after downloading the images locally,
+#  scp's all the images to a specified server, then
+#  deletes the local copy of the images
+#  @param keyword the keyword being searched for
+#  @param directory local directory where the images are
+#  @param serverhost hostname of the server
+#  @param serverusername the username to access the server
+#  @param serverpassword the password associated with the username
+#  to access the server
 def moveToServer(keyword, directory, serverhost, serverusername, serverpassword):
     
     print('\033[38;2;255;0;140m' + "\nTransfering image files to the specified server...\n" + '\033[0m')
 
     try: 
+
+        # Gets the current local location of the images
         dr = path.join(directory, keyword)
 
+        # Creates and configures ssh client
         ssh = SSHClient()
         ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(AutoAddPolicy())
         ssh.connect(serverhost, username=serverusername, password=serverpassword, timeout=5000)
 
+        # Function to show progress bars in console
         def progress(filename, size, sent):
             sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(ssh.get_transport(), progress=progress)
 
+        # Puts the images ont he server and closes the connection
         scp.put(dr, recursive=True)
-
         scp.close()
 
         # Delete the local copy of the images
