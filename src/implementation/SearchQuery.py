@@ -20,7 +20,7 @@ def buildURLParam(args):
     				'orange' : 'ic:specific,isc:orange',
     				'yellow':'ic:specific,isc:yellow',
     				'green':'ic:specific,isc:green',
-    				'teal':'ic:specific,isc:teel',
+    				'teal':'ic:specific,isc:teal',
     				'blue':'ic:specific,isc:blue',
     				'purple':'ic:specific,isc:purple', 
     				'pink':'ic:specific,isc:pink', 
