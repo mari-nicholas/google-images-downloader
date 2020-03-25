@@ -7,7 +7,7 @@ from os import curdir, path
 
 def userInput():
 	parser = ArgumentParser()
-	parser.add_argument('-f', '--file', default='', type=str, required=False, help='gets args from file. Takes file path to .txt file')
+	parser.add_argument('-ff', '--fromfile', default='', type=str, required=False, help='gets args from file. Takes file path to .txt file')
 
 	#Want this function so it doesn't give error when parsing with unknown args
 	fileArg = parser.parse_known_args()
@@ -15,8 +15,8 @@ def userInput():
 	#Turns it into a dict
 	fileArg = vars(fileArg[0])
 
-	if(fileArg['file']):
-		return keywordFromFile(fileArg['file'])
+	if(fileArg['fromfile']):
+		return keywordFromFile(fileArg['fromfile'])
 	else:
 		cmdParser = ArgumentParser()
 		cmdParser.add_argument('-k', '--keyword', required=True, help='Keyword for the google images you want')
@@ -30,6 +30,7 @@ def userInput():
 		cmdParser.add_argument('-t', '--imagetype',  type=str, required=False, default='',  help='search for a specific type of image', choices=['face','photo','clipart','line-drawing','animated'])
 		cmdParser.add_argument('-a', '--imageage', type=str, required=False, default='', help='search for how long ago the image was uploaded', choices=['past-24-hours','past-7-days','past-month','past-year'])
 		cmdParser.add_argument('-ar', '--aspectratio', type=str, required=False, default='', help='search based on the aspect ratio of the image', choices=['tall', 'square', 'wide', 'panoramic'])
+		cmdParser.add_argument('-is', '--imagesize', type=str, required=False, help='search based on approximate size of image desired', choices=['large','medium','icon','>400*300','>640*480','>800*600','>1024*768','>2MP','>4MP','>6MP','>8MP','>10MP','>12MP','>15MP','>20MP','>40MP','>70MP'])
 		cmdParser.add_argument('-s', '--serverhost', type=str, required=False, default='', help='specify a server hostname to download the images to')
 		cmdParser.add_argument('-u', '--serverusername', type=str, required=False, default='', help='specify a server username')
 		cmdParser.add_argument('-p', '--serverpassword', type=str, required=False, default='', help='specify a server password')

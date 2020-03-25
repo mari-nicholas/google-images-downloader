@@ -6,17 +6,87 @@ from urllib.parse import quote
 def buildURLParam(args):
     #print("Build URL Parameters Function")
 
+    searchArgs = {	'aspectratio' : args['aspectratio'],
+    				'colour' : args['colour'],
+    				'colourtype' : args['colourtype'],
+    				'filetype' : args['filetype'],
+    				'imageage' : args['imageage'],
+    				'imagesize' : args['imagesize'],
+    				'imagetype' : args['imagetype'],
+    				'license' : args['license']
+    			 }
+
+   	#This contains all the equivalent text that will be used in the url rather than what is input at the command line
+   	#For example, in the url Red will become ic:specific,isc:red
+    urlFormats = {	'red' : 'ic:specific,isc:red',
+    				'orange' : 'ic:specific,isc:orange',
+    				'yellow':'ic:specific,isc:yellow',
+    				'green':'ic:specific,isc:green',
+    				'teal':'ic:specific,isc:teel',
+    				'blue':'ic:specific,isc:blue',
+    				'purple':'ic:specific,isc:purple', 
+    				'pink':'ic:specific,isc:pink', 
+    				'white':'ic:specific,isc:white', 
+    				'gray':'ic:specific,isc:gray', 
+    				'black':'ic:specific,isc:black',
+    				'brown':'ic:specific,isc:brown',
+    				'full-color':'ic:color',
+    				'black-and-white':'ic:gray',
+    				'transparent':'ic:trans',
+    				'labeled-for-reuse-with-modifications':'sur:fmc',
+    				'labeled-for-reuse':'sur:fc',
+    				'labeled-for-noncommercial-reuse-with-modification':'sur:fm',
+    				'labeled-for-nocommercial-reuse':'sur:f',
+    				'large':'isz:l',
+    				'medium':'isz:m',
+    				'icon':'isz:i',
+    				'>400*300':'isz:lt,islt:qsvga',
+    				'>640*480':'isz:lt,islt:vga',
+    				'>800*600':'isz:lt,islt:svga',
+    				'>1024*768':'visz:lt,islt:xga',
+    				'>2MP':'isz:lt,islt:2mp',
+    				'>4MP':'isz:lt,islt:4mp',
+    				'>6MP':'isz:lt,islt:6mp',
+    				'>8MP':'isz:lt,islt:8mp',
+    				'>10MP':'isz:lt,islt:10mp',
+    				'>12MP':'isz:lt,islt:12mp',
+    				'>15MP':'isz:lt,islt:15mp',
+    				'>20MP':'isz:lt,islt:20mp',
+    				'>40MP':'isz:lt,islt:40mp',
+    				'>70MP':'isz:lt,islt:70mp',
+    				'face':'itp:face',
+    				'photo':'itp:photo',
+    				'clipart':'itp:clipart',
+    				'line-drawing':'itp:lineart',
+    				'animated':'itp:animated',
+    				'past-24-hours':'qdr:d',
+    				'past-7-days':'qdr:w',
+    				'past-month':'qdr:m',
+    				'past-year':'qdr:y',
+    				'tall':'iar:t',
+    				'square':'iar:s',
+    				'wide':'iar:w',
+    				'panoramic':'iar:xw',
+    				'jpg':'ift:jpg',
+    				'gif':'ift:gif',
+    				'png':'ift:png',
+    				'bmp':'ift:bmp',
+    				'svg':'ift:svg',
+    				'webp':'webp',
+    				'ico':'ift:ico'
+    			 }
+
     params = ''
 
     #print(args)
-    for i in args:
-    	if args[i] and (not (i == 'keyword')) and (not (i == 'limit')) and (not (i == 'safesearch')) and (not (i == 'directory') and (not (i == 'serverhost')) and (not (i == 'serverusername')) and (not (i == 'serverpassword')) and (not (i == 'remotepath'))):
+    for i in searchArgs:
+    	if searchArgs[i]:
     		if params:
-    			params = params + ',' + args[i]
+    			params = params + ',' + urlFormats[searchArgs[i]]
     		else:
-    			params += args[i]
+    			params += urlFormats[searchArgs[i]]
 
-    params = '&tbm=' + params
+    print(quote(params.encode('utf-8')))
 
     return params
 
@@ -25,7 +95,7 @@ def buildURL(args):
 
     params = buildURLParam(args)
 
-    url = 'https://www.google.com/search?q=' + quote(args['keyword'].encode('utf-8')) + '&espv=2&sxsrf=ACYBGNSwqBUElVjmEWOTu3-mXPnReqFoLw:1581376760401&source=lnms' + params + 'isch&sa=X&ved=2ahUKEwiY7bzAj8jnAhUQjq0KHbXwBEYQ_AUoAXoECBMQAw&biw=838&bih=880'
+    url = 'https://www.google.com/search?q=' + quote(args['keyword'].encode('utf-8')) + '&tbm=isch&hl=en&hl=en&tbs=' + quote(params.encode('utf-8')) + '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760'
 
     if(args['safesearch']):
     	url += "&safe=active"
