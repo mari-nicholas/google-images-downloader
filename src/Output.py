@@ -6,6 +6,7 @@
 from base64 import b64decode
 from math import ceil, log
 from os import curdir, extsep, mkdir, path, getcwd, chdir
+import sys
 
 from imghdr import what
 from urllib.error import URLError
@@ -14,7 +15,6 @@ from urllib.request import Request, urlopen
 from paramiko import SSHClient, AutoAddPolicy, RSAKey
 from paramiko.auth_handler import AuthenticationException, SSHException
 from scp import SCPClient
-import sys
 import shutil
 
 
@@ -50,18 +50,24 @@ def downloadImages(lst, key, loc):
                     if "jpg" in img:
                         ext = "jpg"
                     else:
-                        print("Unrecognized file format")
+                        print("\033[0;31mUnrecognized file format\033[0m")
                         continue
 
                 if not img.endswith(ext):
-                    img = img[:img.rfind(ext)+len(ext)] # strips anything after the file extension
-                    print("Chopped image URL: ", img)
-                    data = getRequest(img)
+                    start = img.rfind(ext)
+                    if start > 0:
+                        img = img[:start+len(ext)] # strips anything after the file extension
+                        print("Chopped image URL: ", img)
+                        data = getRequest(img)
+                    else:
+                        print("\033[0;31mUnrecognized file format\033[0m")
+                        continue
+
         except URLError:
-            print("Couldn't find image URL")
+            print("\033[0;31mCouldn't find image URL\033[0m")
             continue
         except Exception as e:
-            print("Something went wrong when downloading image")
+            print("\033[0;31mSomething went wrong when downloading image\033[0m")
             continue
 
         # Might be needed in future to avoid "mismatch between tag" WinError
