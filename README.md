@@ -80,6 +80,16 @@ The folders and files for this project are as follows:
 |       README.md
 |       
 \---src
-        .gitkeep
-        README.md
+    |   chromedriver
+    |   chromedriver.exe
+    |   debug
+    |   Input.py
+    |   Main.py
+    |   NavigatePage.py
+    |   Output.py
+    |   README.md
+    |   SearchQuery.py
+    |
+    \---Images
+            .gitkeep
 ```
