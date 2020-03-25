@@ -4,8 +4,6 @@
 from urllib.parse import quote
 
 def buildURLParam(args):
-    #print("Build URL Parameters Function")
-
     searchArgs = {	'aspectratio' : args['aspectratio'],
     				'colour' : args['colour'],
     				'colourtype' : args['colourtype'],
@@ -76,28 +74,20 @@ def buildURLParam(args):
     				'ico':'ift:ico'
     			 }
 
-    params = ''
+    params = [urlFormats[searchArgs[i]] for i in searchArgs if searchArgs[i]]
 
-    #print(args)
-    for i in searchArgs:
-    	if searchArgs[i]:
-    		if params:
-    			params = params + ',' + urlFormats[searchArgs[i]]
-    		else:
-    			params += urlFormats[searchArgs[i]]
-
-    print(quote(params.encode('utf-8')))
-
-    return params
+    return ",".join(params)
 
 def buildURL(args):
     #print("Build URL Function")
 
     params = buildURLParam(args)
 
-    url = 'https://www.google.com/search?q=' + quote(args['keyword'].encode('utf-8')) + '&tbm=isch&hl=en&hl=en&tbs=' + quote(params.encode('utf-8')) + '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760'
+    url = 'https://www.google.com/search?q=' + quote(args['keyword'].encode('utf-8')) + \
+        '&tbm=isch&hl=en&hl=en&tbs=' + quote(params.encode('utf-8')) + \
+        '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760'
 
-    if(args['safesearch']):
+    if args['safesearch']:
     	url += "&safe=active"
 
     return url
