@@ -20,7 +20,7 @@ def userInput():
 	else:
 		cmdParser = ArgumentParser()
 		cmdParser.add_argument('-k', '--keyword', required=True, help='Keyword for the google images you want')
-		cmdParser.add_argument('-l', '--limit', type=int, default=100, help='Limit for the number of images you want')
+		cmdParser.add_argument('-l', '--limit', type=int, default=10, help='Limit for the number of images you want')
 		cmdParser.add_argument('-ss', '--safesearch', default=False, help="Turns on safe search", action='store_true')
 		cmdParser.add_argument('-ft', '--filetype', type=str, required=False, default='', help='download images of specific file type', choices=['jpg', 'gif', 'png', 'bmp', 'svg', 'webp', 'ico'])
 		cmdParser.add_argument('-d', '--directory', type=str, required=False, default=path.join(curdir, "Images"), help='download images to folder in a specific directory')
