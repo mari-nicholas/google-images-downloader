@@ -1,6 +1,5 @@
 # Images folder
-src/poc/Images/*
-src/implementation/Images/*
+src/Images/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
