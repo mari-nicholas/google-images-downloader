@@ -1,0 +1,10 @@
+Reasons why the image URL could not be gotten:
+
+- In the HTML, only the image thumnail url exists and it is never resolved to the actual image url.
+	- This seems to happen to images from wikipedia. 
+
+- In the HTML, only the cached image url exists
+	- Also happens to images from wikipedia
+
+
+Reasons why the image could not be downloaded from the URL:
