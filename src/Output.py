@@ -5,15 +5,14 @@
 
 from base64 import b64decode
 from math import ceil, log
-from os import curdir, extsep, mkdir, path, getcwd, chdir
+from os import extsep, mkdir, path, chdir
 import sys
 
 from imghdr import what
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-from paramiko import SSHClient, AutoAddPolicy, RSAKey
-from paramiko.auth_handler import AuthenticationException, SSHException
+from paramiko import SSHClient, AutoAddPolicy
 from scp import SCPClient
 import shutil
 
@@ -33,49 +32,53 @@ def downloadImages(lst, key, loc):
     for img in lst:
 
         try:
-            if img.startswith("data:image"): # allows for downloading base64 images
+            # allows for downloading base64 images
+            if img.startswith("data:image"):
                 base = img.find(";base64,")
                 ext = img[11:base]
-                img = img[base+8:]
+                img = img[base + 8:]
                 print("Image encoded in base64")
                 data = b64decode(img)
             else:
                 print("\nGetting image from:", img)
                 data = getRequest(img)
-                ext = what("", data) # reads file extension
-                if ext == "jpeg" and ext not in img: # circumvents jpg bug
+                ext = what("", data)  # reads file extension
+                if ext == "jpeg" and ext not in img:  # circumvents jpg bug
                     ext = "jpg"
                 elif not ext:
                     if "jpg" in img:
                         ext = "jpg"
                     else:
-                        print("\033[0;31mUnrecognized file format\033[0m")
+                        colourMsg("Unrecognized file format", 31)
                         continue
 
                 if not img.endswith(ext):
                     start = img.rfind(ext)
                     if start > 0:
-                        img = img[:start+len(ext)] # strips anything after the file extension
+                        # strips anything after the file extension
+                        img = img[:start + len(ext)]
                         print("Chopped image URL:", img)
                         data = getRequest(img)
                     else:
-                        print("\033[0;31mUnrecognized file format\033[0m")
+                        colourMsg("Unrecognized file format", 31)
                         continue
 
         except URLError:
-            print("\033[0;31mCouldn't find image URL\033[0m")
+            colourMsg("Couldn't find image URL", 31)
             continue
-        except Exception as e:
-            print("\033[0;31mSomething went wrong when downloading image\033[0m")
+        except Exception:
+            colourMsg("Something went wrong when downloading image", 31)
             continue
 
         # Might be needed in future to avoid "mismatch between tag" WinError
         # if ext == "jpg":
         #     ext = "jpeg"
 
-        with open(path.join(dr, key + str(fileNum).zfill(places) + extsep + ext), 'wb') as f:
+        filename = key + str(fileNum).zfill(places) + extsep + ext
+        with open(path.join(dr, filename), 'wb') as f:
             f.write(data)
-        print('\033[0;32m' + "Image downloaded" + '\033[0m')
+
+        colourMsg("Image downloaded", 32)
 
         fileNum += 1
 
@@ -91,12 +94,11 @@ def downloadImages(lst, key, loc):
 #  @param spass the password associated with the username
 #  to access the server
 def moveToServer(key, direc, shost, suser, spass):
-    
-    print('\033[38;2;255;0;140m' + 
-          "\nTransfering image files to the specified server...\n" + 
-          '\033[0m')
 
-    try: 
+    colourMsg("Transferring image files to the specified server...\n\n",
+              "38;2;255;0;140")
+
+    try:
 
         # Gets the current local location of the images
         dr = path.join(direc, key)
@@ -109,7 +111,8 @@ def moveToServer(key, direc, shost, suser, spass):
 
         # Function to show progress bars in console
         def progress(filename, size, sent):
-            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
+            p = float(sent) / float(size) * 100
+            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(ssh.get_transport(), progress=progress)
@@ -123,24 +126,26 @@ def moveToServer(key, direc, shost, suser, spass):
         chdir('../')
         shutil.rmtree(key)
 
-    except:
+    except Exception:
         print("There was an issue copying them to the server")
 
-    print('\033[38;2;255;0;140m' + 
-          "\nTransfer complete!" + 
-          '\033[0m')
+    colourMsg("\nTransfer complete!", "38;2;255;0;140")
+
 
 ## @brief retrieves image data for the image
 #  @details uses the urllib library to create a request object
 #  to read the image data
 #  @param img the image URL
 def getRequest(img):
-    req = Request(img, headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+    h = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 " + \
+        "(KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
+    req = Request(img, headers={"User-Agent": h})
     response = urlopen(req)
     data = response.read()
     response.close()
 
     return data
+
 
 ## @brief creates the given directory d if non-existent
 #  @param d the name of the directory to create
@@ -148,9 +153,16 @@ def createDir(d):
     if not path.exists(d):
         try:
             mkdir(d)
-        except Exception as e:
+        except Exception:
             print("Creation of the directory %s failed" % d)
         else:
             print("Successfully created the directory %s" % d)
     else:
         print("Directory %s already exists" % d)
+
+
+## @brief prints string wrapped in colour markers
+#  @param s the string to be wrapped
+#  @param n the colour tag
+def colourMsg(s, n):
+    print("\033[0;" + str(n) + "m" + s + "\033[0m")
