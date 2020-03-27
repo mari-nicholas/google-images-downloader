@@ -147,12 +147,13 @@ def getRequest(img):
 #  @param loc the parent directory
 #  @param d   the name of the subdirectory for images
 def createDir(loc, d):
-    if path.isdir(loc) and not path.exists(d):
+    newDir = path.join(loc, d)
+    if not path.exists(newDir):
         try:
-            mkdir(d)
+            mkdir(newDir)
         except Exception as e:
             print("Creation of the directory %s failed" % d)
         else:
-            print("Successfully created the directory %s " % d)
+            print("Successfully created the directory %s" % d)
     else:
         print("Directory %s already exists" % d)
