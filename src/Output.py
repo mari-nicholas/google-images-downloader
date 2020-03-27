@@ -34,7 +34,6 @@ def downloadImages(lst, key, loc):
         print("\nGetting image from:", img)
 
         try:
-            data = getRequest(img)
             if img.startswith("data:image"): # allows for downloading base64 images
                 base = img.find(";base64,")
                 ext = img[11:base]
@@ -42,6 +41,7 @@ def downloadImages(lst, key, loc):
                 print("Encoded in base64: ", img)
                 data = b64decode(img)
             else:
+                data = getRequest(img)
                 ext = what("", data) # reads file extension
                 if ext == "jpeg" and ext not in img: # circumvents jpg bug
                     ext = "jpg"

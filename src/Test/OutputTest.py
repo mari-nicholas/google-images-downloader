@@ -48,3 +48,20 @@ class TestCreateDir:
         assert path.isdir(newPath)
         rmdir(newPath)
         assert not path.isdir(newPath)
+
+# local function for comparing data read from request to data read from saved image
+def imageEqualsRequest(url, filename):
+    with open(path.join(curdir, "ImagesForTesting", filename), "rb") as f:
+        saved = f.read()
+
+    return saved == getRequest(url)
+
+class TestGetRequest:
+    def test_JPG(self, capfd):
+        assert imageEqualsRequest("https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg", "cursed.jpg")
+
+    def test_GIF(self, capfd):
+        assert imageEqualsRequest("https://www.homestuck.com/images/storyfiles/hs2/00379.gif", "youthRoll.gif")
+
+    def test_PNG(self, capfd):
+        assert imageEqualsRequest("https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png", "sonic.png")
