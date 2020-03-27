@@ -112,3 +112,27 @@ Getting image from: https://www.homestuck.com/images/storyfiles/hs2/00379.gif
 Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png
 \033[0;32mImage downloaded\033[0m
 """
+
+    def test_base64(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+        assert not path.isdir(downloadDir)
+
+        #get base64 data from file
+        with open(path.join(curdir, "Test", "base64boiData.txt"), "r") as f:
+            data = f.read()
+
+        downloadImages([data], "testing", path.join(curdir, "Images"))
+
+        assert path.isdir(downloadDir)
+        assert imageEqualsImage("base64boi.png", downloadDir, "testing0.png")
+
+        remove(path.join(downloadDir, "testing0.png"))
+        rmdir(downloadDir)
+
+        assert not path.isdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+Image encoded in base64
+\033[0;32mImage downloaded\033[0m
+"""

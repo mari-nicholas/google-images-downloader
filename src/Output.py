@@ -31,16 +31,16 @@ def downloadImages(lst, key, loc):
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
-        print("\nGetting image from:", img)
 
         try:
             if img.startswith("data:image"): # allows for downloading base64 images
                 base = img.find(";base64,")
                 ext = img[11:base]
                 img = img[base+8:]
-                print("Encoded in base64: ", img)
+                print("Image encoded in base64")
                 data = b64decode(img)
             else:
+                print("\nGetting image from:", img)
                 data = getRequest(img)
                 ext = what("", data) # reads file extension
                 if ext == "jpeg" and ext not in img: # circumvents jpg bug
@@ -56,7 +56,7 @@ def downloadImages(lst, key, loc):
                     start = img.rfind(ext)
                     if start > 0:
                         img = img[:start+len(ext)] # strips anything after the file extension
-                        print("Chopped image URL: ", img)
+                        print("Chopped image URL:", img)
                         data = getRequest(img)
                     else:
                         print("\033[0;31mUnrecognized file format\033[0m")
