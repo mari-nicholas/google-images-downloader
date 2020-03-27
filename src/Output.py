@@ -27,7 +27,7 @@ import shutil
 #  @param loc the directory to save the images to
 def downloadImages(lst, key, loc):
     dr = path.join(loc, key)
-    createDir(loc, dr)
+    createDir(dr)
     fileNum, places = 0, ceil(log(len(lst), 10))
 
     for img in lst:
@@ -45,7 +45,6 @@ def downloadImages(lst, key, loc):
                 ext = what("", data) # reads file extension
                 if ext == "jpeg" and ext not in img: # circumvents jpg bug
                     ext = "jpg"
-                    data = getRequest(img)
                 elif not ext:
                     if "jpg" in img:
                         ext = "jpg"
@@ -143,14 +142,12 @@ def getRequest(img):
 
     return data
 
-## @brief creates the given directory d in loc if non-existent
-#  @param loc the parent directory
-#  @param d   the name of the subdirectory for images
-def createDir(loc, d):
-    newDir = path.join(loc, d)
-    if not path.exists(newDir):
+## @brief creates the given directory d if non-existent
+#  @param d the name of the directory to create
+def createDir(d):
+    if not path.exists(d):
         try:
-            mkdir(newDir)
+            mkdir(d)
         except Exception as e:
             print("Creation of the directory %s failed" % d)
         else:

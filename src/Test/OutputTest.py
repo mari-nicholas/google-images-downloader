@@ -3,7 +3,7 @@
 #  @brief Tests the functionality of Output.pt
 #  @date 03/25/2020
 
-from os import curdir, chdir, path, rmdir
+from os import curdir, chdir, path, remove, rmdir
 import sys
 
 from inspect import currentframe, getfile
@@ -17,37 +17,38 @@ from Output import *
 
 class TestCreateDir:
     def test_exist_directory(self, capfd):
-        newPath = path.join(curdir, "Images")
-        assert path.isdir(newPath)
+        newDir = path.join(curdir, "Images")
+        assert path.isdir(newDir)
 
-        createDir(curdir, "Images")
+        createDir(newDir)
         out, err = capfd.readouterr()
 
-        assert out == "Directory Images already exists\n"
-        assert path.isdir(newPath)
+        assert out == "Directory " + newDir + " already exists\n"
+        assert path.isdir(newDir)
 
     def test_error_creating_directory(self, capfd):
-        newPath = path.join(curdir, "nonexistant")
-        assert not path.isdir(newPath)
+        parDir = path.join(curdir, "nonexistant")
+        newDir = path.join(parDir, "Images")
+        assert not path.isdir(newDir)
 
-        createDir(newPath, "Images")
+        createDir(newDir)
         out, err = capfd.readouterr()
 
-        assert out == "Creation of the directory Images failed\n"
-        assert not path.isdir(newPath)
-        assert not path.isdir(path.join(newPath, "Images"))
+        assert out == "Creation of the directory " + newDir + " failed\n"
+        assert not path.isdir(parDir)
+        assert not path.isdir(newDir)
 
     def test_success_creating_directory(self, capfd):
-        newPath = path.join(curdir, "Images", "test")
-        assert not path.isdir(newPath)
+        newDir = path.join(curdir, "Images", "test")
+        assert not path.isdir(newDir)
 
-        createDir(path.join(curdir, "Images"), "test")
+        createDir(newDir)
         out, err = capfd.readouterr()
 
-        assert out == "Successfully created the directory test\n"
-        assert path.isdir(newPath)
-        rmdir(newPath)
-        assert not path.isdir(newPath)
+        assert out == "Successfully created the directory " + newDir + "\n"
+        assert path.isdir(newDir)
+        rmdir(newDir)
+        assert not path.isdir(newDir)
 
 # local function for comparing data read from request to data read from saved image
 def imageEqualsRequest(url, filename):
@@ -65,3 +66,49 @@ class TestGetRequest:
 
     def test_PNG(self, capfd):
         assert imageEqualsRequest("https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png", "sonic.png")
+
+# local function for comparing data read from two saved images
+def imageEqualsImage(testFile, d, img):
+    with open(path.join(curdir, "ImagesForTesting", testFile), "rb") as f:
+        img1 = f.read()
+
+    with open(path.join(d, img), "rb") as f:
+        img2 = f.read()
+
+    return img1 == img2
+
+
+class TestDownloadImages:
+    def test_normal(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+        assert not path.isdir(downloadDir)
+
+        downloadImages(["https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg",
+            "https://www.homestuck.com/images/storyfiles/hs2/00379.gif",
+            "https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png"],
+            "testing", path.join(curdir, "Images"))
+
+        assert path.isdir(downloadDir)
+        assert imageEqualsImage("cursed.jpg", downloadDir, "testing0.jpg")
+        assert imageEqualsImage("youthRoll.gif", downloadDir, "testing1.gif")
+        assert imageEqualsImage("sonic.png", downloadDir, "testing2.png")
+
+        remove(path.join(downloadDir, "testing0.jpg"))
+        remove(path.join(downloadDir, "testing1.gif"))
+        remove(path.join(downloadDir, "testing2.png"))
+        rmdir(downloadDir)
+
+        assert not path.isdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+
+Getting image from: https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg
+\033[0;32mImage downloaded\033[0m
+
+Getting image from: https://www.homestuck.com/images/storyfiles/hs2/00379.gif
+\033[0;32mImage downloaded\033[0m
+
+Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png
+\033[0;32mImage downloaded\033[0m
+"""
