@@ -52,7 +52,7 @@ class TestCreateDir:
 
 # local function for comparing data read from request to data read from saved image
 def imageEqualsRequest(url, filename):
-    with open(path.join(curdir, "ImagesForTesting", filename), "rb") as f:
+    with open(path.join(curdir, "Test", "ImagesForTesting", filename), "rb") as f:
         saved = f.read()
 
     return saved == getRequest(url)
@@ -69,7 +69,7 @@ class TestGetRequest:
 
 # local function for comparing data read from two saved images
 def imageEqualsImage(testFile, d, img):
-    with open(path.join(curdir, "ImagesForTesting", testFile), "rb") as f:
+    with open(path.join(curdir, "Test", "ImagesForTesting", testFile), "rb") as f:
         img1 = f.read()
 
     with open(path.join(d, img), "rb") as f:
