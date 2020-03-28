@@ -154,7 +154,6 @@ Image encoded in base64
         remove(path.join(downloadDir, "testing1.png"))
         rmdir(downloadDir)
 
-
         out, err = capfd.readouterr()
         assert out == """Successfully created the directory .\\Images\\testing
 
@@ -164,4 +163,18 @@ Chopped image URL: https://vignette.wikia.nocookie.net/mspaintadventures/images/
 
 Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
 \033[0;32mImage downloaded\033[0m
+"""
+
+    def test_invalid_image_url(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+
+        downloadImages(["notaURL"], "testing", path.join(curdir, "Images"))
+
+        rmdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+
+Getting image from: notaURL
+\033[0;31mSomething went wrong when downloading image\033[0m
 """
