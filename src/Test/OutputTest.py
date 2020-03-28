@@ -1,6 +1,6 @@
 ## @file OutputTest.py
 #  @author Samuel Crawford
-#  @brief Tests the functionality of Output.pt
+#  @brief Tests the functionality of Output.py
 #  @date 03/25/2020
 
 from os import curdir, chdir, path, remove, rmdir
