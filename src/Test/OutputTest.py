@@ -115,7 +115,7 @@ Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-ne
 
     def test_base64(self, capfd):
         downloadDir = path.join(curdir, "Images", "testing")
-        assert not path.isdir(downloadDir)
+        #assert not path.isdir(downloadDir)
 
         #get base64 data from file
         with open(path.join(curdir, "Test", "base64boiData.txt"), "r") as f:
@@ -123,16 +123,58 @@ Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-ne
 
         downloadImages([data], "testing", path.join(curdir, "Images"))
 
-        assert path.isdir(downloadDir)
+        #assert path.isdir(downloadDir)
         assert imageEqualsImage("base64boi.png", downloadDir, "testing0.png")
 
         remove(path.join(downloadDir, "testing0.png"))
         rmdir(downloadDir)
 
-        assert not path.isdir(downloadDir)
+        #assert not path.isdir(downloadDir)
 
         out, err = capfd.readouterr()
         assert out == """Successfully created the directory .\\Images\\testing
 Image encoded in base64
 \033[0;32mImage downloaded\033[0m
+"""
+
+    def test_chopped_url(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+
+        downloadImages(["https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537",
+            "https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png"],
+            "testing", path.join(curdir, "Images"))
+
+        with open(path.join(curdir, "Test", "base64boiData.txt"), "r") as f:
+            data = f.read()
+
+        assert imageEqualsImage("trolls.png", downloadDir, "testing0.png")
+        assert imageEqualsImage("trolls.png", downloadDir, "testing1.png")
+
+        remove(path.join(downloadDir, "testing0.png"))
+        remove(path.join(downloadDir, "testing1.png"))
+        rmdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+
+Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537
+Chopped image URL: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
+\033[0;32mImage downloaded\033[0m
+
+Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
+\033[0;32mImage downloaded\033[0m
+"""
+
+    def test_invalid_image_url(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+
+        downloadImages(["notaURL"], "testing", path.join(curdir, "Images"))
+
+        rmdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+
+Getting image from: notaURL
+\033[0;31mSomething went wrong when downloading image\033[0m
 """

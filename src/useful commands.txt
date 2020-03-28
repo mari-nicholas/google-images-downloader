@@ -1,0 +1,3 @@
+flake8 --ignore=E266,N802,N806 .
+pytest --cov-report term --cov=. Test/
+pytest --cov-report html --cov=. Test/
