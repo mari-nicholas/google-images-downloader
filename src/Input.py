@@ -1,3 +1,8 @@
+#  @file NavigatePage.py
+#  @author Nicholas Mari
+#  @brief Generates a dictionary of parameters that will be used to search for images
+#  @date 03/24/2020
+
 # Secrets: The format and structure of the input data.
 # Services: Converts  the  input  data  into  the  data  structure  used  by  the  input  parameters module.
 
@@ -5,6 +10,10 @@ from argparse import ArgumentParser
 from json import load
 from os import curdir, path
 
+#  @brief builds dictionary of input arguments
+#  @details Takes input from the user as arguments and builds a dictionary with
+#  the input that will be used to build a search url
+#  @return args dictionary of all the command line arguments with their respective values from the user input
 def userInput():
 	parser = ArgumentParser()
 	parser.add_argument('-ff', '--fromfile', default='', type=str, required=False, help='gets args from file. Takes file path to .txt file')
@@ -41,8 +50,13 @@ def userInput():
 
 		# print(vars(args))
 		#vars() Turns it into a dict
-		return vars(args)
+		args = vars(args)
+		return args
 
+#  @brief builds dictionary of input arguments from a file
+#  @details uses a filepath provided by the user to build a dictionary of
+#  the arguments that will be used to build a search url
+#  @return args dictionary of all the command line arguments with their respective values from the user input
 def keywordFromFile(filePath):
 	#print('Keyword From File Function')
 	args = {}
