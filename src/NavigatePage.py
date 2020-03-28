@@ -5,6 +5,7 @@
 
 from os import path
 from platform import system
+import pytest
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -40,6 +41,9 @@ class element_has_src(object):
 #  @param limit number of images to get
 #  @return urls list of image urls to download
 def getImageURL(url, limit):
+
+    if (limit <= 0):
+        raise ValueError("Limit must be greater than 0")
 
     # Setting chrome options, headless = runs without visual browswer
     chrome_options = Options()
