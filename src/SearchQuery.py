@@ -16,7 +16,6 @@ from urllib.parse import quote
 def buildURLParam(args):
     searchArgs = {	'aspectratio' : args['aspectratio'],
     				'colour' : args['colour'],
-    				'colourtype' : args['colourtype'],
     				'filetype' : args['filetype'],
     				'imageage' : args['imageage'],
     				'imagesize' : args['imagesize'],
@@ -81,7 +80,8 @@ def buildURLParam(args):
     				'bmp':'ift:bmp',
     				'svg':'ift:svg',
     				'webp':'webp',
-    				'ico':'ift:ico'
+    				'ico':'ift:ico',
+                    'raw':'ift:craw'
     			 }
 
     params = [urlFormats[searchArgs[i]] for i in searchArgs if searchArgs[i]]
@@ -106,5 +106,7 @@ def buildURL(args):
 
     if args['safesearch']:
     	url += "&safe=active"
+
+    print(url)
 
     return url
