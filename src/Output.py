@@ -6,7 +6,7 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
-import sys
+from sys import stdout
 
 from imghdr import what
 from urllib.error import URLError
@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 
 from paramiko import SSHClient, AutoAddPolicy
 from scp import SCPClient
-import shutil
+from shutil import rmtree
 
 
 ## @brief downloads images
@@ -63,9 +63,6 @@ def downloadImages(lst, key, loc):
                         colourMsg("Unrecognized file format", 31)
                         continue
 
-        except URLError:
-            colourMsg("Couldn't find image URL", 31)
-            continue
         except Exception:
             colourMsg("Something went wrong when downloading image", 31)
             continue
@@ -112,7 +109,7 @@ def moveToServer(key, direc, shost, suser, spass):
         # Function to show progress bars in console
         def progress(filename, size, sent):
             p = float(sent) / float(size) * 100
-            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+            stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(ssh.get_transport(), progress=progress)
@@ -124,7 +121,7 @@ def moveToServer(key, direc, shost, suser, spass):
         # Delete the local copy of the images
         chdir(dr)
         chdir('../')
-        shutil.rmtree(key)
+        rmtree(key)
 
     except Exception:
         print("There was an issue copying them to the server")
