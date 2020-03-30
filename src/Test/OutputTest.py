@@ -7,8 +7,7 @@ from os import curdir, chdir, path, remove, rmdir
 import sys
 
 from inspect import currentframe, getfile
-# from pytest import fixture, raises
-import pytest
+from pytest import raises
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -196,12 +195,22 @@ Getting image from: notaURL
 \033[0;31mSomething went wrong when downloading image\033[0m
 """
 
+    def test_erroneous_imghdr_what(self, capfd):
+        downloadDir = path.join(curdir, "Images", "testing")
+
+        downloadImages(["https://render.fineartamerica.com/images/rendered/medium/greeting-card/images/artworkimages/medium/2/dungeon-meowster-funny-dnd-tabletop-gamer-cat-d20-tshirt-unique-tees-transparent.png?&targetx=-36&targety=0&imagewidth=572&imageheight=700&modelwidth=500&modelheight=700&backgroundcolor=636363&orientation=1"],
+            "testing", path.join(curdir, "Images"))
+        rmdir(downloadDir)
+
+        out, err = capfd.readouterr()
+        assert out == """Successfully created the directory .\\Images\\testing
+
+Getting image from: https://render.fineartamerica.com/images/rendered/medium/greeting-card/images/artworkimages/medium/2/dungeon-meowster-funny-dnd-tabletop-gamer-cat-d20-tshirt-unique-tees-transparent.png?&targetx=-36&targety=0&imagewidth=572&imageheight=700&modelwidth=500&modelheight=700&backgroundcolor=636363&orientation=1
+\033[0;31mUnrecognized file format\033[0m
+"""
 
 class TestMoveToServer:
     
     def test_missing_input_parameter(self):
-        with pytest.raises(ValueError):
+        with raises(ValueError):
             moveToServer("donkeys", '', 'moore.mcmaster.ca', '', '')
-
-    
-

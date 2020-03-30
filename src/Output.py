@@ -6,30 +6,19 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
-<<<<<<< HEAD
-import sys
-from socket import timeout as SocketTimeout
-import socket
-=======
 from sys import stdout
->>>>>>> db910126486004e0f759ed377ab14b9cb020b73d
 
 from imghdr import what
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-<<<<<<< HEAD
 from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, SSHException, BadHostKeyException
 from paramiko import ssh_exception
 from paramiko.buffered_pipe import PipeTimeout as PipeTimeout
 from scp import SCPClient, SCPException
-import shutil
-=======
-from paramiko import SSHClient, AutoAddPolicy
-from scp import SCPClient
 from shutil import rmtree
->>>>>>> db910126486004e0f759ed377ab14b9cb020b73d
-
+from socket import gaierror
+from socket import timeout as SocketTimeout
 
 ## @brief downloads images
 #  @details creates the given directory if it doesn't exist;
@@ -122,14 +111,11 @@ def moveToServer(key, direc, shost, suser, spass):
 
     ssh = createSSH(shost, suser, spass)
 
-<<<<<<< HEAD
     try:
-=======
         # Function to show progress bars in console
         def progress(filename, size, sent):
             p = float(sent) / float(size) * 100
             stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
->>>>>>> db910126486004e0f759ed377ab14b9cb020b73d
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(ssh.get_transport(), progress=progress)
@@ -148,18 +134,10 @@ def moveToServer(key, direc, shost, suser, spass):
     finally:
         scp.close()
 
-<<<<<<< HEAD
-=======
-        # Delete the local copy of the images
-        chdir(dr)
-        chdir('../')
-        rmtree(key)
->>>>>>> db910126486004e0f759ed377ab14b9cb020b73d
-
     # Delete the local copy of the images
     chdir(dr)
     chdir('../')
-    shutil.rmtree(key)
+    rmtree(key)
 
     colourMsg("\nTransfer complete!", "38;2;255;0;140")
 
