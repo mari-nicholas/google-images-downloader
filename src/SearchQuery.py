@@ -1,4 +1,4 @@
-#  @file NavigatePage.py
+#  @file SearchQuery.py
 #  @author Nicholas Mari, Samuel Crawford
 #  @brief Generates a google images search URL based on provided search parameters
 #  @date 03/24/2020

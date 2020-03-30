@@ -1,4 +1,4 @@
-#  @file NavigatePage.py
+#  @file Input.py
 #  @author Nicholas Mari
 #  @brief Generates a dictionary of parameters that will be used to search for images
 #  @date 03/24/2020
