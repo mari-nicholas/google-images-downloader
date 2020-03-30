@@ -6,31 +6,20 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
-<<<<<<< HEAD
-import sys
-from socket import timeout as SocketTimeout
-import socket
-=======
->>>>>>> bc66267462a46848410e4abc01f43c83e920c91a
 from sys import stdout
 
 from imghdr import what
-from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, SSHException, BadHostKeyException
+from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, \
+    SSHException, BadHostKeyException
 from paramiko import ssh_exception
 from paramiko.buffered_pipe import PipeTimeout as PipeTimeout
 from scp import SCPClient, SCPException
-<<<<<<< HEAD
-import shutil
-from shutil import rmtree
-
-=======
 from shutil import rmtree
 from socket import gaierror
 from socket import timeout as SocketTimeout
->>>>>>> bc66267462a46848410e4abc01f43c83e920c91a
+
 
 ## @brief downloads images
 #  @details creates the given directory if it doesn't exist;
@@ -108,7 +97,8 @@ def downloadImages(lst, key, loc):
 def moveToServer(key, direc, shost, suser, spass):
 
     if (shost == '' or suser == '' or spass == ''):
-        raise ValueError("No input specified for hostname, username, and/or password")
+        e = "No input specified for hostname, username, and/or password"
+        raise ValueError(e)
 
     colourMsg("\nTransferring image files to the specified server...\n",
               "38;2;255;0;140")
@@ -119,7 +109,7 @@ def moveToServer(key, direc, shost, suser, spass):
     # Function to show progress bars in console
     def progress(filename, size, sent):
         p = float(sent) / float(size) * 100
-        sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+        stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
 
     ssh = createSSH(shost, suser, spass)
 
@@ -134,14 +124,15 @@ def moveToServer(key, direc, shost, suser, spass):
         print("Operation error: %s" % e)
     except SocketTimeout:
         """
-        the fetcher will need multiple attempts if the ssh connection is bad and/or the copy dir is big
+        the fetcher will need multiple attempts if the ssh
+        connection is bad and/or the copy dir is big
         """
         print('SocketTimeout')
     except PipeTimeout as pipetimeout:
-        print("timeout was reached on a read from a buffered Pipe: %s" % pipetimeout)
+        print("timeout was reached on a read from a buffered Pipe: %s" %
+              pipetimeout)
     finally:
         scp.close()
-
 
     # Delete the local copy of the images
     chdir(dr)
@@ -149,6 +140,7 @@ def moveToServer(key, direc, shost, suser, spass):
     rmtree(key)
 
     colourMsg("\nTransfer complete!", "38;2;255;0;140")
+
 
 def createSSH(shost, suser, spass):
     try:
@@ -166,12 +158,13 @@ def createSSH(shost, suser, spass):
         print("Unable to establish SSH connection: %s" % sshException)
     except BadHostKeyException as badHostKeyException:
         print("Unable to verify server's host key: %s" % badHostKeyException)
-    except socket.gaierror:
+    except gaierror:
         print("Unable to find server with specified hostname")
     except ssh_exception.NoValidConnectionsError:
         print("There was an error creating a connection to the server")
 
     return ssh
+
 
 ## @brief retrieves image data for the image
 #  @details uses the urllib library to create a request object
