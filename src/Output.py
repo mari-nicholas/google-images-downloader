@@ -7,13 +7,17 @@ from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
 import sys
+from socket import timeout as SocketTimeout
+import socket
 
 from imghdr import what
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-from paramiko import SSHClient, AutoAddPolicy
-from scp import SCPClient
+from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, SSHException, BadHostKeyException
+from paramiko import ssh_exception
+from paramiko.buffered_pipe import PipeTimeout as PipeTimeout
+from scp import SCPClient, SCPException
 import shutil
 
 
@@ -95,42 +99,71 @@ def downloadImages(lst, key, loc):
 #  to access the server
 def moveToServer(key, direc, shost, suser, spass):
 
-    colourMsg("Transferring image files to the specified server...\n\n",
+    if (shost == '' or suser == '' or spass == ''):
+        raise ValueError("No input specified for hostname, username, and/or password")
+
+    colourMsg("\nTransferring image files to the specified server...\n",
               "38;2;255;0;140")
+
+    # Gets the current local location of the images
+    dr = path.join(direc, key)
+
+    # Function to show progress bars in console
+    def progress(filename, size, sent):
+        p = float(sent) / float(size) * 100
+        sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+
+    ssh = createSSH(shost, suser, spass)
 
     try:
 
-        # Gets the current local location of the images
-        dr = path.join(direc, key)
+        # SCPCLient takes a paramiko transport as an argument
+        scp = SCPClient(ssh.get_transport(), progress=progress)
+        # Puts the images onto he server and closes the connection
+        scp.put(dr, recursive=True)
+
+    except SCPException as e:
+        print("Operation error: %s" % e)
+    except SocketTimeout:
+        """
+        the fetcher will need multiple attempts if the ssh connection is bad and/or the copy dir is big
+        """
+        print('SocketTimeout')
+    except PipeTimeout as pipetimeout:
+        print("timeout was reached on a read from a buffered Pipe: %s" % pipetimeout)
+    finally:
+        scp.close()
+
+
+    # Delete the local copy of the images
+    chdir(dr)
+    chdir('../')
+    shutil.rmtree(key)
+
+    colourMsg("\nTransfer complete!", "38;2;255;0;140")
+
+def createSSH(shost, suser, spass):
+    try:
 
         # Creates and configures ssh client
         ssh = SSHClient()
         ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(AutoAddPolicy())
-        ssh.connect(shost, username=suser, password=spass, timeout=5000)
+        ssh.connect(shost, username=suser, password=spass, timeout=4000)
 
-        # Function to show progress bars in console
-        def progress(filename, size, sent):
-            p = float(sent) / float(size) * 100
-            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+    except AuthenticationException:
+        print("Authentication failed, please verify your credentials")
+        sys.exit(0)
+    except SSHException as sshException:
+        print("Unable to establish SSH connection: %s" % sshException)
+    except BadHostKeyException as badHostKeyException:
+        print("Unable to verify server's host key: %s" % badHostKeyException)
+    except socket.gaierror:
+        print("Unable to find server with specified hostname")
+    except ssh_exception.NoValidConnectionsError:
+        print("There was an error creating a connection to the server")
 
-        # SCPCLient takes a paramiko transport as an argument
-        scp = SCPClient(ssh.get_transport(), progress=progress)
-
-        # Puts the images ont he server and closes the connection
-        scp.put(dr, recursive=True)
-        scp.close()
-
-        # Delete the local copy of the images
-        chdir(dr)
-        chdir('../')
-        shutil.rmtree(key)
-
-    except Exception:
-        print("There was an issue copying them to the server")
-
-    colourMsg("\nTransfer complete!", "38;2;255;0;140")
-
+    return ssh
 
 ## @brief retrieves image data for the image
 #  @details uses the urllib library to create a request object
