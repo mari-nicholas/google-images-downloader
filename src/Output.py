@@ -6,9 +6,12 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
+<<<<<<< HEAD
 import sys
 from socket import timeout as SocketTimeout
 import socket
+=======
+>>>>>>> bc66267462a46848410e4abc01f43c83e920c91a
 from sys import stdout
 
 from imghdr import what
@@ -19,9 +22,15 @@ from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, SSHExcep
 from paramiko import ssh_exception
 from paramiko.buffered_pipe import PipeTimeout as PipeTimeout
 from scp import SCPClient, SCPException
+<<<<<<< HEAD
 import shutil
 from shutil import rmtree
 
+=======
+from shutil import rmtree
+from socket import gaierror
+from socket import timeout as SocketTimeout
+>>>>>>> bc66267462a46848410e4abc01f43c83e920c91a
 
 ## @brief downloads images
 #  @details creates the given directory if it doesn't exist;
@@ -137,7 +146,7 @@ def moveToServer(key, direc, shost, suser, spass):
     # Delete the local copy of the images
     chdir(dr)
     chdir('../')
-    shutil.rmtree(key)
+    rmtree(key)
 
     colourMsg("\nTransfer complete!", "38;2;255;0;140")
 
