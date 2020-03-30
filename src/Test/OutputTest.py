@@ -67,6 +67,9 @@ class TestGetRequest:
     def test_PNG(self, capfd):
         assert imageEqualsRequest("https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png", "sonic.png")
 
+    def test_JPG_not_recognized_by_imghdr(self, capfd):
+        assert imageEqualsRequest("https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg", "jojo.jpg")
+
 # local function for comparing data read from two saved images
 def imageEqualsImage(testFile, d, img):
     with open(path.join(curdir, "Test", "ImagesForTesting", testFile), "rb") as f:
@@ -85,17 +88,23 @@ class TestDownloadImages:
 
         downloadImages(["https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg",
             "https://www.homestuck.com/images/storyfiles/hs2/00379.gif",
-            "https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png"],
+            "https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png",
+            "https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537",
+            "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg"],
             "testing", path.join(curdir, "Images"))
 
         assert path.isdir(downloadDir)
         assert imageEqualsImage("cursed.jpg", downloadDir, "testing0.jpg")
         assert imageEqualsImage("youthRoll.gif", downloadDir, "testing1.gif")
         assert imageEqualsImage("sonic.png", downloadDir, "testing2.png")
+        assert imageEqualsImage("trolls.png", downloadDir, "testing3.png")
+        assert imageEqualsImage("jojo.jpg", downloadDir, "testing4.jpg")
 
         remove(path.join(downloadDir, "testing0.jpg"))
         remove(path.join(downloadDir, "testing1.gif"))
         remove(path.join(downloadDir, "testing2.png"))
+        remove(path.join(downloadDir, "testing3.png"))
+        remove(path.join(downloadDir, "testing4.jpg"))
         rmdir(downloadDir)
 
         assert not path.isdir(downloadDir)
@@ -110,6 +119,13 @@ Getting image from: https://www.homestuck.com/images/storyfiles/hs2/00379.gif
 \033[0;32mImage downloaded\033[0m
 
 Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png
+\033[0;32mImage downloaded\033[0m
+
+Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537
+Chopped image URL: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
+\033[0;32mImage downloaded\033[0m
+
+Getting image from: https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg
 \033[0;32mImage downloaded\033[0m
 """
 

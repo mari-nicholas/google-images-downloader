@@ -46,7 +46,7 @@ def downloadImages(lst, key, loc):
                 if ext == "jpeg" and ext not in img:  # circumvents jpg bug
                     ext = "jpg"
                 elif not ext:
-                    if "jpg" in img:
+                    if ".jpg" in img:
                         ext = "jpg"
                     else:
                         colourMsg("Unrecognized file format", 31)
