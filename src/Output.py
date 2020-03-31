@@ -11,14 +11,9 @@ from sys import stdout
 from imghdr import what
 from urllib.request import Request, urlopen
 
-from paramiko import SSHClient, AutoAddPolicy, AuthenticationException, \
-    SSHException, BadHostKeyException
-from paramiko import ssh_exception
-from paramiko.buffered_pipe import PipeTimeout as PipeTimeout
-from scp import SCPClient, SCPException
+from paramiko import SSHClient, AutoAddPolicy
+from scp import SCPClient
 from shutil import rmtree
-from socket import gaierror
-from socket import timeout as SocketTimeout
 
 
 ## @brief downloads images
@@ -111,7 +106,7 @@ def moveToServer(key, direc, shost, suser, spass):
         p = float(sent) / float(size) * 100
         stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
 
-    ssh = createSSH(shost, suser, spass)
+    ssh = createSSH(key, direc, shost, suser, spass)
 
     try:
 
@@ -120,50 +115,55 @@ def moveToServer(key, direc, shost, suser, spass):
         # Puts the images onto he server and closes the connection
         scp.put(dr, recursive=True)
 
-    except SCPException as e:
-        print("Operation error: %s" % e)
-    except SocketTimeout:
-        """
-        the fetcher will need multiple attempts if the ssh
-        connection is bad and/or the copy dir is big
-        """
-        print('SocketTimeout')
-    except PipeTimeout as pipetimeout:
-        print("timeout was reached on a read from a buffered Pipe: %s" %
-              pipetimeout)
-    finally:
+    except Exception as error:
+        print("There was an error transferring your images to the server")
+        print(error)
         scp.close()
+        deleteLocalImageFolder(direc, key)
+        raise
+
+    scp.close()
 
     # Delete the local copy of the images
-    chdir(dr)
-    chdir('../')
-    rmtree(key)
+    deleteLocalImageFolder(direc, key)
 
     colourMsg("\nTransfer complete!", "38;2;255;0;140")
 
 
-def createSSH(shost, suser, spass):
-    try:
+## @brief creates and configures ssh client
+#  @param key the keyword being searched for
+#  @param direc local directory where the images are
+#  @param shost hostname of the server
+#  @param suser the username to access the server
+#  @param spass the password associated with the username
+#  to access the server
+#  @return ssh client
+def createSSH(key, direc, shost, suser, spass):
 
-        # Creates and configures ssh client
+    try:
         ssh = SSHClient()
         ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(AutoAddPolicy())
         ssh.connect(shost, username=suser, password=spass, timeout=4000)
 
-    except AuthenticationException:
-        print("Authentication failed, please verify your credentials")
-        # raise AuthenticationException
-    except SSHException as sshException:
-        print("Unable to establish SSH connection: %s" % sshException)
-    except BadHostKeyException as badHostKeyException:
-        print("Unable to verify server's host key: %s" % badHostKeyException)
-    except gaierror:
-        print("Unable to find server with specified hostname")
-    except ssh_exception.NoValidConnectionsError:
-        print("There was an error creating a connection to the server")
+    except Exception as error:
+        print("There was an issue with creating an SSH Object")
+        print("Please that all your parameters are correct \
+            and the server exists and is running.\n")
+        print(error)
+        deleteLocalImageFolder(direc, key)
+        raise
 
     return ssh
+
+
+## @brief deletes the local image folder once it
+#  is moved to the server
+#  @param direc local directory where the images are
+#  @param key the keyword being searched for
+def deleteLocalImageFolder(direc, key):
+    chdir(direc)
+    rmtree(key)
 
 
 ## @brief retrieves image data for the image
