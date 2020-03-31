@@ -306,6 +306,4 @@ def buildURL(args):
     else:
     	url += "&safe=images"
 
-    print(url)
-
     return url

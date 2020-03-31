@@ -33,12 +33,12 @@ class TestBuildURLParam:
 					"imagesize" : "",
 					"serverhost" : "",
 					"serverusername" : "",
-					"serverpassword" : ""
+					"serverpassword" : "",
+					"whitelist": "",
+					"region" : ""
 				}
 
 		params = buildURLParam(args)
-
-		print(params)
 
 		assert params == ''
 
@@ -57,7 +57,9 @@ class TestBuildURLParam:
 					"imagesize" : "medium",
 					"serverhost" : "",
 					"serverusername" : "",
-					"serverpassword" : ""
+					"serverpassword" : "",
+					"whitelist": "",
+					"region" : ""
 				}
 
 		params = buildURLParam(args)
@@ -82,14 +84,19 @@ class TestBuildURL:
 					"imagesize" : "",
 					"serverhost" : "",
 					"serverusername" : "",
-					"serverpassword" : ""
+					"serverpassword" : "",
+					"whitelist": "",
+					"region" : ""
 				}
 
 		url = buildURL(args)
 
-		assert url == 'https://www.google.com/search?q=default' + \
-        '&tbm=isch&hl=en&hl=en&tbs='+ \
-        '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760'
+		assert url == 'https://www.google.com/search?as_st=y&tbm=isch&hl=en' + \
+    				'&as_q=' + 'default' + '&as_epq=&as_oq=&as_eq='+ \
+    				'&cr='+ '' +\
+    				'&as_sitesearch=' + '' + \
+    				'&tbs='+ '' +\
+    				'&safe=images'
 
 
 	def test_all_params(self):
@@ -107,11 +114,16 @@ class TestBuildURL:
 					"imagesize" : "medium",
 					"serverhost" : "",
 					"serverusername" : "",
-					"serverpassword" : ""
+					"serverpassword" : "",
+					"whitelist": ".edu",
+					"region" : "Greece"
 				}
 
 		url = buildURL(args)
 
-		assert url == 'https://www.google.com/search?q=' + 'default' + \
-        '&tbm=isch&hl=en&hl=en&tbs=' + quote('iar:w,ic:specific,isc:red,ift:jpg,qdr:w,isz:m,itp:photo,sur:fm'.encode('utf-8')) + \
-        '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760&safe=active'
+		assert url == 'https://www.google.com/search?as_st=y&tbm=isch&hl=en' + \
+    				'&as_q=' + 'default' + '&as_epq=&as_oq=&as_eq='+ \
+    				'&cr='+ 'countryGR' +\
+    				'&as_sitesearch=' + quote('.edu'.encode('utf-8')) + \
+    				'&tbs='+ quote('iar:w,ic:specific,isc:red,ift:jpg,qdr:w,isz:m,itp:photo,sur:fm'.encode('utf-8')) +\
+    				'&safe=active'
