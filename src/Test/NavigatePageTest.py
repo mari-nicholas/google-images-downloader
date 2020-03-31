@@ -52,18 +52,18 @@ def test_donkeys():
 
 
 def test_monkeys():
-    urlList = getImageURL(mcmasterURL, 4)
-    assert len(urlList) == 4
+    urlList = getImageURL(mcmasterURL, 5)
+    assert len(urlList) == 5
 
 
 def test_software():
-    urlList = getImageURL(softwareURL, 8)
-    assert len(urlList) == 8
+    urlList = getImageURL(softwareURL, 5)
+    assert len(urlList) == 5
 
 
-# def test_correct_number_large_urls():
-#     urlList = getImageURL(donkeysURL, 100)
-#     assert len(urlList) == 100
+def test_correct_number_large_urls():
+    urlList = getImageURL(donkeysURL, 40)
+    assert len(urlList) == 40
 
 
 def test_list_contains_urls():

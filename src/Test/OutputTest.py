@@ -1,13 +1,16 @@
 ## @file OutputTest.py
-#  @author Samuel Crawford
+#  @author Samuel Crawford and Joshua Guinness
 #  @brief Tests the functionality of Output.py
 #  @date 03/25/2020
 
 from os import curdir, chdir, path, remove, rmdir
 import sys
+import os
 
 from inspect import currentframe, getfile
-from pytest import fixture, raises
+# from pytest import fixture, raises
+import pytest
+import shutil
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -178,3 +181,27 @@ Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images
 Getting image from: notaURL
 \033[0;31mSomething went wrong when downloading image\033[0m
 """
+
+
+class TestMoveToServer:
+    
+    def test_missing_input_parameter(self):
+        with pytest.raises(ValueError):
+            moveToServer("donkeys", '', 'moore.mcmaster.ca', '', '')
+
+    def test_exception_caught_for_invalid_credentials(self):
+
+        shutil.copytree("Test/ImagesForTesting", "Test/ImagesForTestingTemp")
+
+        with pytest.raises(Exception):
+            moveToServer("Test/ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+
+    def test_image_directory_deleted_after_exception(self):
+        shutil.copytree("Test/ImagesForTesting", "Test/ImagesForTestingTemp")
+        
+        with pytest.raises(Exception):
+            moveToServer("Test/ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+
+        assert os.path.isdir('Test/ImagesForTestingTemp') == False
+
+

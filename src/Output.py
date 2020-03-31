@@ -6,15 +6,14 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
-import sys
+from sys import stdout
 
 from imghdr import what
-from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 from paramiko import SSHClient, AutoAddPolicy
 from scp import SCPClient
-import shutil
+from shutil import rmtree
 
 
 ## @brief downloads images
@@ -46,7 +45,7 @@ def downloadImages(lst, key, loc):
                 if ext == "jpeg" and ext not in img:  # circumvents jpg bug
                     ext = "jpg"
                 elif not ext:
-                    if "jpg" in img:
+                    if ".jpg" in img:
                         ext = "jpg"
                     else:
                         colourMsg("Unrecognized file format", 31)
@@ -63,9 +62,6 @@ def downloadImages(lst, key, loc):
                         colourMsg("Unrecognized file format", 31)
                         continue
 
-        except URLError:
-            colourMsg("Couldn't find image URL", 31)
-            continue
         except Exception:
             colourMsg("Something went wrong when downloading image", 31)
             continue
@@ -95,41 +91,79 @@ def downloadImages(lst, key, loc):
 #  to access the server
 def moveToServer(key, direc, shost, suser, spass):
 
-    colourMsg("Transferring image files to the specified server...\n\n",
+    if (shost == '' or suser == '' or spass == ''):
+        e = "No input specified for hostname, username, and/or password"
+        raise ValueError(e)
+
+    colourMsg("\nTransferring image files to the specified server...\n",
               "38;2;255;0;140")
+
+    # Gets the current local location of the images
+    dr = path.join(direc, key)
+
+    # Function to show progress bars in console
+    def progress(filename, size, sent):
+        p = float(sent) / float(size) * 100
+        stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+
+    ssh = createSSH(key, direc, shost, suser, spass)
 
     try:
 
-        # Gets the current local location of the images
-        dr = path.join(direc, key)
+        # SCPCLient takes a paramiko transport as an argument
+        scp = SCPClient(ssh.get_transport(), progress=progress)
+        # Puts the images onto he server and closes the connection
+        scp.put(dr, recursive=True)
 
-        # Creates and configures ssh client
+    except Exception as error:
+        print("There was an error transferring your images to the server")
+        print(error)
+        scp.close()
+        deleteLocalImageFolder(direc, key)
+        raise
+
+    scp.close()
+
+    # Delete the local copy of the images
+    deleteLocalImageFolder(direc, key)
+
+    colourMsg("\nTransfer complete!", "38;2;255;0;140")
+
+
+## @brief creates and configures ssh client
+#  @param key the keyword being searched for
+#  @param direc local directory where the images are
+#  @param shost hostname of the server
+#  @param suser the username to access the server
+#  @param spass the password associated with the username
+#  to access the server
+#  @return ssh client
+def createSSH(key, direc, shost, suser, spass):
+
+    try:
         ssh = SSHClient()
         ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(AutoAddPolicy())
-        ssh.connect(shost, username=suser, password=spass, timeout=5000)
+        ssh.connect(shost, username=suser, password=spass, timeout=4000)
 
-        # Function to show progress bars in console
-        def progress(filename, size, sent):
-            p = float(sent) / float(size) * 100
-            sys.stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
+    except Exception as error:
+        print("There was an issue with creating an SSH Object")
+        print("Please that all your parameters are correct \
+            and the server exists and is running.\n")
+        print(error)
+        deleteLocalImageFolder(direc, key)
+        raise
 
-        # SCPCLient takes a paramiko transport as an argument
-        scp = SCPClient(ssh.get_transport(), progress=progress)
+    return ssh
 
-        # Puts the images ont he server and closes the connection
-        scp.put(dr, recursive=True)
-        scp.close()
 
-        # Delete the local copy of the images
-        chdir(dr)
-        chdir('../')
-        shutil.rmtree(key)
-
-    except Exception:
-        print("There was an issue copying them to the server")
-
-    colourMsg("\nTransfer complete!", "38;2;255;0;140")
+## @brief deletes the local image folder once it
+#  is moved to the server
+#  @param direc local directory where the images are
+#  @param key the keyword being searched for
+def deleteLocalImageFolder(direc, key):
+    chdir(direc)
+    rmtree(key)
 
 
 ## @brief retrieves image data for the image

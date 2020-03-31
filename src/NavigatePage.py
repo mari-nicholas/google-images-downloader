@@ -57,8 +57,8 @@ def getImageURL(url, limit):
         driver = webdriver.Chrome(executable_path=path.abspath
                                   ("chromedriver.exe"),
                                   chrome_options=chrome_options)  # Headless
-        # driver = webdriver.Chrome(executable_path=path.
-        # ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
+        # driver = webdriver.Chrome(executable_path=path.abspath
+        #                           ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
 
     elif plt == "Linux":
         chrome_options.binary_location = \
@@ -67,13 +67,16 @@ def getImageURL(url, limit):
                                   ("chromedriver"),
                                   chrome_options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
-        # ("chromedriver")) # Not Headless (With Visual Chrome)
+        #                           ("chromedriver")) # Not Headless (With Visual Chrome)
+
+    elif plt == "":
+        raise Exception("Your OS is not supported")
 
     urls = []
     i = 0
 
     print('\033[38;2;244;208;63m' +
-          "Getting the image URLs, please be patient." +
+          "\nGetting the image URLs, please be patient." +
           '\033[0m')
 
     # While loop which iterates until the limit #
