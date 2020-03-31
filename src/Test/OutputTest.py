@@ -7,7 +7,8 @@ from os import curdir, chdir, path, remove, rmdir
 import sys
 
 from inspect import currentframe, getfile
-from pytest import raises
+# from pytest import fixture, raises
+import pytest
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -67,9 +68,6 @@ class TestGetRequest:
     def test_PNG(self, capfd):
         assert imageEqualsRequest("https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png", "sonic.png")
 
-    def test_JPG_not_recognized_by_imghdr(self, capfd):
-        assert imageEqualsRequest("https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg", "jojo.jpg")
-
 # local function for comparing data read from two saved images
 def imageEqualsImage(testFile, d, img):
     with open(path.join(curdir, "Test", "ImagesForTesting", testFile), "rb") as f:
@@ -88,23 +86,17 @@ class TestDownloadImages:
 
         downloadImages(["https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg",
             "https://www.homestuck.com/images/storyfiles/hs2/00379.gif",
-            "https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png",
-            "https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537",
-            "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg"],
+            "https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png"],
             "testing", path.join(curdir, "Images"))
 
         assert path.isdir(downloadDir)
         assert imageEqualsImage("cursed.jpg", downloadDir, "testing0.jpg")
         assert imageEqualsImage("youthRoll.gif", downloadDir, "testing1.gif")
         assert imageEqualsImage("sonic.png", downloadDir, "testing2.png")
-        assert imageEqualsImage("trolls.png", downloadDir, "testing3.png")
-        assert imageEqualsImage("jojo.jpg", downloadDir, "testing4.jpg")
 
         remove(path.join(downloadDir, "testing0.jpg"))
         remove(path.join(downloadDir, "testing1.gif"))
         remove(path.join(downloadDir, "testing2.png"))
-        remove(path.join(downloadDir, "testing3.png"))
-        remove(path.join(downloadDir, "testing4.jpg"))
         rmdir(downloadDir)
 
         assert not path.isdir(downloadDir)
@@ -119,13 +111,6 @@ Getting image from: https://www.homestuck.com/images/storyfiles/hs2/00379.gif
 \033[0;32mImage downloaded\033[0m
 
 Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-neat-sonic-body-pillow-hd-png.png
-\033[0;32mImage downloaded\033[0m
-
-Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537
-Chopped image URL: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
-\033[0;32mImage downloaded\033[0m
-
-Getting image from: https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg/220px-JoJo_no_Kimyou_na_Bouken_cover_-_vol1.jpg
 \033[0;32mImage downloaded\033[0m
 """
 
@@ -195,22 +180,14 @@ Getting image from: notaURL
 \033[0;31mSomething went wrong when downloading image\033[0m
 """
 
-    def test_erroneous_imghdr_what(self, capfd):
-        downloadDir = path.join(curdir, "Images", "testing")
-
-        downloadImages(["https://render.fineartamerica.com/images/rendered/medium/greeting-card/images/artworkimages/medium/2/dungeon-meowster-funny-dnd-tabletop-gamer-cat-d20-tshirt-unique-tees-transparent.png?&targetx=-36&targety=0&imagewidth=572&imageheight=700&modelwidth=500&modelheight=700&backgroundcolor=636363&orientation=1"],
-            "testing", path.join(curdir, "Images"))
-        rmdir(downloadDir)
-
-        out, err = capfd.readouterr()
-        assert out == """Successfully created the directory .\\Images\\testing
-
-Getting image from: https://render.fineartamerica.com/images/rendered/medium/greeting-card/images/artworkimages/medium/2/dungeon-meowster-funny-dnd-tabletop-gamer-cat-d20-tshirt-unique-tees-transparent.png?&targetx=-36&targety=0&imagewidth=572&imageheight=700&modelwidth=500&modelheight=700&backgroundcolor=636363&orientation=1
-\033[0;31mUnrecognized file format\033[0m
-"""
 
 class TestMoveToServer:
     
     def test_missing_input_parameter(self):
-        with raises(ValueError):
+        with pytest.raises(ValueError):
             moveToServer("donkeys", '', 'moore.mcmaster.ca', '', '')
+
+    def no_images_remain_after_server_transfer(self):
+        
+        print(dir)
+        path.join(curdir, "Images")
