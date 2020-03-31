@@ -5,10 +5,12 @@
 
 from os import curdir, chdir, path, remove, rmdir
 import sys
+import os
 
 from inspect import currentframe, getfile
 # from pytest import fixture, raises
 import pytest
+import shutil
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -187,7 +189,19 @@ class TestMoveToServer:
         with pytest.raises(ValueError):
             moveToServer("donkeys", '', 'moore.mcmaster.ca', '', '')
 
-    def no_images_remain_after_server_transfer(self):
+    def test_exception_caught_for_invalid_credentials(self):
+
+        shutil.copytree("ImagesForTesting", "ImagesForTestingTemp")
+
+        with pytest.raises(Exception):
+            moveToServer("ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+
+    def test_image_directory_deleted_after_exception(self):
+        shutil.copytree("ImagesForTesting", "ImagesForTestingTemp")
         
-        print(dir)
-        path.join(curdir, "Images")
+        with pytest.raises(Exception):
+            moveToServer("ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+
+        assert os.path.isdir('ImagesForTestingTemp') == False
+
+
