@@ -62,8 +62,8 @@ def test_software():
 
 
 def test_correct_number_large_urls():
-    urlList = getImageURL(donkeysURL, 50)
-    assert len(urlList) == 50
+    urlList = getImageURL(donkeysURL, 40)
+    assert len(urlList) == 40
 
 
 def test_list_contains_urls():
