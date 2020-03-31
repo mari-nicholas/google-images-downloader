@@ -191,17 +191,17 @@ class TestMoveToServer:
 
     def test_exception_caught_for_invalid_credentials(self):
 
-        shutil.copytree("ImagesForTesting", "ImagesForTestingTemp")
+        shutil.copytree("Test/ImagesForTesting", "Test/ImagesForTestingTemp")
 
         with pytest.raises(Exception):
-            moveToServer("ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+            moveToServer("Test/ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
 
     def test_image_directory_deleted_after_exception(self):
-        shutil.copytree("ImagesForTesting", "ImagesForTestingTemp")
+        shutil.copytree("Test/ImagesForTesting", "Test/ImagesForTestingTemp")
         
         with pytest.raises(Exception):
-            moveToServer("ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
+            moveToServer("Test/ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
 
-        assert os.path.isdir('ImagesForTestingTemp') == False
+        assert os.path.isdir('Test/ImagesForTestingTemp') == False
 
 
