@@ -1,5 +1,5 @@
 ## @file OutputTest.py
-#  @author Samuel Crawford
+#  @author Samuel Crawford and Joshua Guinness
 #  @brief Tests the functionality of Output.py
 #  @date 03/25/2020
 
