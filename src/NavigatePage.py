@@ -1,11 +1,11 @@
-#  @file NavigatePage.py
+## @file NavigatePage.py
 #  @author Joshua Guinness, Samuel Crawford
 #  @brief Provides the functionality for getting the image URLs to download
 #  @date 03/31/2020
 
 from os import path
 from platform import system
-import re
+from re import search
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -33,7 +33,7 @@ class element_has_src(object):
             return False
 
 
-#  @brief gets the image URLs
+## @brief gets the image URLs
 #  @details Uses selenium to open up the search
 #  query URL and then navigate to each individual
 #  image to get its URL and adding it to a list
@@ -109,7 +109,7 @@ def getImageURL(url, limit, blacklist):
             if (blacklist == ""):
                 urls.append(image_url)
             else:
-                result = re.search(blacklist, image_url)
+                result = search(blacklist, image_url)
                 if result is None:
                     urls.append(image_url)
                 else:
