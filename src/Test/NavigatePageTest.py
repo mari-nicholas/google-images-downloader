@@ -8,7 +8,7 @@ import sys
 import re
 
 from inspect import currentframe, getfile
-from pytest import fixture, raises
+from pytest import raises
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -55,7 +55,7 @@ def test_list_contains_urls():
 
 
 def test_improper_input():
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         urlList = getImageURL(mcmasterURL, -5, "")
 
 

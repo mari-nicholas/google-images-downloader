@@ -1,7 +1,7 @@
 ## @file OutputTest.py
 #  @author Samuel Crawford and Joshua Guinness
 #  @brief Tests the functionality of Output.py
-#  @date 03/25/2020
+#  @date 03/31/2020
 
 from os import curdir, chdir, path, remove, rmdir
 from pytest import raises
