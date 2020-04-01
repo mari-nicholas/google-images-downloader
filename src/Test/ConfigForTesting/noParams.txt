@@ -1,0 +1,19 @@
+{
+	"keyword" : "Default",
+	"limit" : 10,
+	"safesearch" : false,
+	"filetype" : "",
+	"directory" : ".\\Images",
+	"colour" : "",
+	"license" : "",
+	"imageage" : "",
+	"imagetype" : "",
+	"aspectratio" : "",
+	"imagesize" : "",
+	"serverhost" : "",
+	"serverusername" : "",
+	"serverpassword" : "",
+	"region" : "",
+	"whitelist": "",
+	"blacklist": ""
+}

@@ -1,0 +1,18 @@
+{
+	"limit" : 10,
+	"safesearch" : true,
+	"directory" : ".\\Images",
+	"filetype" : "jpg",
+	"colour" : "red",
+	"license" : "labeled-for-noncommercial-reuse-with-modification",
+	"imageage" : "past-7-days",
+	"imagetype" : "photo",
+	"aspectratio" : "wide",
+	"imagesize" : "medium",
+	"serverhost" : "",
+	"serverusername" : "",
+	"serverpassword" : "",
+	"whitelist": ".edu",
+	"region" : "Greece",
+	"blacklist" : "wikipedia.ca"
+}

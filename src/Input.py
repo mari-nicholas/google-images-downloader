@@ -82,7 +82,7 @@ def keywordFromFile(filePath):
 
     for key in ["filetype", "colour", "license", "imagetype", "imageage",
                 "imagesize", "aspectratio", "serverhost", "serverusername",
-                "serverpassword", "whitelist", "region"]:
+                "serverpassword", "whitelist", "region", "blacklist"]:
         if key not in args:
             args[key] = ""
 
