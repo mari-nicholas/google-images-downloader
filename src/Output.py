@@ -188,7 +188,7 @@ def createDir(d):
         try:
             mkdir(d)
         except Exception:
-            print("Creation of the directory %s failed" % d)
+            raise OSError("Creation of the directory %s failed" % d)
         else:
             print("Successfully created the directory %s" % d)
     else:

@@ -4,8 +4,8 @@
 #  @date 03/25/2020
 
 from os import curdir, chdir, path, remove, rmdir
+from pytest import raises
 import sys
-import os
 
 from inspect import currentframe, getfile
 # from pytest import fixture, raises
@@ -29,15 +29,14 @@ class TestCreateDir:
         assert out == "Directory " + newDir + " already exists\n"
         assert path.isdir(newDir)
 
-    def test_error_creating_directory(self, capfd):
+    def test_error_creating_directory(self):
         parDir = path.join(curdir, "nonexistant")
         newDir = path.join(parDir, "Images")
         assert not path.isdir(newDir)
 
-        createDir(newDir)
-        out, err = capfd.readouterr()
+        with raises(OSError):
+            createDir(newDir)
 
-        assert out == "Creation of the directory " + newDir + " failed\n"
         assert not path.isdir(parDir)
         assert not path.isdir(newDir)
 
@@ -202,6 +201,4 @@ class TestMoveToServer:
         with pytest.raises(Exception):
             moveToServer("Test/ImagesForTestingTemp", curdir, "moore.mcmaster.ca", "user", "password123")
 
-        assert os.path.isdir('Test/ImagesForTestingTemp') == False
-
-
+        assert not path.isdir('Test/ImagesForTestingTemp')
