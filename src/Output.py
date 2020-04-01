@@ -52,7 +52,11 @@ def downloadImages(lst, key, loc):
                         continue
 
                 if ext in img and not img.endswith(ext):
-                    start = img.rfind(ext)
+                    if ext == "jpeg" and ".jpg" in img:
+                        start = img.rfind("jpg")
+                    else:
+                        start = img.rfind(ext)
+
                     if start > 0:
                         # strips anything after the file extension
                         img = img[:start + len(ext)]
