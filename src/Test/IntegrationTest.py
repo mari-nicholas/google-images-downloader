@@ -5,6 +5,7 @@
 
 from os import curdir, chdir, path, remove, rmdir
 import sys
+import os
 
 from inspect import currentframe, getfile
 from pytest import fixture, raises
@@ -46,6 +47,12 @@ searchURL = 'https://www.google.com/search?as_st=y&tbm=isch&hl=en' + \
     '&tbs='+ quote('iar:w,ic:specific,isc:red,ift:jpg,qdr:w,isz:m,itp:photo,sur:fm'.encode('utf-8')) + \
     '&safe=active'
 
+listOfURLs = ["https://cdn.mos.cms.futurecdn.net/6h8C6ygTdR2jyyUxkALwsc-1200-80.jpg", 
+"https://1fdj2e2egv3mhacyt2xo9f01-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/16288974_web1_190410-SAA-Mammoth-Donkeys_2.jpg",
+"https://www.aspcapro.org/sites/default/files/styles/image_component/public/page/card/image/donkeynose.jpg?itok=s7-KmNux",
+"https://scx1.b-cdn.net/csz/news/800/2019/donkey.jpg",
+"https://media.npr.org/assets/img/2019/04/24/gettyimages-942051048-29251d02758b345d0e722ef87f412b13cc19a265-s800-c85.jpg"]
+
 def test_input_to_searchquery():
 
     url = buildURL(args)
@@ -60,3 +67,13 @@ def test_searchquery_to_navigatepage():
     for i in urls:
         result = re.match("http.", i)
         assert result != None
+
+def test_navigatepage_to_output(delete_image_folder):
+    downloadImages(listOfURLs, "donkeys", path.join(curdir, 'Images'))
+    assert os.path.isdir("Images/donkeys")
+
+@pytest.fixture()
+def delete_image_folder():
+    yield delete_image_folder
+    chdir("Images")
+    rmtree("donkeys")
