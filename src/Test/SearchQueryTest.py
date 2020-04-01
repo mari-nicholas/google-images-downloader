@@ -35,7 +35,8 @@ class TestBuildURLParam:
 					"serverusername" : "",
 					"serverpassword" : "",
 					"whitelist": "",
-					"region" : ""
+					"region" : "",
+					"blacklist" : ""
 				}
 
 		params = buildURLParam(args)
@@ -59,7 +60,8 @@ class TestBuildURLParam:
 					"serverusername" : "",
 					"serverpassword" : "",
 					"whitelist": "",
-					"region" : ""
+					"region" : "",
+					"blacklist" : ""
 				}
 
 		params = buildURLParam(args)
@@ -86,7 +88,8 @@ class TestBuildURL:
 					"serverusername" : "",
 					"serverpassword" : "",
 					"whitelist": "",
-					"region" : ""
+					"region" : "",
+					"blacklist" : ""
 				}
 
 		url = buildURL(args)
@@ -116,7 +119,8 @@ class TestBuildURL:
 					"serverusername" : "",
 					"serverpassword" : "",
 					"whitelist": ".edu",
-					"region" : "Greece"
+					"region" : "Greece",
+					"blacklist" : "wikipedia.ca"
 				}
 
 		url = buildURL(args)
