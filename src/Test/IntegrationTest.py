@@ -61,7 +61,7 @@ def test_input_to_searchquery():
 def test_searchquery_to_navigatepage():
 
     url = buildURL(args)
-    urls = getImageURL(url, args["limit"])
+    urls = getImageURL(url, args["limit"], "")
     assert len(urls) == 5
 
     for i in urls:

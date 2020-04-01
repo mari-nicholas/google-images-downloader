@@ -1,7 +1,7 @@
 ## @file NavigatePageTest.py
 #  @author Joshua Guinness
 #  @brief Tests the functionality of NavigatePage.py
-#  @date 03/25/2020
+#  @date 03/31/2020
 
 from os import curdir, chdir, path, remove, rmdir
 import sys
@@ -38,17 +38,17 @@ mcmasterURL = "https://www.google.com/search?q=mcmaster\
 
 
 def test_corrent_number_urls_in_list():
-    urlList = getImageURL(donkeysURL, 5)
+    urlList = getImageURL(donkeysURL, 5, "")
     assert len(urlList) == 5
 
 
 def test_correct_number_large_urls():
-    urlList = getImageURL(donkeysURL, 40)
+    urlList = getImageURL(donkeysURL, 40, "")
     assert len(urlList) == 40
 
 
 def test_list_contains_urls():
-    urlList = getImageURL(mcmasterURL, 10)
+    urlList = getImageURL(mcmasterURL, 10, "")
     for i in urlList:
         result = re.match("http.", i)
         assert result != None
@@ -56,4 +56,11 @@ def test_list_contains_urls():
 
 def test_improper_input():
     with pytest.raises(ValueError):
-        urlList = getImageURL(mcmasterURL, -5)
+        urlList = getImageURL(mcmasterURL, -5, "")
+
+
+def test_url_list_constains_no_blacklist():
+    urlList = getImageURL(donkeysURL, 3, "futurecdn.net")
+    for i in urlList:
+        result = re.search("futurecdn.net", i)
+        assert result == None
