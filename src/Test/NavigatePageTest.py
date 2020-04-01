@@ -36,28 +36,9 @@ mcmasterURL = "https://www.google.com/search?q=mcmaster\
                             -Xt3-B4bcsQXy5IAY&bih=1344&\
                                 biw=1183"
 
-softwareURL = "https://www.google.com/search?q=software\
-    &tbm=isch&ved=2ahUKEwi61tfA_rvoAhUKDq0KHfP2D24Q2-cC\
-        egQIABAA&oq=software&gs_lcp=CgNpbWcQAzIECCMQJzI\
-            ECCMQJzICCAAyAggAMgIIADICCAAyAggAMgIIADICCA\
-                AyAggAOgQIABBDOgUIABCDAVCp5wVYl_AFYPvwB\
-                    WgAcAB4AIABWogB5gSSAQE4mAEAoAEBqgEL\
-                        Z3dzLXdpei1pbWc&sclient=img&ei=\
-                            Z6R-XvqGBYqctAXz7b_wBg&bih=\
-                                1344&biw=1183"
 
-def test_donkeys():
+def test_corrent_number_urls_in_list():
     urlList = getImageURL(donkeysURL, 5)
-    assert len(urlList) == 5
-
-
-def test_monkeys():
-    urlList = getImageURL(mcmasterURL, 5)
-    assert len(urlList) == 5
-
-
-def test_software():
-    urlList = getImageURL(softwareURL, 5)
     assert len(urlList) == 5
 
 
