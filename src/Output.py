@@ -1,7 +1,7 @@
 ## @file Output.py
 #  @author Samuel Crawford, Joshua Guinness
 #  @brief Provides the functionality for downloading images.
-#  @date 03/19/2020
+#  @date 03/31/2020
 
 from base64 import b64decode
 from math import ceil, log
