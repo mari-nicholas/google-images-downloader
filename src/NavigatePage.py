@@ -50,8 +50,8 @@ def getImageURL(url, limit, blacklist):
     chrome_options.add_argument("--headless")
 
     # Options for different platforms
-    plt = system()
-    if plt == "Windows":
+    plt = system().lower()
+    if plt == "windows":
         chrome_options.binary_location = \
             'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
         driver = webdriver.Chrome(executable_path=path.abspath
@@ -60,7 +60,7 @@ def getImageURL(url, limit, blacklist):
         # driver = webdriver.Chrome(executable_path=path.abspath
                                     # ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
 
-    elif plt == "Linux":
+    elif plt == "linux":
         chrome_options.binary_location = \
             '/usr/bin/google-chrome'
         driver = webdriver.Chrome(executable_path=path.abspath
@@ -68,6 +68,8 @@ def getImageURL(url, limit, blacklist):
                                   chrome_options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
                                     # ("chromedriver")) # Not Headless (With Visual Chrome)
+
+    # elif plt == "darwin":
 
     elif plt == "":
         raise Exception("Your OS is not supported")
