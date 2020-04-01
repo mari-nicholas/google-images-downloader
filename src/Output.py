@@ -51,16 +51,13 @@ def downloadImages(lst, key, loc):
                         colourMsg("Unrecognized file format", 31)
                         continue
 
-                if not img.endswith(ext):
+                if ext in img and not img.endswith(ext):
                     start = img.rfind(ext)
                     if start > 0:
                         # strips anything after the file extension
                         img = img[:start + len(ext)]
                         print("Chopped image URL:", img)
                         data = getRequest(img)
-                    else:
-                        colourMsg("Unrecognized file format", 31)
-                        continue
 
         except Exception:
             colourMsg("Something went wrong when downloading image", 31)
