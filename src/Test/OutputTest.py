@@ -104,7 +104,7 @@ class TestDownloadImages:
         assert not path.isdir(downloadDir)
 
         out, err = capfd.readouterr()
-        assert out == """Successfully created the directory .\\Images\\testing
+        assert out == """Successfully created the directory """ + path.join(curdir, "Images", "testing") + """
 
 Getting image from: https://pbs.twimg.com/profile_images/1162710956218245120/L4b1guuv_400x400.jpg
 \033[0;32mImage downloaded\033[0m
@@ -135,7 +135,7 @@ Getting image from: https://www.kindpng.com/picc/m/198-1985747_pillow-clipart-ne
         #assert not path.isdir(downloadDir)
 
         out, err = capfd.readouterr()
-        assert out == """Successfully created the directory .\\Images\\testing
+        assert out == """Successfully created the directory """ + path.join(curdir, "Images", "testing") + """
 Image encoded in base64
 \033[0;32mImage downloaded\033[0m
 """
@@ -158,7 +158,7 @@ Image encoded in base64
         rmdir(downloadDir)
 
         out, err = capfd.readouterr()
-        assert out == """Successfully created the directory .\\Images\\testing
+        assert out == """Successfully created the directory """ + path.join(curdir, "Images", "testing") + """
 
 Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png/revision/latest/scale-to-width-down/340?cb=20180118110537
 Chopped image URL: https://vignette.wikia.nocookie.net/mspaintadventures/images/5/5b/Trolls_looking_at_green_sun.png
@@ -176,7 +176,7 @@ Getting image from: https://vignette.wikia.nocookie.net/mspaintadventures/images
         rmdir(downloadDir)
 
         out, err = capfd.readouterr()
-        assert out == """Successfully created the directory .\\Images\\testing
+        assert out == """Successfully created the directory """ + path.join(curdir, "Images", "testing") + """
 
 Getting image from: notaURL
 \033[0;31mSomething went wrong when downloading image\033[0m
