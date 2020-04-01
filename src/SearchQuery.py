@@ -2,7 +2,7 @@
 #  @author Nicholas Mari, Samuel Crawford
 #  @brief Generates a google images search
 #  URL based on provided search parameters
-#  @date 03/24/2020
+#  @date 03/31/2020
 
 # Secrets: The format and structure of the Google search query.
 # Services: Converts the processed data from the input module
