@@ -1,11 +1,11 @@
 #  @file NavigatePage.py
 #  @author Joshua Guinness, Samuel Crawford
 #  @brief Provides the functionality for getting the image URLs to download
-#  @date 03/24/2020
+#  @date 03/31/2020
 
 from os import path
 from platform import system
-import pytest
+import re
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -40,7 +40,7 @@ class element_has_src(object):
 #  @param url search query URL
 #  @param limit number of images to get
 #  @return urls list of image urls to download
-def getImageURL(url, limit):
+def getImageURL(url, limit, blacklist):
 
     if (limit <= 0):
         raise ValueError("Limit must be greater than 0")
@@ -58,7 +58,7 @@ def getImageURL(url, limit):
                                   ("chromedriver.exe"),
                                   chrome_options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
-        #                           ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
+                                    # ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
 
     elif plt == "Linux":
         chrome_options.binary_location = \
@@ -67,7 +67,7 @@ def getImageURL(url, limit):
                                   ("chromedriver"),
                                   chrome_options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
-        #                           ("chromedriver")) # Not Headless (With Visual Chrome)
+                                    # ("chromedriver")) # Not Headless (With Visual Chrome)
 
     elif plt == "":
         raise Exception("Your OS is not supported")
@@ -83,7 +83,7 @@ def getImageURL(url, limit):
     # of images has been added the list
     while len(urls) < limit:
 
-        print("Getting image #" + str(i+1))
+        print("Getting image #" + str(i + 1))
 
         try:
             # Get the URL
@@ -92,7 +92,7 @@ def getImageURL(url, limit):
             # Find and click on the first image thumbnail
             image_thumbnail = driver.find_elements_by_xpath(
                 "/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/\
-                    div/div/div[1]/div[1]/div[" + str(i+1) + "]/a[1]")
+                    div/div/div[1]/div[1]/div[" + str(i + 1) + "]/a[1]")
             image_thumbnail[0].click()
 
             # Wait until a specific element has loaded that
@@ -106,12 +106,19 @@ def getImageURL(url, limit):
             # Get what is in the src attribute. This is the full image URL
             image_url = image.get_attribute("src")
 
-            urls.append(image_url)
+            if (blacklist == ""):
+                urls.append(image_url)
+            else:
+                result = re.search(blacklist, image_url)
+                if result is None:
+                    urls.append(image_url)
+                else:
+                    print('\033[38;2;255;0;0m' + "Error: Blacklisted Image "
+                          + str(i + 1) + '\033[0m')
 
         except Exception:
-            # https://askubuntu.com/questions/801299/change-text-color-of-my-output-on-command-prompt
             print('\033[38;2;255;0;0m' + "Error: Could not get image "
-                  + str(i+1) + '\033[0m')
+                  + str(i + 1) + '\033[0m')
 
         i += 1
 

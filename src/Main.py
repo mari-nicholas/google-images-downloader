@@ -9,7 +9,7 @@ from Output import downloadImages, moveToServer
 def main():
     args = userInput()
     url = buildURL(args)
-    urls = getImageURL(url, args["limit"])
+    urls = getImageURL(url, args["limit"], args['blacklist'])
     downloadImages(urls, args["keyword"], args["directory"])
     if (args["serverhost"] != ""):
         moveToServer(args["keyword"], args["directory"], args["serverhost"], args["serverusername"], args["serverpassword"])
