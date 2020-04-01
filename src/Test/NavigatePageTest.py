@@ -55,7 +55,7 @@ def test_list_contains_urls():
 
 
 def test_improper_input():
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         urlList = getImageURL(mcmasterURL, -5, "")
 
 

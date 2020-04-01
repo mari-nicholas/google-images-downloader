@@ -72,7 +72,7 @@ def test_navigatepage_to_output(delete_image_folder):
     downloadImages(listOfURLs, "donkeys", path.join(curdir, 'Images'))
     assert os.path.isdir("Images/donkeys")
 
-@pytest.fixture()
+@fixture()
 def delete_image_folder():
     yield delete_image_folder
     chdir("Images")
