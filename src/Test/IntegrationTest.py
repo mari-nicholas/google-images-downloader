@@ -34,12 +34,17 @@ args = {
 			"imagesize" : "medium",
 			"serverhost" : "",
 			"serverusername" : "",
-			"serverpassword" : ""
+			"serverpassword" : "",
+			"whitelist": "",
+			"region" : ""
 		}
 
-searchURL = 'https://www.google.com/search?q=' + 'default' + \
-    '&tbm=isch&hl=en&hl=en&tbs=' + quote('iar:w,ic:specific,isc:red,ift:jpg,qdr:w,isz:m,itp:photo,sur:fm'.encode('utf-8')) + \
-    '&ved=0CAMQ2J8EahcKEwjgteiDqrToAhUAAAAAHQAAAAAQAg&biw=1519&bih=760&safe=active'
+searchURL = 'https://www.google.com/search?as_st=y&tbm=isch&hl=en' + \
+    '&as_q=' + 'default' + '&as_epq=&as_oq=&as_eq='+ \
+    '&cr='+ '' +\
+    '&as_sitesearch=' + '' + \
+    '&tbs='+ quote('iar:w,ic:specific,isc:red,ift:jpg,qdr:w,isz:m,itp:photo,sur:fm'.encode('utf-8')) + \
+    '&safe=active'
 
 def test_input_to_searchquery():
 
