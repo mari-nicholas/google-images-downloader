@@ -1,6 +1,6 @@
 {
 	"keyword" : "homestuck",
-	"limit" : 30,
+	"limit" : 5,
 	"safesearch" : false,
 	"filetype" : "gif",
 	"colour" : "green",
