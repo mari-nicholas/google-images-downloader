@@ -72,5 +72,5 @@ def test_navigatepage_to_output(delete_image_folder):
 @fixture()
 def delete_image_folder():
     yield delete_image_folder
-    chdir("Images")
-    rmtree("donkeys")
+    # chdir("Images")
+    rmtree(path.join(curdir, "Images", "donkeys"))
