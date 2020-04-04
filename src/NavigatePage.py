@@ -56,7 +56,7 @@ def getImageURL(url, limit, blacklist):
             'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
         driver = webdriver.Chrome(executable_path=path.abspath
                                   ("chromedriver.exe"),
-                                  chrome_options=chrome_options)  # Headless
+                                  options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
                                     # ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
 
@@ -65,7 +65,7 @@ def getImageURL(url, limit, blacklist):
             '/usr/bin/google-chrome'
         driver = webdriver.Chrome(executable_path=path.abspath
                                   ("chromedriver"),
-                                  chrome_options=chrome_options)  # Headless
+                                  options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
                                     # ("chromedriver")) # Not Headless (With Visual Chrome)
 
