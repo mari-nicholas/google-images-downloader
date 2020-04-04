@@ -25,7 +25,7 @@ class TestUserInput:
 							"keyword" : "test",
 							"limit" : 10,
 							"safesearch" : False,
-							"directory" : ".\\Images",
+							"directory" : path.join(curdir, 'Images'),
 							"filetype" : "",
 							"colour" : "",
 							"license" : "",
@@ -42,7 +42,7 @@ class TestUserInput:
 						}
 
 	def test_from_file(self):
-		sys.argv = ['Main.py', '-ff', '.\\ConfigForTesting\\allParams.txt']
+		sys.argv = ['Main.py', '-ff', path.join(curdir, 'Test', 'ConfigForTesting', 'allParams.txt')]
 
 		args = userInput()
 
@@ -94,7 +94,7 @@ class TestKeywordFromFile:
 
 	def test_no_params(self):
 
-		args = keywordFromFile(".\\ConfigForTesting\\noParams.txt")
+		args = keywordFromFile(path.join(curdir, 'Test', 'ConfigForTesting', 'noParams.txt'))
 
 		assert args == {
 							"keyword" : "Default",
@@ -118,7 +118,7 @@ class TestKeywordFromFile:
 
 	def test_all_params(self):
 
-		args = keywordFromFile(".\\ConfigForTesting\\allParams.txt")
+		args = keywordFromFile(path.join(curdir, 'Test', 'ConfigForTesting', 'allParams.txt'))
 
 		assert args == {
 							"keyword" : "Default",
@@ -143,20 +143,20 @@ class TestKeywordFromFile:
 	def test_invalid_file(self):
 
 		with raises(Exception):
-			assert keywordFromFile(".\\ConfigForTesting\\noFile.txt")
+			assert keywordFromFile(path.join(curdir, 'Test', 'ConfigForTesting', 'noFile.txt'))
 
 	def test_no_keyword(self):
 		with raises(Exception):
-			assert keywordFromFile('.\\ConfigForTesting\\noKeyword.txt')
+			assert keywordFromFile(path.join(curdir, 'Test', 'ConfigForTesting', 'noKeyword.txt'))
 
 	def test_all_missing_but_keyword(self):
-		args = keywordFromFile('.\\ConfigForTesting\\nothingButKeyword.txt')
+		args = keywordFromFile(path.join(curdir, 'Test', 'ConfigForTesting', 'nothingButKeyword.txt'))
 
 		assert args == {
 							"keyword" : "default",
 							"limit" : 10,
 							"safesearch" : False,
-							"directory" : ".\\Images",
+							"directory" : path.join(curdir, 'Images'),
 							"filetype" : "",
 							"colour" : "",
 							"license" : "",
@@ -171,4 +171,3 @@ class TestKeywordFromFile:
 							"region" : "",
 							"blacklist": ""
 						}
-				
