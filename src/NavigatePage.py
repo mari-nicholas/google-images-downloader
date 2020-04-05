@@ -66,7 +66,7 @@ def getImageURL(url, limit, blacklist):
     elif plt == "darwin":
         chrome_options.binary_location = \
             path.join("/Applications", "Google\\ Chrome.app", "Contents",
-                          "MacOS", "Google\\ Chrome")
+                      "MacOS", "Google\\ Chrome")
         chromeDriver = "chromedriver-mac"
 
     else:
