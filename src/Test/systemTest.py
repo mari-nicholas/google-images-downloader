@@ -8,6 +8,7 @@ import sys
 from shutil import rmtree
 
 from inspect import currentframe, getfile
+from PIL import Image
 from pytest import fixture, raises
 import re
 
@@ -121,6 +122,26 @@ args5 = {
 			"region": ""
 		}
 
+args6 = {
+            "keyword": "homestuck",
+            "limit": 5,
+            "safesearch": True,
+            "directory": path.join(curdir, "Images"),
+            "filetype": "",
+            "colour": "",
+            "license": "",
+            "imagetype": "jpg",
+            "imageage": "",
+            "aspectratio": "",
+            "imagesize": ">2MP",
+            "serverhost": "",
+            "serverusername": "",
+            "serverpassword": "",
+            "whitelist": "",
+            "blacklist": "",
+            "region": ""
+        }
+
 class TestSearchQueries:
     #FR-SQ2
     def test_specific_file_type(self, delete_args1_folder):
@@ -160,6 +181,19 @@ class TestSearchQueries:
             result = re.search("mcmaster.ca", site)
             assert result != None
 
+    #FR-SQ5
+    def test_file_size(self):
+        url = buildURL(args6)
+        urls = getImageURL(url, args6["limit"], args6['blacklist'])
+        downloadImages(urls, args6["keyword"], args6["directory"])
+        
+        directory = path.join(curdir, "Images", args6["keyword"])
+        
+        for file in listdir(directory):
+            image = Image.open(path.join(directory, file))
+            width, height = image.size
+            assert width * height > 2000000 * 0.9 # tolerance for issues on Google's end
+
 
 class TestDownloadImages:
 
@@ -176,7 +210,7 @@ class TestDownloadImages:
         for file in listdir(directory):
             number += 1
         
-        assert number == args4["limit"]
+        assert number <= args4["limit"]
 
 
     @fixture()
