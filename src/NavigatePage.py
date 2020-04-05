@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 
 
 # Helper class to determine whether element is loaded correctly
-class element_has_src(object):
+class ElementHasSrc(object):
     """An expectation for checking that an element has a src with regex: http*
 
     locator - used to find the element
@@ -108,7 +108,7 @@ def getImageURL(url, limit, blacklist):
             # matches the regex: src = "http*"
             # https://selenium-python.readthedocs.io/waits.html#explicit-waits
             # https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.support.expected_conditions
-            image = WebDriverWait(driver, 4).until(element_has_src(
+            image = WebDriverWait(driver, 4).until(ElementHasSrc(
                 (By.XPATH, "/html/body/div[2]/c-wiz/div[3]/div[2]/\
                     div[3]/div/div/div[3]/div[2]/div/div[1]/div[1]/\
                         div/div[2]/a/img")))
