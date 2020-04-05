@@ -27,7 +27,8 @@ class ElementHasSrc(object):
     def __call__(self, driver):
         # Finding the referenced element
         element = driver.find_element(*self.locator)
-        if (element.get_attribute("src")[0:4] == "http") and (element.get_attribute("src")[0:17] != "https://encrypted"):
+        if (element.get_attribute("src")[0:4] == "http") and \
+           (element.get_attribute("src")[0:17] != "https://encrypted"):
             return element
         else:
             return False
@@ -53,33 +54,27 @@ def getImageURL(url, limit, blacklist):
     plt = system().lower()
     if plt == "windows":
         chrome_options.binary_location = \
-            'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-        driver = webdriver.Chrome(executable_path=path.abspath
-                                  ("chromedriver-win.exe"),
-                                  options=chrome_options)  # Headless
-        # driver = webdriver.Chrome(executable_path=path.abspath
-                                    # ("chromedriver-win.exe"))  # Not Headless (With Visual Chrome)
+            path.join("C:\\Program Files (x86)", "Google", "Chrome",
+                      "Application", "chrome.exe")
+        chromeDriver = "chromedriver-win.exe"
 
     elif plt == "linux":
         chrome_options.binary_location = \
-            '/usr/bin/google-chrome'
-        driver = webdriver.Chrome(executable_path=path.abspath
-                                  ("chromedriver-linux"),
-                                  options=chrome_options)  # Headless
-        # driver = webdriver.Chrome(executable_path=path.abspath
-                                    # ("chromedriver-linux")) # Not Headless (With Visual Chrome)
+            path.join("/usr", "bin", "google-chrome")
+        chromeDriver = "chromedriver-linux"
 
     elif plt == "darwin":
         chrome_options.binary_location = \
-            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-        driver = webdriver.Chrome(executable_path=path.abspath
-                                  ("chromedriver-mac"),
-                                  options=chrome_options)  # Headless
-        # driver = webdriver.Chrome(executable_path=path.abspath
-                                    # ("chromedriver-mac")) # Not Headless (With Visual Chrome)
+            path.join("/Applications", "Google\\ Chrome.app", "Contents",
+                          "MacOS", "Google\\ Chrome")
+        chromeDriver = "chromedriver-mac"
 
-    elif plt == "":
+    else:
         raise Exception("Your OS is not supported")
+
+    # Remove options for visual browser
+    driver = webdriver.Chrome(executable_path=path.abspath(chromeDriver),
+                              options=chrome_options)
 
     urls = []
     i = 0
@@ -122,12 +117,12 @@ def getImageURL(url, limit, blacklist):
                 if result is None:
                     urls.append(image_url)
                 else:
-                    print('\033[38;2;255;0;0m' + "Error: Blacklisted Image "
-                          + str(i + 1) + '\033[0m')
+                    print("\033[38;2;255;0;0mError: Blacklisted Image " +
+                          str(i + 1) + '\033[0m')
 
         except Exception:
-            print('\033[38;2;255;0;0m' + "Error: Could not get image "
-                  + str(i + 1) + '\033[0m')
+            print("\033[38;2;255;0;0mError: Could not get image " +
+                  str(i + 1) + '\033[0m')
 
         i += 1
 

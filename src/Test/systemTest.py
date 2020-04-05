@@ -1,4 +1,4 @@
-## @file systemTest.py
+## @file SystemTest.py
 #  @author Joshua Guinness
 #  @brief System level automated functional tests as descirbed in our test plan
 #  @date 04/03/2020

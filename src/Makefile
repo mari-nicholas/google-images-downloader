@@ -9,4 +9,4 @@ install:
 	pip3 install -r requirements.txt
 
 lint:
-	flake8 --per-file-ignores='Input.py:E501' --ignore=E266,N802,N803,N806,N812 --exclude=$(TEST_PATH)/* .
+	flake8 --per-file-ignores='Input.py,SearchQuery.py:E501' --ignore=E266,N802,N803,N806,N812,W504 --exclude=$(TEST_PATH)/* .
