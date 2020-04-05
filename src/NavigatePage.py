@@ -55,21 +55,28 @@ def getImageURL(url, limit, blacklist):
         chrome_options.binary_location = \
             'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
         driver = webdriver.Chrome(executable_path=path.abspath
-                                  ("chromedriver.exe"),
+                                  ("chromedriver-win.exe"),
                                   options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
-                                    # ("chromedriver.exe"))  # Not Headless (With Visual Chrome)
+                                    # ("chromedriver-win.exe"))  # Not Headless (With Visual Chrome)
 
     elif plt == "linux":
         chrome_options.binary_location = \
             '/usr/bin/google-chrome'
         driver = webdriver.Chrome(executable_path=path.abspath
-                                  ("chromedriver"),
+                                  ("chromedriver-linux"),
                                   options=chrome_options)  # Headless
         # driver = webdriver.Chrome(executable_path=path.abspath
-                                    # ("chromedriver")) # Not Headless (With Visual Chrome)
+                                    # ("chromedriver-linux")) # Not Headless (With Visual Chrome)
 
-    # elif plt == "darwin":
+    elif plt == "darwin":
+        chrome_options.binary_location = \
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+        driver = webdriver.Chrome(executable_path=path.abspath
+                                  ("chromedriver-mac"),
+                                  options=chrome_options)  # Headless
+        # driver = webdriver.Chrome(executable_path=path.abspath
+                                    # ("chromedriver-mac")) # Not Headless (With Visual Chrome)
 
     elif plt == "":
         raise Exception("Your OS is not supported")
