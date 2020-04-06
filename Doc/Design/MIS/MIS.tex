@@ -16,6 +16,7 @@
     linkcolor=red,
     urlcolor=blue
 }
+\usepackage{soul,xcolor}
 
 \title{SE 3XA3: Module Interface Specification\\Google Images Downloader}
 
@@ -45,7 +46,7 @@
 This document shows the complete specification for implementing all modules of the Google Images Downloader program.
 
 \begin{table}[bp]
-\begin{tabularx}{\textwidth}{lllp{7.5cm}}
+\begin{tabularx}{\textwidth}{llll}
 \toprule {\bf Date} & {\bf Name} & {\bf Version} & {\bf Notes}\\
 \midrule
 1/21/2020 & Joshua & 1.0 & Created document\\
@@ -55,6 +56,8 @@ This document shows the complete specification for implementing all modules of t
 3/12/2020 & Nick & 1.1.3 & Search Query and Main Module\\
 3/13/2020 & Sam & 1.1.4 & Output Module\\
 3/13/2020 & Joshua, Sam, Nick & 1.2 & General Edits\\
+\color{red}4/6/2020 & \color{red}Sam & 
+\color{red}2.0 & \color{red}Updated for Rev 1\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -88,7 +91,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-userInput & N/A & dict & InvalidParam, MissingParam \\
+userInput & \st{N/A}\color{red}user input from keyboard & dict & InvalidParam, MissingParam \\
 \hline
 
 \end{tabular}
@@ -98,7 +101,7 @@ userInput & N/A & dict & InvalidParam, MissingParam \\
 \subsubsection* {Environmental Variables}
 
 \begin{itemize}
-\item Keyboard
+\item Keyboard \color{red}- the user will enter flags, usually followed by values, that will be parsed to provide the input arguments to the program. Valid parameters are given in Table \ref{tab:inputParams}.\color{black}
 \end{itemize}
 
 \subsubsection* {State Variables}
@@ -115,19 +118,53 @@ None
 \item The \texttt{userInput} method is called by Main before any other method.
 \end{itemize}
 
+\newpage
 \subsubsection* {Access Routine Semantics}
 
 \noindent userInput():
 \begin{itemize}
 \item output: $\mathit{out} :=$ A dictionary (key:value pair) of parameters and their values. The keys are the parameters and the values are the user input.
+\color{red}The following parameters are valid:
+
+\begin{table}[h]
+\color{red}
+\begin{tabularx}{\textwidth}{llll}
+\toprule {\bf Parameter} & {\bf Abbr.} & {\bf Description} & {\bf Example}\\
+\midrule
+\texttt{keyword} & \texttt{k} & The keyword to search Google Images with & \texttt{"software"}\\
+\texttt{limit} & \texttt{l} & The maximum number of images to download & \texttt{10}\\
+\texttt{safesearch} & \texttt{ss} & Whether or not to enable SafeSearch & N/A\\
+\texttt{filetype} & \texttt{ft} & The file type of images to download & \texttt{"gif"}\\
+\texttt{directory} & \texttt{d} & The directory to save images to & a path to a directory\\
+\texttt{colour} & \texttt{c} & The colour of images to download & \texttt{"teal"}\\
+\texttt{license} & \texttt{li} & The license of images to download & \texttt{"labeled-for-reuse"}\\
+\texttt{imagetype} & \texttt{t} & The type of images to download &  \texttt{"clipart"}\\
+\texttt{imageage} & \texttt{a} & The age of images to download &  \texttt{"past-year"}\\
+\texttt{aspectratio} & \texttt{ar} & The aspect ratio of images to download &  \texttt{"square"}\\
+\texttt{imagesize} & \texttt{s} & The size of images to download &  \texttt{">2MP"}\\
+\texttt{serverhost} & \texttt{s} & The host of the server to download images to & \texttt{"moore.mcmaster.ca"}\\
+\texttt{serverusername} & \texttt{u} & The username to log in to the given server & the user's MacID\\
+\texttt{serverpassword} & \texttt{p} & The password to log in to the given server & the user's Moore password\\
+\texttt{region} & \texttt{rg} & The geographical location of images to download & \texttt{"Canada"}\\
+\texttt{whitelist} & \texttt{wl} & The website to download images from & \texttt{"mcmaster.ca"}\\
+\texttt{blacklist} & \texttt{bl} & The website to exclude image download from & \texttt{"mcmaster.ca"}\\
+\texttt{fromfile} & \texttt{ff} & The file to parse input arguments from & a path to a file\\
+\bottomrule
+\end{tabularx}
+\caption{\bf Input Parameters}
+\label{tab:inputParams}
+\end{table}
+
+\color{black}
+
 \item exception: $\mathit{exc} :=$ (required parameter missing $\Rightarrow$ $\mathit{MissingParam} ~\vert$ improper format for a parameter $\Rightarrow$ $\mathit{InvalidParam}$)
 \end{itemize}
 
 \subsection* {Local Functions}
 
 keywordFromFile: string $\rightarrow$ dict \\
-keywordFromFile($\mathit{s}$) $\equiv$ Reads in file $\mathit{s}$ of parameters and their associated values.\\
-exception: $exc :=$ (can't find file $\Rightarrow$ $\mathit{InvalidFileName} ~\vert$ can't read file $\Rightarrow$ $\mathit{UnableToParseFile} ~\vert$ required parameter missing $\Rightarrow$ $\mathit{MissingParam} ~\vert$ improper format for a parameter $\Rightarrow$ $\mathit{InvalidParam}$)
+keywordFromFile($\mathit{s}$) $\equiv$ Reads in file $\mathit{s}$ of parameters and their associated values\color{red}, populating fields with their default values if not found in the file\color{black}.\\
+exception: $exc :=$ \st{(can't find file $\Rightarrow$ $\mathit{InvalidFileName} ~\vert$ can't read file $\Rightarrow$ $\mathit{UnableToParseFile} ~\vert$ required parameter missing $\Rightarrow$ $\mathit{MissingParam}~\vert$ improper format for a parameter $\Rightarrow$ $\mathit{InvalidParam}$)} \color{red}(error processing file $\Rightarrow \mathit{Exception} ~\vert$ \texttt{keyword} argument not found $\Rightarrow \mathit{ValueError}$)\color{black}
 
 \newpage
 
@@ -186,25 +223,27 @@ None
 
 \noindent buildURL($dS$):
 \begin{itemize}
-\item output: $out :=$ ``https://www.google.com/search?q=\&espv=2\&sxsrf=ACYBGNSwqBUElVjmEWOTu3-\linebreak
+\item output: $out :=$ \st{``https://www.google.com/search?q=\&espv=2\&sxsrf=ACYBGNSwqBUElVjmEWOTu3-\linebreak
 mXPnReqFoLw:1581376760401\&source=lnms" + buildURLParam(dS) + ``isch\&sa=X\&ved=\linebreak
-2ahUKEwiY7bzAj8jnAhUQjq0KHbXwBEYQ\_AUoAXoECBMQAw\&biw=838\&bih=880"
+2ahUKEwiY7bzAj8jnAhUQjq0KHbXwBEYQ\_AUoAXoECBMQAw\&biw=838\&bih=880"} \color{red} A valid Google Images search URL with the \texttt{keyword}, \texttt{region}, \texttt{whitelist}, and the rest of the parameters formatted and encoded as necessary.\color{black}
 \item exception: none
 \end{itemize}
 
-\subsection* {Local Functions}
-
 \newpage
 
+\subsection* {Local Functions}
+
 \noindent buildURLParam: dict of string $\rightarrow$ string \\
-buildURLParam($\mathit{dS}$) $\equiv s$
+buildURLParam($\mathit{dS}$) $\equiv$ \st{$s$
 such that:
 
 $s =$ ``"
 
 for all $i$ in $dS$:
 
-$~~~~s = s + i$
+$~~~~s = s + i$}
+
+\color{red} A string consisting of the correct Google parameters for \texttt{aspectratio}, \texttt{colour}, \texttt{filetype}, \texttt{imageage}, \texttt{imagesize}, \texttt{imagetype}, and \texttt{license} as a comma-separated string.\color{black}
 
 \newpage
 \section*{Navigate Page Module}
@@ -233,7 +272,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-getImageURL & string, $\mathbb{Z}$ & list of string & None \\
+getImageURL & string, $\mathbb{Z}$\color{red}, string& list of string & None \\
 \hline
 
 \end{tabular}
@@ -262,10 +301,10 @@ None
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent getImageURL($s$, $n$):
+\noindent getImageURL($s$, $n$\color{red}, $b$\color{black}):
 \begin{itemize}
-\item output: $\mathit{out} :=$ a list ($urls$) of image URLs from $s$ where $\mathit{|urls| = n}$.
-\item exception: None
+\item output: $\mathit{out} :=$ a list ($urls$) of image URLs from $s$ where $\mathit{|urls| = n}$ \color{red}and none of the URLs are from the blacklisted site $b$\color{black}.
+\item exception: \st{None} \color{red}($n \leq 0 \Rightarrow \mathit{ValueError} ~\vert$ OS not supported $\Rightarrow \mathit{Exception}$)\color{black}
 \end{itemize}
 
 \newpage
@@ -320,22 +359,30 @@ None
 \subsubsection* {Assumptions \& Design Decisions}
 
 \begin{itemize}
-\item The first string parameter (the download location) in the \texttt{downloadImages} method is optional and has a default value (``./Images").
-\item The \texttt{createDirectory} method creates a directory with the file path $\mathit{loc} + ``/" + \mathit{key}$.
+\item \st{The first string parameter (the download location) in the \texttt{downloadImages} method is optional and has a default value (``./Images").}
+\item The \texttt{createDirectory} method creates a directory 
+\color{red}called $\mathit{key}$ in the directory $\mathit{loc}$ and raises an $\mathit{OSError}$ if the directory can't be created. \color{black} \st{with the file path $\mathit{loc} + ``/" + \mathit{key}$.}
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent downloadImages($lst$, $key$, $loc$):
+\begin{itemize}
+\item output: save each image represented by a string in $lst$ and save it \color{red} with the name $key$ followed by an appropriate number \color{black} to the folder created by \color{red}calling \color{black} the \texttt{createDirectory} method.
+\item exception: none
 \end{itemize}
 
 \subsection* {Local Functions}
 
-\noindent createDirectory($loc$, $key$): $\epsilon$ \\
-createDirectory($loc$, $key$) $\equiv$ Null
+\noindent createDirectory(\st{$loc$, $key$} \color{red}$dir$\color{black}): $\epsilon$ \\
+createDirectory((\st{$loc$, $key$} \color{red}$dir$\color{black}) $\equiv$ Null
 
-\subsubsection* {Access Routine Semantics}
+\medskip
 
-\noindent downloadImages($lst$, $loc$, $key$):
-\begin{itemize}
-\item output: save each image represented by a string in $lst$ and save it to the folder created by the \texttt{createDirectory} method.
-\item exception: none
-\end{itemize}
+\color{red}
+\noindent getRequest($img$): byte string \\
+getRequest($img$) $\equiv$ The data of the image denoted by $img$.
+\color{black}
 
 \newpage
 
