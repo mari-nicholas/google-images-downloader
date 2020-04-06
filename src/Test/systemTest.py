@@ -164,6 +164,8 @@ args7 = {
 
 
 class TestSearchQueries:
+
+
     #FR-SQ2
     def test_gif_file_type(self, delete_args1_folder):
         args1["filetype"] = "gif"
@@ -177,6 +179,7 @@ class TestSearchQueries:
             filename = fsdecode(file)
             assert filename.endswith(".gif")
 
+
     def test_jpg_file_type(self, delete_args1_folder):
         args1["filetype"] = "jpg"
         url = buildURL(args1)
@@ -188,6 +191,7 @@ class TestSearchQueries:
         for file in listdir(directory):
             filename = fsdecode(file)
             assert filename.endswith(".jpg")
+
 
     def test_png_file_type(self, delete_args1_folder):
         args1["filetype"] = "png"
@@ -227,6 +231,7 @@ class TestSearchQueries:
             result = re.search("mcmaster.ca", site)
             assert result != None
 
+
     #FR-SQ5
     def test_file_size(self, delete_args6_folder):
         url = buildURL(args6)
@@ -240,13 +245,15 @@ class TestSearchQueries:
             width, height = image.size
             assert width * height > 2000000 * 0.9 # tolerance for issues on Google's end
 
+
     @fixture()
     def delete_args6_folder(self):
         yield TestSearchQueries.delete_args6_folder
         rmtree(path.join(curdir, "Images", args6["keyword"]))
 
+
     #FR-SQ6
-    def test_blacklist_site(self):
+    def test_keyword_from_file(self):
         url = buildURL(args7)
         urls = getImageURL(url, args7["limit"], args7['blacklist'])
 
