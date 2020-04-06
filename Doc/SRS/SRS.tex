@@ -12,6 +12,8 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{xcolor}
+\usepackage{soul}
 
 \title{SE 3XA3: Software Requirements Specification\\google-images-downloader}
 
@@ -38,6 +40,7 @@
 1/28/2020 & 1.1 & Filled in name of project and team\\
 2/08/2020 & 1.2 & Initial draft of SRS \\
 2/09/2020 & 1.2 & Completed sections 3 and 4 \\
+\textcolor{red}{4/05/2020} & \textcolor{red}{2.0} & \textcolor{red}{Changes made to address TA Comments for Revision 1}\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -47,8 +50,8 @@
 \pagenumbering{arabic}
 
 This document describes the requirements for google-images-downloader.  The 
-template for the Software Requirements Specification (SRS) is a subset of the Volere
-template~\citep{RobertsonAndRobertson2012}.
+template for the Software Requirements Specification (SRS) is a subset of the \st{Volere template} \href{http://www11.informatik.uni-erlangen.de/Lehre/SS2015/PR-SWE/Material/volere-template.pdf}{Volere
+template}~\citep{RobertsonAndRobertson2012}.
 
 \section{Project Drivers}
 
@@ -56,7 +59,7 @@ template~\citep{RobertsonAndRobertson2012}.
 
 The purpose of this project is to re-create an open source software application following the software development life cycle, for the software engineering course 3XA3. This project will give the group exposure and experience in how to properly develop a software product from beginning to end.
 \\ \\
-The project chosen is a google images downloader command line tool that will allow end users to download a certain number of google images given specific keywords. We want this product primarily to be able to help those involved in machine learning, and secondarily those involved in art.
+The project chosen is a google images downloader command line tool that will allow end users to download a certain number of google images given specific keywords. \st{We want this product primarily to be able to help those involved in machine learning, and secondarily those involved in art} \textcolor{red}{This product will primarily help those involved in machine learning, and secondarily those involved in art} .
 
 \subsection{The Stakeholders}
 
@@ -64,7 +67,7 @@ The following subsections will discuss various stakeholders of the product being
 
 \subsubsection{The Client}
 
-Dr. Asghar Bokhari, the professor of our course, and the TA responsible for marking all the deliverables, Andrew Lucentini.
+\textcolor{red}{The clients of this project are} Dr. Asghar Bokhari, the professor of our course, and the TA responsible for marking all the deliverables, Andrew Lucentini.
 
 \subsubsection{The Customers}
 
@@ -76,7 +79,7 @@ Artists may use this tool for projects requiring many images based off a single 
 
 \subsubsection{Other Stakeholders}
 
-Other stakeholders include Google Images because their service is being used to scrape images off of it.
+Other stakeholders include Google Images because their service is being used to scrape images off of it\textcolor{red}{, as well as the developers of this project}.
 
 \subsection{Mandated Constraints}
 
@@ -102,7 +105,7 @@ Rationale: The existing implementation of the software is in Python 3, making it
 Fit criterion: The software is programmed in Python 3.
 \\ \\
 Description: The product shall get the image URLs from Google Images by scraping the HTML code returned.\\
-Rationale: The existing implementation of the software designed its solution in this was so since we are re-developing it, that component of the solution will remain the same.\\
+Rationale: The existing implementation of the software designed its solution in this \st{was} \textcolor{red}{way.} \st{so since} \textcolor{red}{Since} we are re-developing it, that component of the solution will remain the same.\\
 Fit criterion: The application works by scraping HTML code to get URLs
 
 \subsubsection{Budget Constraints}
@@ -123,7 +126,6 @@ The software product being developed will use the Google Images application to d
 
 The software product being developed will be installed on users local machines, or on servers, to function as a command line tool.
 
-\newpage
 
 \subsection{Naming Conventions and Terminology}
 
@@ -132,19 +134,33 @@ The software product being developed will be installed on users local machines, 
 \begin{tabular}{ |c|c| } 
  \hline
  \textbf{Name/Term} & \textbf{Definition}\\ 
+ \hline
  The System & The product defined in this document\\
+ \hline
  HTML & Hypertext Markup Language \\ 
- URL & The address of a website or file on the internet \\ 
+ \hline 
+URL & The address of a website or file on the internet \\ 
+ \hline
  Python 3 & The third version of the python programming language \\
+ \hline
  Keyword & The search term used to find images\\
+ \hline
  Limit & The number of images the user wished to download\\
+ \hline
  Google Images & The image search engine provided by Google\\
+ \hline
  Search Constraints & restrictions images must follow such as size or file type\\
+ \hline
  JPEG & A format for image files\\ 
+ \hline
  config file & A file that contains configurations for the system\\
+ \hline
  API & application programming interface\\
+ \hline
  GUI & Graphical User Interface\\
+ \hline
  git & A version control software used for co-working on code\\
+ \hline
  GitLab & A product which stores projects using git\\
  \hline
 \end{tabular}
@@ -152,7 +168,7 @@ The software product being developed will be installed on users local machines, 
 
 \subsection{Relevant Facts and Assumptions}
 
-It is assumed that users of the application have basic computer skills and are able to type commands on a command line given examples. It is also being assumed that users have basic knowledge of pictures, like what aspect ratio means, or colour type refers to.
+It is assumed that users of the application have basic computer skills and are able to type commands on a command line given examples. It is also being assumed that users have basic knowledge of \st{pictures} \textcolor{red}{picture related terms}, \st{like what} \textcolor{red}{such as} aspect ratio \st{means}, or colour type \st{refers to}.
 
 \section{Functional Requirements}
 
@@ -198,7 +214,7 @@ The main use case of this product is the user actor requesting an image. This us
     
     \item The user requests a limit of 50 images with the keyword "Cat". The system will retrieve the first 50 images off of Google Images when Cat is used as the search term. Since an output directory was not specified, the system will download the images into a downloads directory located in the same directory where the program was executed.
     
-    \item The user requests a limit of 50 images with the keyword "Cat". The user specifies a download directory of "./Images/Cat/". The system will retrieve the first 50 images off of Google Images when Cat is used as the search term. Since an output directory was specified, the system will create a new directory named images then inside images create a new directory called cats. The images will then be downloaded into the new cats directory. If the images and cats directory already exists, the system will use the existing directory rather than creating a new one.
+    \item The user requests a limit of 50 images with the keyword "Cat". The user specifies a download directory of "./Images/Cat/". The system will retrieve the first 50 images off of Google Images when Cat is used as the search term. Since an output directory was specified, the system will create a new directory named \st{images} \textcolor{red}{Images} then inside images create a new directory called \st{cats} \textcolor{red}{Cat}. The images will then be downloaded into the new cats directory. If the images and cats directory already exists, the system will use the existing directory rather than creating a new one.
     
     \item The user requests a limit of 100 images with a specified keyword and download directory. The user also specifies specific search constraints. The system will search with the keyword and download 100 images that match the keyword and don't violate any of the search constraints. For example if the search constraint is a file type of JPEG, the system will only download JPEG images. The images will be downloaded into the specified directory, creating it if it does not already exist.
     
@@ -207,10 +223,10 @@ The main use case of this product is the user actor requesting an image. This us
 \subsection{Functional Requirements}
 
 \begin{enumerate}[label=FR\arabic*:, wide=0pt, leftmargin=*]
-    \item The user shall be able to download images that match a given keyword.
+    \item \st{The user shall be able to download images that match a given keyword} \textcolor{red}{The system shall be able to download a set of images that match a user given keyword or phrase}.
     \item[Rationale:] This is the main functionality of the product. With this, users will be able to download multiple images that all match the keyword given with just one command.
     \\
-    \item The user shall be able to specify the number of images they want.
+    \item The user shall be able to specify the number of images they want \textcolor{red}{to download}.
     \item[Rationale:] This allows the user to select how many images they want and will be a useful quality of life feature when the user knows approximately how many images they want.
     \\
     \item The user shall be able to specify a directory to download the images into.
@@ -225,14 +241,37 @@ The main use case of this product is the user actor requesting an image. This us
     \item The user shall be able to download images only from specified websites.
     \item[Rationale:] Allowing the user to white-list websites will give the user greater control over the system and prevent images from inappropriate sources from being downloaded in professional settings. 
     \\
-    \item The user shall be able to add prefixes and suffixes to their image searches.
-    \item[Rationale:] Adding prefixes and suffixes will allow users to find the exact images they want as descriptive searches will narrow the search for the images they want. For example "Red Car" will only return red cars whereas "Car" would return images with cars of multiple different colours
+    \item \st{The user shall be able to add prefixes and suffixes to their image searches.} \textcolor{red}{The user shall be able to specify the colour of Images they want to download.}
+    \item[Rationale:] \st{Adding prefixes and suffixes will allow users to find the exact images they want as descriptive searches will narrow the search for the images they want. For example "Red Car" will only return red cars whereas "Car" would return images with cars of multiple different colours} \textcolor{red}{Adding a colour search query will allow the user to filter their images even further by allowing them to only download images that contain a desired colour. This gives the user greater freedom and choice over the images that are downloaded for them.}
     \\
     \item The user shall be able to specify the size of images they want.
     \item[Rationale:] Allowing the user to specify size would be useful to artists aiming to make collages which depend on the placement and size of images used.
     \\
     \item The user shall be able to pass all search constraints, image limits and keywords through a config file.
     \item[Rationale:] Using a config file would allow groups of users to use the same settings which would be a useful features for businesses or teams using the product.
+\\
+\color{red}
+
+\item The user shall be able to download images directly to a server address specified by the user.
+\item[Rationale:] This will allow users who work on remoter servers or are hosting a training set on a server to reduce the amount of workrequired for the images to be sent to the server they desire
+\\
+\item The system shall be able to download images of a specified aspect ratio given by the user.
+\item[Rationale:] This will allow the user greater controll over the system and allow them to focus on only the images that satisfy their needs.
+\\
+\item The user shall be able to specify an age of the image so that the system shall only download images that match the user specified age
+\item[Rationale:] With an image age search constraint, users of the product will be able to get only the newest images or filter new images out so they have older images only. This will allow users of the product to have greater freedom over the images they want downloaded.
+\\
+\item The user shall be able to specify a specific useage rights license that images downloaded by the system shall have.
+\item[Rationale:] This feature will allow users to have greater freedom over the images they download. Additionally, specifying the useage rights the user wants for their images will be usefull for artists lokking for non copyrighted images.
+\\
+\\item The user should be able to specify if they want the system to do a safe search while downloading images.
+\item[Rationale:] This will ensure that if the user desires images that are safe for work, the system will only download images that are safe for work
+\\
+\item the user should be able to specify what region or country they would like images they request to have been uploaded in.
+\item[Rationale:] This feature will allow users to only download images that were uploaded in a specified country allowing users who are out of their home country to still download images from their prefered geographical loaction.
+\\
+
+\color{black}
 
 \end{enumerate}
 
@@ -247,6 +286,16 @@ The main use case of this product is the user actor requesting an image. This us
     \item [Fit Criterion:] 80\% of users find that the output messages fit the console nicely. 
 \end{enumerate}
 
+\color{red}
+
+\subsubsection{Style Requirements}
+
+\begin{enumerate}[label=STR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
+
 \subsection{Usability and Humanity Requirements}
 
 \subsubsection{Ease of Use Requirements}
@@ -256,16 +305,72 @@ The main use case of this product is the user actor requesting an image. This us
     \item [Fit Criterion:] 90\% of users should successfully download images after reading the sample inputs and explanations for the first time.
 \end{enumerate}
 
+\color{red}
+
+\subsubsection{Personalization and Internationalization Requirements}
+
+\begin{enumerate}[label=PIR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
+
 \subsubsection{Learning Requirements}
 \begin{enumerate}[label=LR\arabic*:, wide=0pt, leftmargin=*]
-    \item The product must be easy to learn and find information about.
-    \item [Fit Criterion:] 80\% of users should be able to find the information they need within two minutes of searching.
+    \item \st{The product must be easy to learn and find information about.}
+    \item [Fit Criterion:] \st{80\% of users should be able to find the information they need within two minutes of searching.}
     \\
     \item The product must be easy to download for individuals familiar with using the command line.
     \item [Fit Criterion:] 90\% of users are able to have the product downloaded and functioning within five minutes.
 \end{enumerate}
 
+\color{red}
+
+\subsubsection{Understandability and Politeness Requirements}
+
+\begin{enumerate}[label=UPR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Accessibility Requirements}
+
+\begin{enumerate}[label=ASR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
+
 \subsection{Performance Requirements}
+
+\color{red}
+
+\subsubsection{Speed and Latency Requirements}
+
+\begin{enumerate}[label=SLR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Safety-Critical Requirements}
+
+\begin{enumerate}[label=SCR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+
+\subsubsection{Precision or Accuracy Requirements}
+
+\begin{enumerate}[label=PAR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+
+\subsubsection{Reliability and Availability Requirements}
+
+\begin{enumerate}[label=RAR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
 
 \subsubsection{Robustness Requirements}
 \begin{enumerate}[label=RR\arabic*:, wide=0pt, leftmargin=*]
@@ -273,7 +378,39 @@ The main use case of this product is the user actor requesting an image. This us
     \item [Fit Criterion:] 75\% of users are able to identity their mistake from the error message returned.
 \end{enumerate}
 
+\color{red}
+
+\subsubsection{Capacity Requirements}
+
+\begin{enumerate}[label=CR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Scalabillity or Extensibillity Requirements}
+
+\begin{enumerate}[label=SER\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Longevity Requirements}
+
+\begin{enumerate}[label=LOR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
+
 \subsection{Operational and Environmental Requirements}
+
+\color{red}
+
+\subsubsection{Expected Physical Environment}
+
+\begin{enumerate}[label=EVE\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
 
 \subsubsection{Requirements for Interacting with Adjacent Systems}
 
@@ -288,6 +425,15 @@ The main use case of this product is the user actor requesting an image. This us
     \item [Fit Criterion:] The git repository is public and includes download instructions.
 \end{enumerate}
 
+\color{red}
+
+\subsubsection{Release Requirements}
+
+\begin{enumerate}[label=RER\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
 
 \subsection{Maintainability and Support Requirements}
 
@@ -299,6 +445,16 @@ The main use case of this product is the user actor requesting an image. This us
     \item The application will require approved pull requests to be modified.
     \item [Fit Criterion:] The application guidelines for the modification of the system clearly state that pull requests are required.
 \end{enumerate}
+
+\color{red}
+
+\subsubsection{Supportabillity Requirements}
+
+\begin{enumerate}[label=SUR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
 
 \subsubsection{Adaptability Requirements}
 \begin{enumerate}[label=ADR\arabic*:, wide=0pt, leftmargin=*]
@@ -314,11 +470,52 @@ The main use case of this product is the user actor requesting an image. This us
     \item [Fit Criterion:] The git repository is public.
 \end{enumerate}
 
-\subsection{Cultural Requirements}
+\color{red}
+
+\subsubsection{Integrity Requirements}
+
+\begin{enumerate}[label=IR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Privacy Requirements}
+
+\begin{enumerate}[label=PRR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Audit Requirements}
+
+\begin{enumerate}[label=ADR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\subsubsection{Immunity Requirements}
+
+\begin{enumerate}[label=IMR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+
+\subsection{Cultural and Political Requirements}
+
+\color{black}
+
+\subsubsection{Cultural Requirements}
 \begin{enumerate}[label=CR\arabic*:, wide=0pt, leftmargin=*]
     \item The naming conventions of the product does not offend any groups or cultures.
     \item [Fit Criterion:] Users questioned in annonymous surveys do not find the product offensive.
 \end{enumerate}
+
+\color{red}
+
+\subsubsection{Political Requirements}
+
+\begin{enumerate}[label=PR\arabic*:, wide=0pt, leftmargin=*]
+    \item N/A
+\end{enumerate}
+
+\color{black}
 
 \subsection{Legal Requirements}
 
@@ -336,7 +533,15 @@ The main use case of this product is the user actor requesting an image. This us
 
 \subsection{Health and Safety Requirements}
 
-There are no health and safety requirements that need to be considered for this project.
+\st{There are no health and safety requirements that need to be considered for this project.}
+
+\color{red}
+
+\begin{enumerate}[label=HSR\arabic*:, wide=0pt, leftmargin=*]
+    \item The application will allow the filtering of not safe for work images
+\end{enumerate}
+
+\color{black}
 
 \section{Project Issues}
 
@@ -394,7 +599,7 @@ The product will have the following documentation provided to the user to help t
 
 The creation of the GUI and functional requirements surrounding the GUI have been put on hold due to time constraints surrounding the release of this project.
 \\ \\
-Ideally these features will be implemented in a future release. A GUI would allow users that are less com-fordable with using the command line still have access to the product and all it's features.
+Ideally these features will be implemented in a future release. A GUI would allow users that are less comfordable with using the command line still have access to the product and all it's features.
 
 \subsection{Ideas for Solutions}
 
