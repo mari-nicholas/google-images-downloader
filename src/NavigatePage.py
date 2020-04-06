@@ -40,6 +40,7 @@ class ElementHasSrc(object):
 #  image to get its URL and adding it to a list
 #  @param url search query URL
 #  @param limit number of images to get
+#  @param blacklist site to blacklist in Google search
 #  @return urls list of image urls to download
 def getImageURL(url, limit, blacklist):
 

@@ -53,7 +53,7 @@
 \listoffigures
 
 \begin{table}[tp]
-\begin{tabularx}{\textwidth}{lllp{7.5cm}}
+\begin{tabularx}{\textwidth}{llll}
 \toprule {\bf Date} & {\bf Name} & {\bf Version} & {\bf Notes}\\
 \midrule
 2/26/2020 & Nick & 1.0 & Created document\\
@@ -61,8 +61,9 @@
 3/9/2020 & Sam & 1.1.1 & Started adding modules\\
 3/10/2020 & Josh, Sam, Nick & 1.1.2 & First iteration of all sections completed\\
 3/11/2020 & Sam, Nick & 1.2 & Finishing touches\\
-3/13/2020 & Josh & 1.2.1 & Finishing section 2, General edits\\
-3/13/2020 & Nick & 1.2.2 & Gneneral edits\\
+3/13/2020 & Josh & 1.2.1 & Finishing section 2, general edits\\
+3/13/2020 & Nick & 1.2.2 & General edits\\
+\textcolor{red}{4/6/2020} & \color{red}Sam & \color{red}2.0 & \color{red}Final revision for Rev 1\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -151,7 +152,7 @@ be modified. This is obviously not ideal.
 location on a server.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The program will run on a computer or server that has the necessary tools 
 downloaded and installed, not an embedded system.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucFlow}:] The data flow and logic of the system is unlikely to change.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucFlow}:] The data flow and \st{logic of the system} \textcolor{red}{system architecture} is unlikely to change.
 \end{description}
 
 \newpage
@@ -187,10 +188,10 @@ below are leaves in the hierarchy tree and will actually be implemented.
 & Search Query Module\\
 & Navigate Page Module\\
 & Output Module\\
-& Main Module\\
+& \st{Main Module}\\
 \midrule
 
-{Software Decision Module} & ~ \\
+{Software Decision Module} & \textcolor{red}{Main Module} \\
 \bottomrule
 
 \end{tabular}
@@ -366,8 +367,6 @@ HSR1 & \mref{mInput}, \mref{mSQ}\\
 \label{table:tracechanges}
 \label{TblACT}
 \end{table}
-
-\newpage
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 

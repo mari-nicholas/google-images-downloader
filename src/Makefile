@@ -1,9 +1,16 @@
 TEST_PATH=./Test
+DOC = doxygen
+DOCFLAGS = 
+DOCCONFIG = 
 
 .PHONY: test
 
 test:
 	pytest --cov-report term --cov=. $(TEST_PATH)
+
+docs:
+	$(DOC) $(DOCFLAGS) $(DOCCONFIG)
+	cd latex && $(MAKE)
 
 install:
 	pip3 install -r requirements.txt
