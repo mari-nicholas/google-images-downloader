@@ -4,6 +4,7 @@
 \usepackage{tabularx}
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{hyperref}
+\usepackage{soul,xcolor}
 
 \bibliography{bibfile}
 
@@ -28,6 +29,8 @@
 
 \begin{document}
 
+\setstcolor{black}
+
 \maketitle
 
 \tableofcontents
@@ -40,8 +43,9 @@ including our team roles, technological details, and project management.
 
 \section{Team Meeting Plan}
 Meetings will take place every lab session, which is twice a week on Tuesday and 
-Wednesday from 2:30 - 4:30 pm in ITB 236. If extra meetings are needed, a time 
-and location will be found that fits for everyone in the group.
+Wednesday from 2:30 - 4:30 pm in ITB 236, when possible. \st{If extra meetings are 
+needed,} \color{red} Extra meetings will be scheduled when needed on a case-by-case 
+basis at \color{black} a time and location that fits for everyone in the group.
 
 The roles individuals take in meetings are outlined below in Section~\ref{roles}. 
 
@@ -53,9 +57,9 @@ that need to take place will be agreed to by the individuals at the end of the m
 
 \section{Team Communication Plan}
 In order to properly communicate between team members on important issues 
-related to code and development, we will make use of git issue. This also provides
-us with a logged record of all the 
-issues and problems that occurred during the development process.
+related to code and development, we will make use of \st{git issue} \color{red} the 
+git issue tracker when necessary\color{black}. This also provides us 
+with a logged record of all the issues and problems that occurred during the development process. \color{red}Other communication, like discussing tasks or diagnosing bugs, will also be done via Discord and Facebook Messenger.\color{black}
 
 For team meetings and general planning, our team will make use of Discord for 
 remote meetings and Facebook Messenger for meeting planning and coordination.
@@ -87,30 +91,40 @@ of the master branch only when needed for implementing a specific feature;
 otherwise we will be working in the master branch, especially for 
 smaller updates like modifying documentation. This will allow us to avoid 
 frequent and messy merge conflicts. As we are just getting started, and since 
-we’re working with a small team, using this method of code development will 
+we're working with a small team, using this method of code development will 
 allow us to develop our code and write our documentation quickly with minimal 
 wait times or delays \cite{trunkbased}.
 
 \section{Proof of Concept Demonstration Plan}
 In order to provide a proof of concept for our product, the basic functionality
-of the application will be demonstrated. A python script will be created that can
-ownload multiple images from the Internet given a keyword. However, as the 
-proof of concept intends to focus on the basic functions, the additional 
-features such as input flags, whitelisting, a vetting process, or a GUI will not 
-be implemented in this version.
+of the application will be demonstrated. A Python script will be created that can
+\color{red}d\color{black}ownload multiple images from the Internet given a keyword. 
+However, as the proof of concept intends to focus on the basic functions, the 
+additional features such as input flags \color{red}and \color{black}white-listing 
+\st{, a vetting process, or a GUI} will not be implemented in this version. 
+\color{red} At the onset of this project, Google had changed their method of 
+handling images; instead of having the image URLs directly in the HTML, they 
+resolved it dynamically using JavaScript. This means that the original 
+implementation no longer works. Since mitigating this issue will be a significant 
+hurdle, the proof of concept will only focus on creating a product that allows the 
+user to download images. This proof of concept will demonstrate that a solution to 
+this problem is still feasible, despite the change in Google's service.
+\color{black}
 
 \section{Technology}
 Programming Language: Python 3 \\
 IDEs: Visual Studio/Sublime Text \\
 Testing Framework: pytest \\
 Document Generation: doxygen \\
-Linters: pylint/flake8
+Linters: \st{pylint/}flake8
 
 \section{Coding Style}
-We will be basing our style guide off of Google’s style guide for Python, with 
-some modifications. Linting will be done as per our own discretion, either with 
-pylint or flake8; this is subject to revision in the future and will possibly be 
-standardized. We will not be considering Python 2 compatibility, type annotating 
+We will be basing our style guide off of Google’s style guide for Python 
+\color{red} \cite{pythonguide}\color{black}, with some modifications. Linting will 
+be done \st{as per our own discretion, either with pylint or flake8; this is 
+subject to revision in the future and will possibly be standardized.} \color{red} 
+with flake8, instead of the pylint used by Google. \color{black}We will not be 
+considering Python 2 compatibility, type annotating 
 functions or variables, or using shebang lines, unless we decide it is 
 advantageous during the development process. All functions, variables, classes, 
 modules, etc. will be named with camel case convention, with the first letter’s 
@@ -127,7 +141,7 @@ The \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/
 
 \begin{table}[h]
 \caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
+\begin{tabularx}{\textwidth}{lll}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
@@ -138,6 +152,7 @@ Jan 29 & Sam & Added table of contents and Introduction\\
 Jan 29 & Nick & Added Gantt Chart link\\
 Jan 30 & Nick & Updated Gantt Chart link\\
 Jan 30 & Joshua & Spelling, grammar, sentence structure, formatting \\
+\color{red}Apr 5&\color{red}Sam&\color{red}Revisions for Rev 0\\
 \bottomrule
 \end{tabularx}
 \end{table}

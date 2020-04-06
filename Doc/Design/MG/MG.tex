@@ -7,6 +7,8 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{xcolor}
+\usepackage{soul}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -315,14 +317,20 @@ requirements and between the modules and the anticipated changes.
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
 FR1 & \mref{mInput}, \mref{mSQ}, \mref{mOutput}\\
-FR2 & \mref{mInput}, \mref{mSQ}\\
-FR3 & \mref{mOutput}\\
+FR2 & \mref{mInput}, \mref{mNP}\\
+FR3 & \mref{mInput}, \mref{mOutput}\\
 FR4 & \mref{mInput}, \mref{mSQ}\\
 FR5 & \mref{mInput}, \mref{mNP}\\
-FR6 & \mref{mInput}, \mref{mNP}\\
+FR6 & \mref{mInput}, \mref{mSQ}\\
 FR7 & \mref{mInput}, \mref{mSQ}\\
 FR8 & \mref{mInput}, \mref{mSQ}\\
-FR9 & \mref{mHH}, \mref{mInput}, \mref{mSQ}\\
+FR9 & \mref{mHH}, \mref{mInput}, \mref{mSQ}, \mref{mNP}, \mref{mOutput}\\
+FR10 & \mref{mInput}, \mref{mOutput}\\
+FR11 & \mref{mInput}, \mref{mSQ}\\
+FR12 & \mref{mInput}, \mref{mSQ}\\
+FR13 & \mref{mInput}, \mref{mSQ}\\
+FR14 & \mref{mInput}, \mref{mSQ}\\
+FR15 & \mref{mInput}, \mref{mSQ}\\
 EUR1 & \mref{mHH}, \mref{mOutput}\\
 LR1 & --\\
 LR2 & --\\
@@ -336,6 +344,7 @@ ACR1 & --\\
 CR1 & \mref{mInput}\\
 CPR1 & --\\
 SR1 & \mref{mInput}, \mref{mSQ}, \mref{mNP}, \mref{mOutput}, \mref{mMain}\\
+HSR1 & \mref{mInput}, \mref{mSQ}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
