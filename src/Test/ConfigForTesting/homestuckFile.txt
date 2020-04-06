@@ -1,7 +1,7 @@
 {
 	"keyword" : "homestuck",
 	"limit" : 5,
-	"safesearch" : false,
+	"safesearch" : true,
 	"filetype" : "gif",
 	"colour" : "green",
 	"region" : "Canada"
