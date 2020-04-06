@@ -86,7 +86,9 @@
 2/28/2020 & Josh & 1.5 & Completed Tests for Proof of Concept and Unit Testing Plan sections\\
 2/28/2020 & Nick & 1.6 & Completed Tests for Functional Requirements and Traceability Matrices\\
 2/28/2020 & Sam & 1.6.1 & Minor consistency and formatting improvements\\
-\textcolor{red}{4/05/2020} & \textcolor{red}{Joshua} & \textcolor{red}{1.7} & \textcolor{red}{Rev1 Changes:}\\
+\textcolor{red}{4/05/2020} & \textcolor{red}{Joshua} & \textcolor{red}{1.7} & \textcolor{red}{Rev1 Changes: 
+grammar/spelling/formatting, adding additional functional requirements, providing greater clarity for certain sections, 
+got rid of first person, explicitly defined inputs/outputs for all tests.}\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -331,7 +333,7 @@ to the system and check that the file extensions on each of the files downloaded
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} \sout{A search query with a request to not download from a specified website}
-\textcolor{red}{The json object below which specifies not to download images from mcmaster.ca}
+\textcolor{red}{The json object below which specifies the blacklist as "mcmaster.ca"}
 \begin{lstlisting}[language=json,firstnumber=1]
 {
 	"keyword": "mcmaster engineering",
@@ -371,7 +373,7 @@ of URLs to be downloaded do not contain the blacklisted site.}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} \sout{A search query with a request to only download from a specified website}
-\textcolor{red}{The json object below which specifies to only download images from mcmaster.ca}
+\textcolor{red}{The json object below which specifies the whitelist as "mcmaster.ca"}
 \begin{lstlisting}[language=json,firstnumber=1]
 {
 	"keyword": "engineering",
@@ -496,6 +498,34 @@ the keyword and search constraints given in the configuration file.}
 \textcolor{red}{Automated test which will build two lists of URLs, one from the json object above, and the other 
 from the textfile, then will compare the two lists to ensure that they are equal.}
 
+\item \phantom{empty}
+
+\textbf{Type:} \textcolor{red}{Functional, Dynamic, Manual}
+
+\textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
+
+\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "fruit" -l 3 -c "red"' is provided through the command line}
+
+\textbf{Output:} \textcolor{red}{There exists a folder at google-images-downloader/src/Images/fruit that contains 3 images 
+which are red in color}
+
+\textbf{How test will be performed:} \textcolor{red}{The tester will use the command line to follow the input steps above and 
+check to ensure the output is correct.}
+
+\item \phantom{empty}
+
+\textbf{Type:} \textcolor{red}{Functional, Dynamic, Manual}
+
+\textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
+
+\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3 -ar "panoramic"' is provided through the command line}
+
+\textbf{Output:} \textcolor{red}{There exists a folder at google-images-downloader/src/Images/waterfall that contains 3 images 
+which which are panoramas}
+
+\textbf{How test will be performed:} \textcolor{red}{The tester will use the command line to follow the input steps above and 
+check to ensure the output is correct.}
+
 \end{enumerate}
 
 
@@ -554,22 +584,22 @@ google-images-downloader/src/Images/software will be iterated through to check t
 \begin{lstlisting}[language=json,firstnumber=1]
 {
     "keyword": "software",
-	"limit": 2,
-	"safesearch": True,
-	"directory": path.join(curdir, "newDirec"),
-	"filetype": "",
-	"colour": "",
-	"license": "",
-	"imagetype": "",
-	"imageage": "",
-	"aspectratio": "",
-	"imagesize": "",
-	"serverhost": "",
-	"serverusername": "",
-	"serverpassword": "",
-	"whitelist": "",
+    "limit": 2,
+    "safesearch": True,
+    "directory": path.join(curdir, "newDirec"),
+    "filetype": "",
+    "colour": "",
+    "license": "",
+    "imagetype": "",
+    "imageage": "",
+    "aspectratio": "",
+    "imagesize": "",
+    "serverhost": "",
+    "serverusername": "",
+    "serverpassword": "",
+    "whitelist": "",
     "blacklist": "",
-	"region": ""
+    "region": ""
 }
 \end{lstlisting}
 					
@@ -581,6 +611,21 @@ specified parameters and automatically check to ensure that the images were down
 the folder the test case specified in the search.}
 \textcolor{red}{An automated test will send a request to the system, and after all images are downloaded, 
 google-images-downloader/src/newDirec/software will be iterated through to check that there are 2 images.}
+
+\item \phantom{empty}
+
+\textbf{Type:} \textcolor{red}{Functional, Dynamic, Manual}
+
+\textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
+
+\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "McMaster" -l 3 -s "moore.mcmaster.ca" -u "guinnesj -p "password"' 
+is provided through the command line}
+
+\textbf{Output:} \textcolor{red}{There exists a folder at moore.mcmaster.ca:/u50/guinnesj/McMaster that contains 3 images within 15 seconds}
+
+\textbf{How test will be performed:} \textcolor{red}{The tester will use the command line to follow the input steps above and 
+check to ensure the output is correct by logging into the server.}
+
 
 \end{enumerate}
 
@@ -598,13 +643,16 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Functional, Dynamic, Manual, Acceptance
 					
-\textbf{Initial State:} A clean version of the program
+\textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
-\textbf{Input/Condition:} A typical usage of the system
+\textbf{Input/Condition:} \sout{A typical usage of the system} 
+\textcolor{red}{\textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3' is provided through the command line}}
 					
-\textbf{Output/Result:} Output messages displayed on the console
+\textbf{Output/Result:} Output messages displayed on the console \textcolor{red}{are fully visible}
 					
-\textbf{How test will be performed:} The tester will use a survey to verify that at least 80\% of users find that the output messages fit the console nicely.
+\textbf{How test will be performed:} \sout{The tester will use a survey to verify that at least 80\% of users 
+find that the output messages fit the console nicely.}
+\textcolor{red}{The tester will use the command line to follow the input step above and check to ensure the output is correct.}
 
 \end{enumerate}
 
@@ -619,11 +667,13 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Functional, Dynamic, Manual, Acceptance
 					
-\textbf{Initial State:} A clean version of the program
+\textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
-\textbf{Input/Condition:} A typical usage of the system
+\textbf{Input/Condition:} \sout{A typical usage of the system} 
+\textcolor{red}{\textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3' is provided through the command line}}
 					
-\textbf{Output/Result:} A folder of the desired downloaded images
+\textbf{Output/Result:} \sout{A folder of the desired downloaded images}
+\textcolor{red}{A folder exists at google-images-downloader/src/Images/waterfall which has three images}
 					
 \textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users are able to successfully download their images after reading the sample inputs and explanations for the first time.
 
@@ -639,9 +689,12 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 					
 \textbf{Initial State:} A computer without the system installed
 					
-\textbf{Input/Condition:} A typical installation of the system from the command line
+\textbf{Input/Condition:} \sout{A typical installation of the system from the command line}
+\textcolor{red}{A series of commands entered through the command line: 'git clone https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader', 
+cd 'google-images-downloader/src', 'make install'}
 					
-\textbf{Output/Result:} A folder of the desired downloaded images
+\textbf{Output/Result:} \sout{A folder of the desired downloaded images}
+\textcolor{red}{Program exists on local system and dependencies are installed.}
 					
 \textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users that are comfortable using the command line are able to download the program within five minutes.
 
@@ -658,13 +711,15 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Functional, Dynamic, Manual, Acceptance
 					
-\textbf{Initial State:} A clean version of the program
+\textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
-\textbf{Input/Condition:} An invalid input; an input that would result in an error
+\textbf{Input/Condition:} \sout{An invalid input; an input that would result in an error}
+\textcolor{red}{The command 'python3 Main.py' is provided to the command line.}
 					
-\textbf{Output/Result:} A descriptive error message
+\textbf{Output/Result:} A descriptive error message showing the possible command line arguments is shown
 					
-\textbf{How test will be performed:} The tester will use a survey to verify that at least 75\% of users can identify their mistake from the error message.
+\textbf{How test will be performed:} \sout{The tester will use a survey to verify that at least 75\% of users can identify their mistake from the error message.}
+\textcolor{red}{The tester will run the input steps above and confirm the output is true.}
 
 \end{enumerate}
 
@@ -678,13 +733,17 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Functional, Dynamic, Manual
 					
-\textbf{Initial State:} A clean version of the program installed on a computer with the latest version of the Google Images HTML return code.
+\textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Most recently updated system}
 					
-\textbf{Input/Condition:} A typical usage of the program
+\textbf{Input/Condition:} \sout{A typical usage of the program}
+\textcolor{red}{The command 'python3 Main.py -k mcmaster' is provided to the command line}
 					
-\textbf{Output/Result:} A folder of the desired downloaded images
+\textbf{Output/Result:} \sout{A folder of the desired downloaded images}
+\textcolor{red}{A folder exists at google-images-downloader/src/images with 10 images.}
 					
-\textbf{How test will be performed:} The tester will manually verify that the program can download all the images using the latest format.
+\textbf{How test will be performed:} \sout{The tester will manually verify that the program can download 
+all the images using the latest format.}
+\textcolor{red}{The tester will run the input steps above and confirm the output is true.}
 
 \end{enumerate}
 
@@ -698,13 +757,16 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Functional, Dynamic, Manual
 					
-\textbf{Initial State:} A clean version of the program on a Linux, Windows, and Mac platform.
+\textbf{Initial State:} The most up to date version of the program on a Linux, Windows, and Mac platform.
 					
-\textbf{Input/Condition:} A typical usage of the program
+\textbf{Input/Condition:} \sout{A typical usage of the program}
+\textcolor{red}{The command 'python3 Main.py -k mcmaster' is provided to the command line}
 					
-\textbf{Output/Result:} A folder of the desired downloaded images
+\textbf{Output/Result:} \sout{A folder of the desired downloaded images}
+\textcolor{red}{A folder exists at google-images-downloader/src/images with 10 images.}
 					
-\textbf{How test will be performed:} The tester will manually verify that at all test cases pass on all platforms.
+\textbf{How test will be performed:} The tester will manually verify that \sout{all test cases pass on all platforms} 
+\textcolor{red}{given the input, the output is true on all platforms}
 
 \end{enumerate}
 
@@ -718,9 +780,11 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Type:} Structural, Static, Manual
 					
-\textbf{Initial State:} A clean version of the program
+\textbf{Initial State:} \sout{A clean version of the program}
+\textcolor{red}{The most up to date version of the program on a Linux, Windows, and Mac platform.}
 					
-\textbf{Input/Condition:} An execution of the linter
+\textbf{Input/Condition:} \sout{An execution of the linter}
+\textcolor{red}{The command 'make lint' is provided to the command line under the src/ directory}
 					
 \textbf{Output/Result:} A successful linting with no errors to report
 					
@@ -780,6 +844,7 @@ The following Nonfunctional Requirements are not included in the Traceabillity M
     \item ACR1: \textcolor{red}{Simply a true or false question of whether the git repository is public.}
     \item CR1:  \textcolor{red}{Impossible to confirm with certainty but best efforts were made by developers.}
     \item CPR1: \textcolor{red}{Simply a true or false question of whether the README.md contains the statement.}
+    \item \textcolor{red}{HSR1:} \textcolor{red}{Protection of our eyes.} 
 \end{itemize}
 
 % Mine - Joshua
