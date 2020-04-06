@@ -127,10 +127,10 @@ args6 = {
             "limit": 5,
             "safesearch": True,
             "directory": path.join(curdir, "Images"),
-            "filetype": "",
+            "filetype": "jpg",
             "colour": "",
             "license": "",
-            "imagetype": "jpg",
+            "imagetype": "",
             "imageage": "",
             "aspectratio": "",
             "imagesize": ">2MP",
@@ -141,6 +141,27 @@ args6 = {
             "blacklist": "",
             "region": ""
         }
+
+args7 = {
+            "keyword": "homestuck",
+            "limit": 5,
+            "safesearch": True,
+            "directory": "",
+            "filetype": "gif",
+            "colour": "green",
+            "license": "",
+            "imagetype": "",
+            "imageage": "",
+            "aspectratio": "",
+            "imagesize": "",
+            "serverhost": "",
+            "serverusername": "",
+            "serverpassword": "",
+            "whitelist": "",
+            "blacklist": "",
+            "region": "Canada"
+        }
+
 
 class TestSearchQueries:
     #FR-SQ2
@@ -182,7 +203,7 @@ class TestSearchQueries:
             assert result != None
 
     #FR-SQ5
-    def test_file_size(self):
+    def test_file_size(self, delete_args6_folder):
         url = buildURL(args6)
         urls = getImageURL(url, args6["limit"], args6['blacklist'])
         downloadImages(urls, args6["keyword"], args6["directory"])
@@ -193,6 +214,22 @@ class TestSearchQueries:
             image = Image.open(path.join(directory, file))
             width, height = image.size
             assert width * height > 2000000 * 0.9 # tolerance for issues on Google's end
+
+    @fixture()
+    def delete_args6_folder(self):
+        yield TestSearchQueries.delete_args6_folder
+        rmtree(path.join(curdir, "Images", args6["keyword"]))
+
+    #FR-SQ6
+    def test_blacklist_site(self):
+        url = buildURL(args7)
+        urls = getImageURL(url, args7["limit"], args7['blacklist'])
+
+        fileArgs = keywordFromFile(path.join(curdir, "Test", "ConfigForTesting", "homestuckFile.txt"))
+        fileUrl = buildURL(fileArgs)
+        fileUrls = getImageURL(url, fileArgs["limit"], fileArgs['blacklist'])
+
+        assert set(urls) == set(fileUrls)
 
 
 class TestDownloadImages:
