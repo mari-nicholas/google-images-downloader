@@ -5,6 +5,8 @@
 \usepackage{lscape}
 \usepackage{tabularx}
 \usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{ulem}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -49,6 +51,7 @@
 2/28/2020 & Josh & 1.5 & Completed Tests for Proof of Concept and Unit Testing Plan sections\\
 2/28/2020 & Nick & 1.6 & Completed Tests for Functional Requirements and Traceability Matrices\\
 2/28/2020 & Sam & 1.6.1 & Minor consistency and formatting improvements\\
+\textcolor{red}{4/05/2020} & \textcolor{red}{Joshua} & \textcolor{red}{1.7} & \textcolor{red}{Rev1 Changes:}\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -99,7 +102,12 @@ Gantt chart & A bar chart that illustrates a project schedule.\\
 
 \subsection{Overview of Document}
 
-This document outlines the testing plan for google-images-downloader. This includes a description of the software, the team of testers, the approach to automated testing, and the tools and schedule used to optimize the testing efficiency and accuracy. This document also includes a description of the testing for the system, outlines the various tests for both the functional and nonfunctional requirements. This will also cover the traceability between the test cases and the requirements. Other tests outlined in this document are those that arose from the proof of concept, and those for testing each individual unit of the system.
+This document outlines the testing plan for google-images-downloader. This includes a description of the software, 
+the team of testers, the approach to automated testing, and the tools and schedule used to optimize the testing 
+efficiency and accuracy. This document also includes a description of the testing \textcolor{red}{required} for the system, 
+\textcolor{red}{and} outlines the various tests for both the functional and nonfunctional requirements. This will also cover the traceability 
+between the test cases and the requirements. Other tests outlined in this document are those that arose from 
+the proof of concept, and those for testing each individual unit of the system.
 
 % Mine!! - Joshua
 \section{Plan} 
@@ -118,7 +126,11 @@ The test team will consist of the three developers working on the project, Joshu
 
 \subsection{Automated Testing Approach}
 
-Besides simple exploratory testing done during development for quick confirmation, the bulk of testing effort will be concentrated on developing three types of automated tests: unit, integration, and system. Each of these can be through of as having a different level of abstraction with unit testing at the lowest level and system testing at the highest level. All of these will be written in pytest, with a separate testing file for each type to provide greater clarity.
+Besides simple exploratory testing done during development for quick confirmation, the bulk of testing effort will be 
+concentrated on developing three types of automated tests: unit, integration, and system. Each of these can be \sout{through} 
+\textcolor{red}{thought} of as having a different level of abstraction with unit testing at the lowest level and system testing at the highest 
+level. All of these will be written in pytest, with a separate testing file for each type to provide greater clarity.
+\textcolor{red}{The three main aspects of the system being tested are simulated user input, program flow, and program logic.}
 
 Unit tests ensure functions behave according to their design. Unit testing will also focus on boundary cases. These will be written after each module is implemented to ensure correctness.
 
@@ -313,7 +325,7 @@ Unit testing will occur parallel to development. See Section \ref{Unit Testing P
 
 \paragraph{Learning Requirements}
 
-\begin{enumerate}[label=NFR-LR\arabic*:, wide=0pt, leftmargin=*]
+\begin{enumerate}[label=NFR-LR\textcolor{red}{2}:, wide=0pt, leftmargin=*]
 
 \item \phantom{empty}
 
@@ -455,23 +467,35 @@ NFR-SR1  &  &  &  &  &  &  & \checkmark \\ \hline
 
 The following Nonfunctional Requirements are not included in the Traceabillity Matrix as they do not have a test case associated with them:
 \begin{itemize}
-    \item LR2
-    \item PDR1
-    \item MSR1
-    \item MSR2
-    \item ACR1
-    \item CR1
-    \item CPR1
+    \item \sout{LR2}
+    \item PDR1: \textcolor{red}{Simply a true or false question of whether the git repository is public.}
+    \item MSR1: \textcolor{red}{Concerns a future development strategy therefore cannot be tested.}
+    \item MSR2: \textcolor{red}{Concerns a future development strategy therefore cannot be tested.}
+    \item ACR1: \textcolor{red}{Simply a true or false question of whether the git repository is public.}
+    \item CR1:  \textcolor{red}{Impossible to confirm with certainty but best efforts were made by developers.}
+    \item CPR1: \textcolor{red}{Simply a true or false question of whether the README.md contains the statement.}
 \end{itemize}
 
 % Mine - Joshua
 \section{Tests for Proof of Concept}
 
-There were two main issues that we ran into while implementing the proof of concept that required significant time to solve.
+There were two main issues that \sout{we ran into} \textcolor{red}{occurred} while implementing the proof of concept 
+that required significant time to solve.
 
-The first is that the Google Images HTML code structure changed from when the original project was first confirmed to run properly, and the start of implementing the proof of concept. This meant that the section of the original project regarding how the HTML is scrapped and the images downloaded was almost useless to us. To solve the issue, we first figured out what the new HTML structure was by using ``Inspect Element" on images. This also took some time as there are multiple links within each image subsection. Once we figured out where the image was stored in the HTML, we could then scrape it and parse it to download it.
+The first is that the Google Images HTML code structure changed from when the original project was first confirmed 
+to run properly, and the start of implementing the proof of concept. This meant that the section of the original 
+project regarding how the HTML is scra\sout{p}ped and the images downloaded was almost useless. To solve the issue, 
+\sout{we first figured out what} the new HTML structure was \textcolor{red}{first figured out} by using 
+``Inspect Element" on \sout{images.} \textcolor{red}{the page of google image results.} This also took some time as 
+there are multiple links within each image subsection. Once \sout{we} it was figured out where the image was 
+stored in the HTML, \sout{we could then scrape} it could then be scraped and parse\textcolor{red}{d} \sout{it} to download it.
 
-The second issue occurred after downloading the raw HTML code and trying to parse it for the image links. It would not parse properly, even after it was confirmed that the HTML downloaded contained the links or phrases that were being searched for. We solved the issue by going through each step of the code slowly and printing things out to the console. We discovered that the raw HTML downloaded was actually byte encoded, as evidence by the ``b" in front of the string. Adding a statement to decode it to UTF-8 solved the issue.
+The second issue occurred after downloading the raw HTML code and trying to parse it for the image links. 
+It would not parse properly, even after it was confirmed that the HTML downloaded contained the links or phrases 
+that were being searched for. \sout{We solved the issue} \textcolor{red}{The issue was solved} by going through 
+each step of the code slowly and printing things out to the console. \sout{We} \textcolor{red}{It was} discovered that 
+the raw HTML downloaded was actually byte encoded, as evidence by the ``b" in front of the string. 
+Adding a statement to decode it to UTF-8 solved the issue.
 	
 \section{Unit Testing Plan}
 \label{Unit Testing Plan}
@@ -484,11 +508,17 @@ The purpose of unit testing is to ensure that a specific unit of software perfor
 
 For this project, after every module is complete, it will be unit tested before the developer starts work on the next module. This means that unit testing will be done during the development process, not all at the end. The developers can then work from a place of confidence and assurance that previous code written functions as intended.
 
+\textcolor{red}{The types of unit tests implemented by the developer will be grey box tests. Grey box tests are a
+combination of white box and black box where the goal is to exploit knowledge of the system to test interfaces and 
+internal functionality}
+
 The coverage metrics we will be using are 85\% statement coverage and 80\% branch coverage. This data will be found using the pytest-cov tool. There are no stubs or drivers needed for testing.
 		
 \subsection{Unit testing of output files}
 
-The only output files produced are the downloaded images themselves. The contents of the file will not be unit tested at all; unit testing will revolve around the properties (eg. name, aspect ratio, bit-depth) of the images and the number of images downloaded.
+The only output files produced are the downloaded images themselves. The contents of the file will not be unit 
+tested at all; unit testing will revolve around the properties (eg. \sout{name, aspect ratio, bit-depth} \textcolor{red}{
+file type, size}) of the images and the number of images downloaded.
 
 %\bibliographystyle{plainnat}
 
