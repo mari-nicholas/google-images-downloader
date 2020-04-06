@@ -828,14 +828,28 @@ FR-SQ9  &  &  &  &  &  &  &  & & \checkmark &  &  &  & & &\\ \hline
 FR-SQ10  &  &  &  &  &  &  & \checkmark & & &  &  &  & & &\\ \hline
 \color{red}
 FR-SQ11  &  &  &  &  &  &  & & & &  &  \color{red} \checkmark &  & & &\\ \hline
-FR-DL1  &  &  \color{red}\checkmark &  &  &  &  &  & & &  &  &  & & &\\ \hline
-FR-DL2  &  &  &  \color{red}\checkmark &  &  &  &  & & &  &  &  & & &\\ \hline
+FR-DL1  &  & \checkmark &  &  &  &  &  & & &  &  &  & & &\\ \hline
+FR-DL2  &  &  & \checkmark &  &  &  &  & & &  &  &  & & &\\ \hline
 \color{red}
 FR-DL3  &  &  &  &  &  &  &  & & &  \color{red}\checkmark  &  &  & & &\\ \hline
 \end{tabular}
 \end{adjustwidth}
 \caption{\textbf{Functional Requirements Traceabillity Matrix}}
 \end{table}
+
+\color{red}
+
+The following FRs do not have associated test cases:
+\begin{itemize}
+\item FR12: Image upload date is not stored in metadata and is stored through google making this difficult to test both manually and automatically.
+\item FR13: Usage Rights are not stored properly in the metadata and are instead queried through google, making this difficult to test manually and automatically.
+\item FR14: Safesearch is done internally through google
+\item FR15: Upload location is not stored in data and inead queried through google making this difficult to test manually and automatically.
+\end{itemize}
+
+\color{black}
+\newpage
+
 
 \begin{table}[!ht]
 \begin{center}
@@ -865,7 +879,7 @@ The following Nonfunctional Requirements are not included in the Traceabillity M
     \item ACR1: \textcolor{red}{Simply a true or false question of whether the git repository is public.}
     \item CR1:  \textcolor{red}{Impossible to confirm with certainty but best efforts were made by developers.}
     \item CPR1: \textcolor{red}{Simply a true or false question of whether the README.md contains the statement.}
-    \item \textcolor{red}{HSR1:} \textcolor{red}{Protection of our eyes.} 
+    \item \textcolor{red}{HSR1:} \textcolor{red}{Protection of our eyes is done through google safe search.} 
 \end{itemize}
 
 % Mine - Joshua
