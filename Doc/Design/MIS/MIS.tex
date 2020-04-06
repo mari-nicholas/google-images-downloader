@@ -336,6 +336,7 @@ None
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
 downloadImages & list of string, string, string & None & None\\
+moveToServer & string, string, string, string, string & None & Exception\\
 \hline
 
 \end{tabular}
@@ -372,7 +373,23 @@ None
 \item exception: none
 \end{itemize}
 
+\noindent \textcolor{red}{moveToServer($key$, $direc$, $shost$, $suser$, $spass$):}
+\begin{itemize}
+\item \textcolor{red}{output:} \textcolor{red}{Puts the directory at src/Images/$key$ on $suser$@$shost$:$key$/}
+\item \textcolor{red}{exception:} \textcolor{red}{If problem with putting directory on server $\rightarrow$ Exception}
+\end{itemize}
+
 \subsection* {Local Functions}
+
+\noindent \textcolor{red}{createSSH($key$, $direc$, $shost$, $suser$, $spass$): 
+string x string x string x string x string $\rightarrow$ SSHClient} \\
+\textcolor{red}{createSSH($key$, $direc$, $shost$, $suser$, $spass$): 
+An SSHClient object that can be used to transport files to and from a server} \\
+
+\noindent \textcolor{red}{deleteLocalImageFolder($direc$, $key$): 
+string x string  $\rightarrow$ $\epsilon$} \\
+\textcolor{red}{createSSH($direc$, $key$): 
+Deletes local copy of images downloaded from src/Images/$key$} \\
 
 \noindent createDirectory(\st{$loc$, $key$} \color{red}$dir$\color{black}): $\epsilon$ \\
 createDirectory((\st{$loc$, $key$} \color{red}$dir$\color{black}) $\equiv$ Null
