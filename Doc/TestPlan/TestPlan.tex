@@ -166,33 +166,41 @@ Unit testing will occur parallel to development. See Section \ref{Unit Testing P
 
 \textbf{Type:} Functional, Dynamic, Manual
 
-\textbf{Initial State:} Linux machine has an empty Images folder at google-images-downloader/src/Images
+\textbf{Initial State:} \sout{An empty download repository} 
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
-\textbf{Input:} The command 'python3 Main.py -k "McMaster"' is provided through the command line
+\textbf{Input:} \sout{A search request with keyword ``McMaster"} 
+\textcolor{red}{The command 'python3 Main.py -k "McMaster"' is provided through the command line}
 
-\textbf{Output:} There exists a folder at google-images-downloader/src/Images/McMaster that contains
-all images related to McMaster
+\textbf{Output:} \sout{Images downloaded all related to McMaster}
+\textcolor{red}{There exists a folder at google-images-downloader/src/Images/McMaster that contains
+all images related to McMaster}
 
-\textbf{How test will be performed:} The tester will follow the input steps above and check to ensure
-the output is correct.
+\textbf{How test will be performed:} \sout{The tester will run the program to download the images and manually check if the images downloaded match the keyword given.}
+\textcolor{red}{The tester will follow the input steps above and check to ensure the output is correct.}
 
 \item \phantom{empty}
 
 \textbf{Type:} Functional, Dynamic, Automatic
 					
-\textbf{Initial State:} Linux machine has an empty Images folder at google-images-downloader/src/Images
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} The command 'python3 Main.py -k "homestuck"' is provided through the command line
+\textbf{Input:} \sout{A search request with only a specific file type requested}
+\textcolor{red}{The command 'python3 Main.py -k "homestuck" -ft "jpg"' is provided through the command line}
 					
-\textbf{Output:} A download repository with only files of the specified type downloaded
+\textbf{Output:} \sout{A download repository with only files of the specified type downloaded}
+\textcolor{red}{A folder exists at google-images-downloader/src/Images/homestuck that contains
+all images related to McMaster}
 					
 \textbf{How test will be performed:} An automated test case will send the request to the system and check that the file extensions on each of the files downloaded are the specified type.
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Manual
+\textbf{Type:} Functional, Dynamic, \sout{Manual} \textcolor{red}{Automated}
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} A search query with a request to not download from a specified website
 					
@@ -202,9 +210,10 @@ the output is correct.
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Manual
+\textbf{Type:} Functional, Dynamic, \sout{Manual} \textcolor{red}{Automated}
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} A search query with a request to only download from a specified website
 					
@@ -214,21 +223,22 @@ the output is correct.
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Manual
+\textbf{Type:} \sout{Functional, Dynamic, Manual}
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
 					
-\textbf{Input:} A search request with prefixes and suffixes given
+\textbf{Input:} \sout{A search request with prefixes and suffixes given}
 					
-\textbf{Output:} A download repository filled with images that match the search query and prefix or suffix
+\textbf{Output:} \sout{A download repository filled with images that match the search query and prefix or suffix}
 					
-\textbf{How test will be performed:} The tester will manually ensure that each image matches both the search query and the prefixes and suffixes given.
+\textbf{How test will be performed:} \sout{The tester will manually ensure that each image matches both the search query and the prefixes and suffixes given.}
 
 \item \phantom{empty}
 
 \textbf{Type:} Functional, Dynamic, Automatic
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} A search request with the size of desired images specified
 					
