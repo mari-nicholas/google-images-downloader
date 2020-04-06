@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{ulem}
+\usepackage{changepage}
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily,
@@ -201,7 +202,7 @@ Unit testing will occur parallel to development. See Section \ref{Unit Testing P
 \section{System Test Description}
 
 	
-\subsection{Tests for Functional Requirements}
+\subsection{Test Cases for Functional Requirements}
 
 
 \subsubsection{Search Queries}
@@ -637,7 +638,7 @@ check to ensure the output is correct by logging into the server.}
 \end{enumerate}
 
 
-\subsection{Tests for Nonfunctional Requirements}
+\subsection{Test Cases for Nonfunctional Requirements}
 
 \subsubsection{Look and Feel Requirements}
 \label{LaFReqs}
@@ -806,25 +807,33 @@ all the images using the latest format.}
 \newpage
 
 \subsection{Traceability Between Test Cases and Requirements}
+
 \begin{table}[!ht]
-\begin{center}
-\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+\begin{adjustwidth}{-3.90cm}{}
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
 \hline
-\multicolumn{1}{|c|}{\textbf{Test Id}} & \multicolumn{9}{c|}{\textbf{Requirement}}   \\ \hline
-\textbf{} & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 & FR8  & FR9 \\
+\multicolumn{1}{c|}{\textbf{Test Id}} & \multicolumn{15}{c}{\textbf{Requirement}}   \\ \hline
+ \textbf{} & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 & FR8  & FR9 & \color{red}FR10 & \color{red}FR11 & \color{red}FR12 & \color{red}FR13 & \color{red}FR14 & \color{red}FR15\\
 \hline
-FR-SQ1 & \checkmark & \multicolumn{1}{r|}{} & & & & & & &\\ 
-\hline
-FR-SQ2 &  &  &  & \checkmark &  &  &  &  &  \\ \hline
-FR-SQ3        &  &  &  &  & \checkmark &  &  &  &  \\ \hline
-FR-SQ4        &  &  &  &  &  & \checkmark &  &  &  \\ \hline
-FR-SQ5        &  &  &  &  &  &  & \checkmark &  &  \\ \hline
-FR-SQ6        &  &  &  &  &  &  &  & \checkmark &  \\ \hline
-FR-SQ7        &  &  &  &  &  &  &  &  & \checkmark \\ \hline
-FR-DL1        &  & \checkmark &  &  &  &  &  &  &  \\ \hline
-FR-DL2        &  &  & \checkmark &  &  &  &  &  &  \\ \hline
+FR-SQ1  & \checkmark &  &  &  &  &  & & & &  &  &  & & &\\ \hline
+FR-SQ2 &  & &  &  \checkmark &  &  & & & &  &  &  & & &\\ \hline
+FR-SQ3  &  &  &  & \checkmark  &  &  &  & & &  &  &  & & &\\ \hline
+FR-SQ4  &  &  &  & \checkmark &  &   &  & & &  &  &  & & &\\ \hline
+FR-SQ5 &  &  &  &  &  \checkmark &  & & & &  &  &  & & &\\ \hline
+FR-SQ6 &  &  &  &  &  & \checkmark &  &  & &  &  &  & & &\\ \hline
+
+FR-SQ8  &  &  &  &  &  &  &  & \checkmark & &  &  &  & & &\\ \hline
+FR-SQ9  &  &  &  &  &  &  &  & & \checkmark &  &  &  & & &\\ \hline
+\color{red}
+FR-SQ10  &  &  &  &  &  &  & \checkmark & & &  &  &  & & &\\ \hline
+\color{red}
+FR-SQ11  &  &  &  &  &  &  & & & &  &  \checkmark &  & & &\\ \hline
+FR-DL1  &  & \checkmark &  &  &  &  &  & & &  &  &  & & &\\ \hline
+FR-DL2  &  &  & \checkmark &  &  &  &  & & &  &  &  & & &\\ \hline
+\color{red}
+FR-DL3  &  &  &  &  &  &  &  & & & \checkmark  &  &  & & &\\ \hline
 \end{tabular}
-\end{center}
+\end{adjustwidth}
 \caption{\textbf{Functional Requirements Traceabillity Matrix}}
 \end{table}
 
