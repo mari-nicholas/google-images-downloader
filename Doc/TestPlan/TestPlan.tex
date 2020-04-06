@@ -190,8 +190,10 @@ See \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/-/blo
 Unit testing will occur parallel to development. See Section \ref{Unit Testing Plan} for further details on that. Integration testing and system testing will be done after development. All three levels of testing are visualized on the Gantt chart.
 
 \section{System Test Description}
+
 	
 \subsection{Tests for Functional Requirements}
+
 
 \subsubsection{Search Queries}
 
@@ -209,26 +211,117 @@ Unit testing will occur parallel to development. See Section \ref{Unit Testing P
 
 \textbf{Output:} \sout{Images downloaded all related to McMaster}
 \textcolor{red}{There exists a folder at google-images-downloader/src/Images/McMaster that contains
-all images related to McMaster}
+10 images related to McMaster within 15 seconds.}
 
 \textbf{How test will be performed:} \sout{The tester will run the program to download the images and manually check if the images downloaded match the keyword given.}
-\textcolor{red}{The tester will follow the input steps above and check to ensure the output is correct.}
+\textcolor{red}{The tester will use the command line to follow the input steps above and check to ensure the output is correct.}
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Automatic
+\textbf{Type:} Functional, Dynamic, \sout{Automatic} \textcolor{red}{Automated}
 					
 \textbf{Initial State:} \sout{An empty download repository}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} \sout{A search request with only a specific file type requested}
-\textcolor{red}{The command 'python3 Main.py -k "homestuck" -ft "jpg"' is provided through the command line}
+\textcolor{red}{The below json object which specifies the gif file type}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+	"keyword": "default",
+	"limit": 3,
+	"safesearch": True,
+	"directory": path.join(curdir, "Images"),
+	"filetype": "gif",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "",
+	"blacklist": "",
+	"region": ""
+}
+\end{lstlisting}
 					
 \textbf{Output:} \sout{A download repository with only files of the specified type downloaded}
-\textcolor{red}{A folder exists at google-images-downloader/src/Images/homestuck that contains
-all images related to McMaster}
+\textcolor{red}{A folder exists at google-images-downloader/src/Images/default that contains
+three images with the file extension .gif}
 					
-\textbf{How test will be performed:} An automated test case will send the request to the system and check that the file extensions on each of the files downloaded are the specified type.
+\textbf{How test will be performed:} An automated test case will send the request to the system and check that the file extensions on each of the files downloaded are correct.
+
+\item \phantom{empty}
+
+\textbf{Type:} \textcolor{red}{Functional, Dynamic, Automated}
+					
+\textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
+					
+\textbf{Input:} \textcolor{red}{The below json object which specifies the jpg file type}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+	"keyword": "default",
+	"limit": 3,
+	"safesearch": True,
+	"directory": path.join(curdir, "Images"),
+	"filetype": "jpg",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "",
+	"blacklist": "",
+	"region": ""
+}
+\end{lstlisting}
+					
+\textbf{Output:} \textcolor{red}{A folder exists at google-images-downloader/src/Images/default that contains
+three images with the file extension .jpg}
+					
+\textbf{How test will be performed:} \textcolor{red}{An automated test case will send the request 
+to the system and check that the file extensions on each of the files downloaded are correct.}
+
+\item \phantom{empty}
+
+\textbf{Type:} \textcolor{red}{Functional, Dynamic, Automated}
+					
+\textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
+					
+\textbf{Input:} \textcolor{red}{The below json object which specifies the png file type}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+	"keyword": "default",
+	"limit": 3,
+	"safesearch": True,
+	"directory": path.join(curdir, "Images"),
+	"filetype": "png",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "",
+	"blacklist": "",
+	"region": ""
+}
+\end{lstlisting}
+					
+\textbf{Output:} \textcolor{red}{A folder exists at google-images-downloader/src/Images/default that contains
+three images with the file extension .png}
+					
+\textbf{How test will be performed:} \textcolor{red}{An automated test case will send the request 
+to the system and check that the file extensions on each of the files downloaded are correct.}
 
 \item \phantom{empty}
 
@@ -237,11 +330,38 @@ all images related to McMaster}
 \textbf{Initial State:} \sout{An empty download repository}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} A search query with a request to not download from a specified website
+\textbf{Input:} \sout{A search query with a request to not download from a specified website}
+\textcolor{red}{The json object below which specifies not to download images from mcmaster.ca}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+	"keyword": "mcmaster engineering",
+	"limit": 3,
+	"safesearch": True,
+	"directory": path.join(curdir, "Images"),
+	"filetype": "",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "",
+	"blacklist": "mcmaster.ca",
+	"region": ""
+}
+\end{lstlisting}
 					
-\textbf{Output:} A download repository full with images, with no images from the blacklisted website
+\textbf{Output:} \sout{A download repository full with images, with no images from the blacklisted website}
+\textcolor{red}{A list of URLS, none of which contain "mcmaster.ca" in the URL}
 					
-\textbf{How test will be performed:} The tester will manually start the search query with all the specified inputs and check each downloaded image URL to ensure that it does not come from the blacklisted website.
+\textbf{How test will be performed:} \sout{The tester will manually start the search query with all 
+the specified inputs and check each downloaded image URL to ensure that it does not come from 
+the blacklisted website.}
+\textcolor{red}{An automated test case will send the request to the system and check that the list 
+of URLs to be downloaded do not contain the blacklisted site.}
 
 \item \phantom{empty}
 
@@ -250,11 +370,37 @@ all images related to McMaster}
 \textbf{Initial State:} \sout{An empty download repository}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} A search query with a request to only download from a specified website
-					
-\textbf{Output:} A download repository full with images, with no images from the blacklisted website
-					
-\textbf{How test will be performed:} The tester will manually start the search query with all the specified inputs and check each downloaded image URL to ensure that it comes from the white-listed website.
+\textbf{Input:} \sout{A search query with a request to only download from a specified website}
+\textcolor{red}{The json object below which specifies to only download images from mcmaster.ca}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+	"keyword": "engineering",
+	"limit": 3,
+	"safesearch": True,
+	"directory": path.join(curdir, "Images"),
+	"filetype": "",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "mcmaster.ca",
+	"blacklist": "",
+	"region": ""
+}
+\end{lstlisting}
+
+\textbf{Output:} \sout{A download repository full with images, with no images from the whitelisted website}
+\textcolor{red}{A list of URLS, all of which contain "mcmaster.ca" in the URL}
+
+\textbf{How test will be performed:} \sout{The tester will manually start the search query with all the specified 
+inputs and check each downloaded image URL to ensure that it comes from the white-listed website.}
+\textcolor{red}{An automated test case will send the request to the system and check that the list 
+of URLs to be downloaded only contain the whitelisted site.}
 
 \item \phantom{empty}
 
@@ -278,47 +424,80 @@ all images related to McMaster}
 \textbf{Input:} \sout{A search request with the size of desired images specified} 
 \textcolor{red}{The below json object which specifies a specific image size}
 \begin{lstlisting}[language=json,firstnumber=1]
-    {
-        "keyword": "homestuck",
-        "limit": 5,
-        "safesearch": True,
-        "directory": path.join(curdir, "Images"),
-        "filetype": "jpg",
-        "colour": "",
-        "license": "",
-        "imagetype": "",
-        "imageage": "",
-        "aspectratio": "",
-        "imagesize": ">2MP",
-        "serverhost": "",
-        "serverusername": "",
-        "serverpassword": "",
-        "whitelist": "",
-        "blacklist": "",
-        "region": ""
-    }
-    \end{lstlisting}
+{
+    "keyword": "homestuck",
+    "limit": 5,
+    "safesearch": True,
+    "directory": path.join(curdir, "Images"),
+    "filetype": "jpg",
+    "colour": "",
+    "license": "",
+    "imagetype": "",
+    "imageage": "",
+    "aspectratio": "",
+    "imagesize": ">2MP",
+    "serverhost": "",
+    "serverusername": "",
+    "serverpassword": "",
+    "whitelist": "",
+    "blacklist": "",
+    "region": ""
+}
+\end{lstlisting}
 					
 \textbf{Output:} \sout{A download repository filled with images of the specified size}
 \textcolor{red}{A folder exists at google-images-downloader/src/Images/homestuck that contains
 images of the specified size}
 					
-\textbf{How test will be performed:} \sout{An automated test case will check the size of each image to ensure it matches the size specified in the search request.}
-\textcolor{red}{Performed automatically using pytest.}
+\textbf{How test will be performed:} \sout{An automated test case will check the size of each image to ensure it 
+matches the size specified in the search request.}
+\textcolor{red}{An automated test will send a request to the system, and after all images are downloaded, 
+google-images-downloader/src/Images/homestuck will be iterated through to check that each file matches 
+the specified size.}
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Manual
+\textbf{Type:} Functional, Dynamic, \sout{Manual} \textcolor{red}{Automated}
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} A search request with all constraints and keywords in a configuration file provided to the system when the user makes the request
+\textbf{Input:} \sout{A search request with all constraints and keywords in a configuration file provided to 
+the system when the user makes the request}
+\textcolor{red}{The below json object and a second json object which is stored at 
+google-images-downloader/src/Test/ConfigForTesting/homestuckFile.txt}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "keyword": "homestuck",
+    "limit": 5,
+    "safesearch": True,
+    "directory": "",
+    "filetype": "gif",
+    "colour": "green",
+    "license": "",
+    "imagetype": "",
+    "imageage": "",
+    "aspectratio": "",
+    "imagesize": "",
+    "serverhost": "",
+    "serverusername": "",
+    "serverpassword": "",
+    "whitelist": "",
+    "blacklist": "",
+    "region": "Canada"
+}
+\end{lstlisting}
 					
-\textbf{Output:} Download repository filled with images
+\textbf{Output:} \sout{Download repository filled with images}
+\textcolor{red}{Two lists of URLs, one built from the above json object, and the one built from the homestuckFile.txt file}
 					
-\textbf{How test will be performed:} The tester will manually ensure that all the images downloaded match the keyword and search constraints given in the configuration file.
+\textbf{How test will be performed:} \sout{The tester will manually ensure that all the images downloaded match 
+the keyword and search constraints given in the configuration file.}
+\textcolor{red}{Automated test which will build two lists of URLs, one from the json object above, and the other 
+from the textfile, then will compare the two lists to ensure that they are equal.}
 
 \end{enumerate}
+
 
 \subsubsection{Download Images}
 
@@ -326,30 +505,85 @@ images of the specified size}
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Automatic
+\textbf{Type:} Functional, Dynamic, \sout{Automatic} \textcolor{red}{Automated}
 
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
-\textbf{Input:} A search request with a limit of 50 images specified
+\textbf{Input:} \sout{A search request with a limit of 50 images specified}
+\textcolor{red}{The below json object which specifies a limit of 40 images}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "keyword": "software",
+    "limit": 40,
+    "safesearch": True,
+    "directory": path.join(curdir, "Images"),
+    "filetype": "",
+    "colour": "",
+    "license": "",
+    "imagetype": "",
+    "imageage": "",
+    "aspectratio": "",
+    "imagesize": "",
+    "serverhost": "",
+    "serverusername": "",
+    "serverpassword": "",
+    "whitelist": "",
+    "blacklist": "",
+    "region": ""
+}
+\end{lstlisting}
 
-\textbf{Output:} A download repository contains 50 images in it
+\textbf{Output:} \sout{A download repository contains 50 images in it}
+\textcolor{red}{A folder exists at google-images-downloader/src/Images/software that contains 40 images}
 
-\textbf{How test will be performed:} An automatic test case will run the program with the specified input and count the number of new files in the download repository to ensure it is correct.
-
+\textbf{How test will be performed:} \sout{An automatic test case will run the program with the specified input 
+and count the number of new files in the download repository to ensure it is correct.}
+\textcolor{red}{An automated test will send a request to the system, and after all images are downloaded, 
+google-images-downloader/src/Images/software will be iterated through to check that there are 40 images.}
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Automatic
+\textbf{Type:} Functional, Dynamic, \sout{Automatic} \textcolor{red}{Automated}
 					
-\textbf{Initial State:} An empty download repository
+\textbf{Initial State:} \sout{An empty download repository}
+\textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} A download request with a specified download folder
+\textbf{Input:} \sout{A download request with a specified download folder}
+\textcolor{red}{The below json object which specifies a download folder}
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "keyword": "software",
+	"limit": 2,
+	"safesearch": True,
+	"directory": path.join(curdir, "newDirec"),
+	"filetype": "",
+	"colour": "",
+	"license": "",
+	"imagetype": "",
+	"imageage": "",
+	"aspectratio": "",
+	"imagesize": "",
+	"serverhost": "",
+	"serverusername": "",
+	"serverpassword": "",
+	"whitelist": "",
+    "blacklist": "",
+	"region": ""
+}
+\end{lstlisting}
 					
-\textbf{Output:} Images downloaded to the specified folder
+\textbf{Output:} \sout{Images downloaded to the specified folder}
+\textcolor{red}{A folder exists at google-images-downloader/src/newDirec/software that contains 2 images}
 					
-\textbf{How test will be performed:} An automated test case will request a search with the specified parameters and automatically check to ensure that the images were downloaded to the folder the test case specified in the search.
+\textbf{How test will be performed:} \sout{An automated test case will request a search with the 
+specified parameters and automatically check to ensure that the images were downloaded to 
+the folder the test case specified in the search.}
+\textcolor{red}{An automated test will send a request to the system, and after all images are downloaded, 
+google-images-downloader/src/newDirec/software will be iterated through to check that there are 2 images.}
 
 \end{enumerate}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
