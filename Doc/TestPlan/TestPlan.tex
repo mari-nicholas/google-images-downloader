@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{ulem}
+\usepackage{listings}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -28,6 +29,40 @@
 \date{\today}
 
 % \input{../Comments}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
 
 \begin{document}
 
@@ -235,16 +270,41 @@ all images related to McMaster}
 
 \item \phantom{empty}
 
-\textbf{Type:} Functional, Dynamic, Automatic
+\textbf{Type:} Functional, Dynamic, \sout{Automatic} \textcolor{red}{Automated}
 					
 \textbf{Initial State:} \sout{An empty download repository}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
-\textbf{Input:} A search request with the size of desired images specified
+\textbf{Input:} \sout{A search request with the size of desired images specified} 
+\textcolor{red}{The below json object which specifies a specific image size}
+\begin{lstlisting}[language=json,firstnumber=1]
+    {
+        "keyword": "homestuck",
+        "limit": 5,
+        "safesearch": True,
+        "directory": path.join(curdir, "Images"),
+        "filetype": "jpg",
+        "colour": "",
+        "license": "",
+        "imagetype": "",
+        "imageage": "",
+        "aspectratio": "",
+        "imagesize": ">2MP",
+        "serverhost": "",
+        "serverusername": "",
+        "serverpassword": "",
+        "whitelist": "",
+        "blacklist": "",
+        "region": ""
+    }
+    \end{lstlisting}
 					
-\textbf{Output:} A download repository filled with images of the specified size
+\textbf{Output:} \sout{A download repository filled with images of the specified size}
+\textcolor{red}{A folder exists at google-images-downloader/src/Images/homestuck that contains
+images of the specified size}
 					
-\textbf{How test will be performed:} An automated test case will check the size of each image to ensure it matches the size specified in the search request.
+\textbf{How test will be performed:} \sout{An automated test case will check the size of each image to ensure it matches the size specified in the search request.}
+\textcolor{red}{Performed automatically using pytest.}
 
 \item \phantom{empty}
 
