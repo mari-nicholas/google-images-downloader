@@ -8,6 +8,13 @@
 \usepackage{xcolor}
 \usepackage{ulem}
 \usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -209,7 +216,7 @@ Unit testing will occur parallel to development. See Section \ref{Unit Testing P
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
 \textbf{Input:} \sout{A search request with keyword ``McMaster"} 
-\textcolor{red}{The command 'python3 Main.py -k "McMaster"' is provided through the command line}
+\textcolor{red}{The command \texttt{python3 Main.py -k "McMaster"} is provided through the command line}
 
 \textbf{Output:} \sout{Images downloaded all related to McMaster}
 \textcolor{red}{There exists a folder at google-images-downloader/src/Images/McMaster that contains
@@ -357,7 +364,7 @@ to the system and check that the file extensions on each of the files downloaded
 \end{lstlisting}
 					
 \textbf{Output:} \sout{A download repository full with images, with no images from the blacklisted website}
-\textcolor{red}{A list of URLS, none of which contain "mcmaster.ca" in the URL}
+\textcolor{red}{A list of URLS, none of which contain ``mcmaster.ca" in the URL}
 					
 \textbf{How test will be performed:} \sout{The tester will manually start the search query with all 
 the specified inputs and check each downloaded image URL to ensure that it does not come from 
@@ -373,7 +380,7 @@ of URLs to be downloaded do not contain the blacklisted site.}
 \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 					
 \textbf{Input:} \sout{A search query with a request to only download from a specified website}
-\textcolor{red}{The json object below which specifies the whitelist as "mcmaster.ca"}
+\textcolor{red}{The json object below which specifies the whitelist as ``mcmaster.ca"}
 \begin{lstlisting}[language=json,firstnumber=1]
 {
 	"keyword": "engineering",
@@ -397,7 +404,7 @@ of URLs to be downloaded do not contain the blacklisted site.}
 \end{lstlisting}
 
 \textbf{Output:} \sout{A download repository full with images, with no images from the whitelisted website}
-\textcolor{red}{A list of URLS, all of which contain "mcmaster.ca" in the URL}
+\textcolor{red}{A list of URLS, all of which contain ``mcmaster.ca" in the URL}
 
 \textbf{How test will be performed:} \sout{The tester will manually start the search query with all the specified 
 inputs and check each downloaded image URL to ensure that it comes from the white-listed website.}
@@ -504,7 +511,7 @@ from the textfile, then will compare the two lists to ensure that they are equal
 
 \textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
-\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "fruit" -l 3 -c "red"' is provided through the command line}
+\textbf{Input:} \textcolor{red}{The command \texttt{python3 Main.py -k "fruit" -l 3 -c "red"} is provided through the command line}
 
 \textbf{Output:} \textcolor{red}{There exists a folder at google-images-downloader/src/Images/fruit that contains 3 images 
 which are red in color}
@@ -518,7 +525,7 @@ check to ensure the output is correct.}
 
 \textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
-\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3 -ar "panoramic"' is provided through the command line}
+\textbf{Input:} \textcolor{red}{The command \texttt{python3 Main.py -k "waterfall" -l 3 -ar "panoramic"} is provided through the command line}
 
 \textbf{Output:} \textcolor{red}{There exists a folder at google-images-downloader/src/Images/waterfall that contains 3 images 
 which which are panoramas}
@@ -618,7 +625,7 @@ google-images-downloader/src/newDirec/software will be iterated through to check
 
 \textbf{Initial State:} \textcolor{red}{Linux machine has an empty Images folder at google-images-downloader/src/Images}
 
-\textbf{Input:} \textcolor{red}{The command 'python3 Main.py -k "McMaster" -l 3 -s "moore.mcmaster.ca" -u "guinnesj -p "password"' 
+\textbf{Input:} \textcolor{red}{The command \texttt{python3 Main.py -k "McMaster" -l 3 -s "moore.mcmaster.ca" -u "guinnesj -p "password"}
 is provided through the command line}
 
 \textbf{Output:} \textcolor{red}{There exists a folder at moore.mcmaster.ca:/u50/guinnesj/McMaster that contains 3 images within 15 seconds}
@@ -646,7 +653,7 @@ check to ensure the output is correct by logging into the server.}
 \textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
 \textbf{Input/Condition:} \sout{A typical usage of the system} 
-\textcolor{red}{\textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3' is provided through the command line}}
+\textcolor{red}{\textcolor{red}{The command \texttt{python3 Main.py -k "waterfall" -l 3} is provided through the command line}}
 					
 \textbf{Output/Result:} Output messages displayed on the console \textcolor{red}{are fully visible}
 					
@@ -670,7 +677,7 @@ find that the output messages fit the console nicely.}
 \textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
 \textbf{Input/Condition:} \sout{A typical usage of the system} 
-\textcolor{red}{\textcolor{red}{The command 'python3 Main.py -k "waterfall" -l 3' is provided through the command line}}
+\textcolor{red}{\textcolor{red}{The command \texttt{python3 Main.py -k "waterfall" -l 3} is provided through the command line}}
 					
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{A folder exists at google-images-downloader/src/Images/waterfall which has three images}
@@ -690,8 +697,13 @@ find that the output messages fit the console nicely.}
 \textbf{Initial State:} A computer without the system installed
 					
 \textbf{Input/Condition:} \sout{A typical installation of the system from the command line}
-\textcolor{red}{A series of commands entered through the command line: 'git clone https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader', 
-cd 'google-images-downloader/src', 'make install'}
+\color{red}A series of commands entered through the command line:
+\begin{lstlisting}[language=bash]
+  $ git clone https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader
+  $ cd google-images-downloader/src
+  $ make install
+\end{lstlisting}
+\color{black}
 					
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{Program exists on local system and dependencies are installed.}
@@ -714,7 +726,7 @@ cd 'google-images-downloader/src', 'make install'}
 \textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Program is not running.}
 					
 \textbf{Input/Condition:} \sout{An invalid input; an input that would result in an error}
-\textcolor{red}{The command 'python3 Main.py' is provided to the command line.}
+\textcolor{red}{The command \texttt{python3 Main.py} is provided to the command line.}
 					
 \textbf{Output/Result:} A descriptive error message showing the possible command line arguments is shown
 					
@@ -736,7 +748,7 @@ cd 'google-images-downloader/src', 'make install'}
 \textbf{Initial State:} \sout{A clean version of the program} \textcolor{red}{Most recently updated system}
 					
 \textbf{Input/Condition:} \sout{A typical usage of the program}
-\textcolor{red}{The command 'python3 Main.py -k mcmaster' is provided to the command line}
+\textcolor{red}{The command \texttt{python3 Main.py -k mcmaster} is provided to the command line}
 					
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{A folder exists at google-images-downloader/src/images with 10 images.}
@@ -760,7 +772,7 @@ all the images using the latest format.}
 \textbf{Initial State:} The most up to date version of the program on a Linux, Windows, and Mac platform.
 					
 \textbf{Input/Condition:} \sout{A typical usage of the program}
-\textcolor{red}{The command 'python3 Main.py -k mcmaster' is provided to the command line}
+\textcolor{red}{The command \texttt{python3 Main.py -k mcmaster} is provided to the command line}
 					
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{A folder exists at google-images-downloader/src/images with 10 images.}
@@ -784,7 +796,7 @@ all the images using the latest format.}
 \textcolor{red}{The most up to date version of the program on a Linux, Windows, and Mac platform.}
 					
 \textbf{Input/Condition:} \sout{An execution of the linter}
-\textcolor{red}{The command 'make lint' is provided to the command line under the src/ directory}
+\textcolor{red}{The command \texttt{make lint} is provided to the command line under the src/ directory}
 					
 \textbf{Output/Result:} A successful linting with no errors to report
 					
@@ -883,7 +895,7 @@ For this project, after every module is complete, it will be unit tested before 
 combination of white box and black box where the goal is to exploit knowledge of the system to test interfaces and 
 internal functionality}
 
-The coverage metrics we will be using are \sout{85\%} \textcolor{red}{80} statement coverage and 
+The coverage metrics we will be using are \sout{85\%} \textcolor{red}{80\%} statement coverage and 
 80\% branch coverage. This data will be found using the pytest-cov tool. There are no stubs 
 or drivers needed for testing.
 		
