@@ -86,10 +86,14 @@ our program.
 \end{itemize}
 
 \section{Git Workflow Plan}
-We will be using trunk-based development for our workflow. We will branch off 
-of the master branch only when needed for implementing a specific feature; 
-otherwise we will be working in the master branch, especially for 
-smaller updates like modifying documentation. This will allow us to avoid 
+\st{We will be using} Trunk-based development \color{red} will be used to 
+organize the workflow of the project. \color{black} \st{for our workflow. We 
+will branch} \color{red} Branches will be made \color{black} off of the master 
+branch only when needed for implementing a specific feature; 
+otherwise \st{we will be working} \color{red} work will be done \color{black} 
+in the master branch, especially for 
+smaller updates like modifying documentation. This will \st{allow us to} 
+\color{red} help \color{black} avoid 
 frequent and messy merge conflicts. As we are just getting started, and since 
 we're working with a small team, using this method of code development will 
 allow us to develop our code and write our documentation quickly with minimal 
@@ -136,6 +140,28 @@ rationale for this is improving readability and reducing long function names.
 The \href{https://gitlab.cas.mcmaster.ca/guinnesj/google-images-downloader/blob/master/ProjectSchedule/Gantt-Chart.pdf}{Gantt Chart} can be found in the project schedule folder on the repository or by clicking the link in this section.
 
 \section{Project Review}
+\color{red}The development process of google-images-downloader was relatively 
+smooth, and allowed for the successful implementation of the desired program. 
+As previously mentioned, due to Google's change to how images are stored on the 
+Google Images results page, the original implementation of a solution to this 
+problem was no longer functional, so a redesign of the solution was necessary. 
+Fortunately, the original program used selenium to navigate the results page to  
+load more images, and expanding on its use allowed for the NavigatePage module 
+to ``click" on each image to load its URL, so it could be parsed from the HTML 
+and stored for future use. The functionality of moving the downloaded images to 
+a server was a new feature added, which was not present in the original 
+implementation.
+
+There were some things in the development process that could have been improved 
+upon. While the intention was to use the git issue tracker as a way to assign, 
+prioritize, and keep track of ongoing tasks, this tool wasn't used very much, 
+which led to ambiguity of responsibility for tasks, as well as a general lack 
+of organization of what tasks were to be completed. In addition, the library 
+used to parse the file type of a downloaded image from its data had a lot of 
+known bugs, the main one being issues recognizing JPG/JPEG images. This was 
+resolved someone in an ad hoc manner in the Output module, but it definitely 
+could have been done in a more systematic way with more time, or a better 
+alternative could be found. \color{black}
 
 \printbibliography{}
 
@@ -153,6 +179,7 @@ Jan 29 & Nick & Added Gantt Chart link\\
 Jan 30 & Nick & Updated Gantt Chart link\\
 Jan 30 & Joshua & Spelling, grammar, sentence structure, formatting \\
 \color{red}Apr 5&\color{red}Sam&\color{red}Revisions for Rev 0\\
+\color{red}Apr 5&\color{red}Sam&\color{red}Added Project Review\\
 \bottomrule
 \end{tabularx}
 \end{table}

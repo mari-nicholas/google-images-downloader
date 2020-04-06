@@ -4,13 +4,13 @@
 #  @date 04/03/2020
 
 from os import curdir, chdir, path, remove, rmdir, listdir, fsencode, fsdecode, mkdir
+import re
 import sys
 from shutil import rmtree
 
 from inspect import currentframe, getfile
 from PIL import Image
 from pytest import fixture, raises
-import re
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)
@@ -27,7 +27,7 @@ args1 = {
 			"limit": 3,
 			"safesearch": True,
 			"directory": path.join(curdir, "Images"),
-			"filetype": "gif",
+			"filetype": "",
 			"colour": "",
 			"license": "",
 			"imagetype": "",
@@ -165,7 +165,8 @@ args7 = {
 
 class TestSearchQueries:
     #FR-SQ2
-    def test_specific_file_type(self, delete_args1_folder):
+    def test_gif_file_type(self, delete_args1_folder):
+        args1["filetype"] = "gif"
         url = buildURL(args1)
         urls = getImageURL(url, args1["limit"], args1['blacklist'])
         downloadImages(urls, args1["keyword"], args1["directory"])
@@ -175,6 +176,30 @@ class TestSearchQueries:
         for file in listdir(directory):
             filename = fsdecode(file)
             assert filename.endswith(".gif")
+
+    def test_jpg_file_type(self, delete_args1_folder):
+        args1["filetype"] = "jpg"
+        url = buildURL(args1)
+        urls = getImageURL(url, args1["limit"], args1['blacklist'])
+        downloadImages(urls, args1["keyword"], args1["directory"])
+        
+        directory = fsencode(path.join(curdir, "Images", args1["keyword"]))
+
+        for file in listdir(directory):
+            filename = fsdecode(file)
+            assert filename.endswith(".jpg")
+
+    def test_png_file_type(self, delete_args1_folder):
+        args1["filetype"] = "png"
+        url = buildURL(args1)
+        urls = getImageURL(url, args1["limit"], args1['blacklist'])
+        downloadImages(urls, args1["keyword"], args1["directory"])
+        
+        directory = fsencode(path.join(curdir, "Images", args1["keyword"]))
+
+        for file in listdir(directory):
+            filename = fsdecode(file)
+            assert filename.endswith(".png")
 
 
     @fixture()
