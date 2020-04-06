@@ -180,6 +180,7 @@ class TestSearchQueries:
             assert filename.endswith(".gif")
 
 
+    #FR-SQ3
     def test_jpg_file_type(self, delete_args1_folder):
         args1["filetype"] = "jpg"
         url = buildURL(args1)
@@ -193,6 +194,7 @@ class TestSearchQueries:
             assert filename.endswith(".jpg")
 
 
+    #FR-SQ4
     def test_png_file_type(self, delete_args1_folder):
         args1["filetype"] = "png"
         url = buildURL(args1)
@@ -212,7 +214,7 @@ class TestSearchQueries:
         rmtree(path.join(curdir, "Images", args1["keyword"]))
 
 
-    #FR-SQ3
+    #FR-SQ5
     def test_blacklist_site(self):
         url = buildURL(args2)
         urls = getImageURL(url, args2["limit"], args2['blacklist'])
@@ -222,7 +224,7 @@ class TestSearchQueries:
             assert result == None
 
 
-    #FR-SQ4
+    #FR-SQ6
     def test_whitelist_site(self):
         url = buildURL(args3)
         urls = getImageURL(url, args3["limit"], args3['blacklist'])
@@ -232,7 +234,7 @@ class TestSearchQueries:
             assert result != None
 
 
-    #FR-SQ5
+    #FR-SQ8
     def test_file_size(self, delete_args6_folder):
         url = buildURL(args6)
         urls = getImageURL(url, args6["limit"], args6['blacklist'])
@@ -252,7 +254,7 @@ class TestSearchQueries:
         rmtree(path.join(curdir, "Images", args6["keyword"]))
 
 
-    #FR-SQ6
+    #FR-SQ9
     def test_keyword_from_file(self):
         url = buildURL(args7)
         urls = getImageURL(url, args7["limit"], args7['blacklist'])
