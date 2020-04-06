@@ -93,9 +93,9 @@
 2/28/2020 & Josh & 1.5 & Completed Tests for Proof of Concept and Unit Testing Plan sections\\
 2/28/2020 & Nick & 1.6 & Completed Tests for Functional Requirements and Traceability Matrices\\
 2/28/2020 & Sam & 1.6.1 & Minor consistency and formatting improvements\\
-\textcolor{red}{4/05/2020} & \textcolor{red}{Joshua} & \textcolor{red}{1.7} & \textcolor{red}{Rev1 Changes: 
-grammar/spelling/formatting, adding additional functional requirements, providing greater clarity for certain sections, 
-got rid of first person, explicitly defined inputs/outputs for all tests.}\\
+\textcolor{red}{4/05/2020} & \textcolor{red}{Josh, Sam} & \textcolor{red}{2.0} & \textcolor{red}{Rev1 Changes: 
+grammar, spelling, and formatting, adding additional functional requirements, providing greater clarity for certain sections, 
+got rid of first person, explicitly defined inputs and outputs for all tests.}\\
 \bottomrule
 \end{tabularx}
 \caption{\bf Revision History}
@@ -160,9 +160,9 @@ This section will give an overview of the testing plan, including but not limite
 	
 \subsection{Software Description}
 
-The software system is a google images downloader command line tool that will allow end users to download a certain number of googles images given specific keywords. The aim of this tool is to provide assistance to those involved in machine learning, and secondarily those involved in art.
+The software system is a \sout{g}\textcolor{red}{G}oogle \sout{i}\textcolor{red}{I}mages downloader command line tool that will allow end users to download a certain number of \textcolor{red}{images from} \sout{g}\textcolor{red}{G}oogle \sout{i}\textcolor{red}{I}mages given specific keywords. The aim of this tool is to provide assistance to those involved in machine learning, and secondarily those involved in art.
 
-The system will consist of two main subsystems. The first subsystem will be responsible for taking in user input, and constructing the google images query. The second system will be responsible for downloading the images from google and storing them. 
+The system will consist of two main subsystems. The first subsystem will be responsible for taking in user input, and constructing the \sout{g}\textcolor{red}{G}oogle \sout{i}\textcolor{red}{I}mages query. The second system will be responsible for downloading the images from \sout{g}\textcolor{red}{G}oogle and storing them. 
 
 \subsection{Test Team}
 
@@ -682,7 +682,7 @@ find that the output messages fit the console nicely.}
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{A folder exists at google-images-downloader/src/Images/waterfall which has three images}
 					
-\textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users are able to successfully download their images after reading the sample inputs and explanations for the first time.
+\textbf{How test will be performed:} \sout{The tester will use a survey to verify that at least 90\% of users are able to successfully download their images after reading the sample inputs and explanations for the first time} \textcolor{red}{The tester will ensure that the sample inputs and explanations are displayed upon a faulty execution, and that a correct execution provides the specified download to occur}.
 
 \end{enumerate}
 
@@ -694,7 +694,7 @@ find that the output messages fit the console nicely.}
 
 \textbf{Type:} Structural, Static, Manual, Acceptance
 					
-\textbf{Initial State:} A computer without the system installed
+\textbf{Initial State:} A computer without the system installed.
 					
 \textbf{Input/Condition:} \sout{A typical installation of the system from the command line}
 \color{red}A series of commands entered through the command line:
@@ -708,7 +708,7 @@ find that the output messages fit the console nicely.}
 \textbf{Output/Result:} \sout{A folder of the desired downloaded images}
 \textcolor{red}{Program exists on local system and dependencies are installed.}
 					
-\textbf{How test will be performed:} The tester will use a survey to verify that at least 90\% of users that are comfortable using the command line are able to download the program within five minutes.
+\textbf{How test will be performed:} \sout{The tester will use a survey to verify that at least 90\% of users that are comfortable using the command line are able to download the program within five minutes.} \textcolor{red}{The tester will ensure that the program and all required libraries can easily be downloaded by following the above steps.}
 
 \end{enumerate}
 
@@ -869,7 +869,7 @@ The first is that the Google Images HTML code structure changed from when the or
 to run properly, and the start of implementing the proof of concept. This meant that the section of the original 
 project regarding how the HTML is scra\sout{p}ped and the images downloaded was almost useless. To solve the issue, 
 \sout{we first figured out what} the new HTML structure was \textcolor{red}{first figured out} by using 
-``Inspect Element" on \sout{images.} \textcolor{red}{the page of google image results.} This also took some time as 
+``Inspect Element" on \sout{images.} \textcolor{red}{the results page of Google Images.} This also took some time as 
 there are multiple links within each image subsection. Once \sout{we} it was figured out where the image was 
 stored in the HTML, \sout{we could then scrape} it could then be scraped and parse\textcolor{red}{d} \sout{it} to download it.
 
@@ -919,6 +919,6 @@ The test cases listed here do not call for the use of any symbolic constants.
 
 \subsection{Usability Survey Questions}
 
-In addition to relevant questions for testing the appropriate nonfunctional requirements (see Sections \ref{LaFReqs}, \ref{UaHReqs}, and \ref{PerfReqs}), users will also be asked to confirm that no part of the product (eg. naming conventions) are offensive to them.
+\sout{In addition to relevant questions for testing the appropriate nonfunctional requirements (see Sections \ref{LaFReqs}, \ref{UaHReqs}, and \ref{PerfReqs}), users will also be asked to confirm that no part of the product (eg. naming conventions) are offensive to them.} \textcolor{red}{Since all testing will be performed by the development team, there are no survey questions that will be used to test the software. However, any input provided via the git repository will be taken into account by the developers of the program.}
 
 \end{document}
