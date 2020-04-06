@@ -4,13 +4,13 @@
 #  @date 04/03/2020
 
 from os import curdir, chdir, path, remove, rmdir, listdir, fsencode, fsdecode, mkdir
+import re
 import sys
 from shutil import rmtree
 
 from inspect import currentframe, getfile
 from PIL import Image
 from pytest import fixture, raises
-import re
 
 current_dir = path.dirname(path.abspath(getfile(currentframe())))
 parent_dir = path.dirname(current_dir)

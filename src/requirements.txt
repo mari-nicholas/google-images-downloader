@@ -1,5 +1,6 @@
 flake8==3.7.9
 paramiko==2.7.1
+Pillow==7.1.1
 pytest==5.4.1
 pytest-cov==2.8.1
 scp==0.13.2

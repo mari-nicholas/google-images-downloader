@@ -6,6 +6,7 @@
 from base64 import b64decode
 from math import ceil, log
 from os import extsep, mkdir, path, chdir
+from shutil import rmtree
 from sys import stdout
 
 from imghdr import what
@@ -13,7 +14,6 @@ from urllib.request import Request, urlopen
 
 from paramiko import SSHClient, AutoAddPolicy
 from scp import SCPClient
-from shutil import rmtree
 
 
 ## @brief downloads images
