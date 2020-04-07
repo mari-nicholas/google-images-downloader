@@ -1,16 +1,6 @@
-# google-images-downloader
+# User Guide
 
-A command-line Python application which can download Google images based on a key phrase, with optional parameters to prune the images returned.
-
-Team Name: CAS Dream Team
-
-Team Members: Joshua Guinness (@guinnesj), Sam Crawford (@crawfs1), Nicholas Mari (@marin)
-
-This project is a reimplementation of: https://github.com/hardikvasa/google-images-download
-
-## User Guide
-
-### Installation
+## Installation
 
 Running the following commands will download the repository into the directory you run the terminal from, and will install all dependencies and libraries required to run the program.
 ```bash
@@ -19,10 +9,10 @@ cd google-images-downloader/src
 make install
 ```
 
-### Usage
+## Usage
 To use, run the command `python Main.py -k <keyword>`, where `python` is the command for running Python on your system, and `<keyword>` is the keyword to use for searching Google for the images to download. This is the minimum input required to run the program; all valid parameters are given below, and a full list of options can be accessed by just running `python Main.py` without the keyword argument.
 
-#### Input Parameters
+### Input Parameters
 
 Parameter |Abbr. |Description |Example
 ---|---|---|---
@@ -49,5 +39,5 @@ fromfile |ff| The file to parse input arguments from |a path to a file
 
 \*\*The default value of `limit` is 10.
 
-### Advanced Usage
+## Advanced Usage
 When in the `src/` folder, you can test the program by running `make test` and generate doxygen documentation by running `make docs`.
