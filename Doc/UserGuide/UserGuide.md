@@ -10,7 +10,7 @@ make install
 ```
 
 ## Usage
-To use, run the command `python Main.py -k <keyword>`, where `python` is the command for running Python on your system, and `<keyword>` is the keyword to use for searching Google for the images to download. This is the minimum input required to run the program; all valid parameters are given below, and a full list of options can be accessed by just running `python Main.py` without the keyword argument.
+To use, run the command `<py> Main.py -k <keyword>`, where `<py>` is the command for running Python 3 on your system (will most likely either be `python3` or `python`), and `<keyword>` is the keyword to use for searching Google for the images to download. This is the minimum input required to run the program; all valid parameters are given below, and a full list of options can be accessed by just running `python Main.py` without the keyword argument.
 
 ### Input Parameters
 
