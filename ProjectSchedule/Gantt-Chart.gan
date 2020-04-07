@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-03-10" view-index="0" gantt-divider-location="489" resource-divider-location="300" version="2.8.10" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Google Images Downloader Gantt Chart" company="CAS Dream Team" webLink="http://" view-date="2020-01-20" view-index="0" gantt-divider-location="489" resource-divider-location="300" version="2.8.10" locale="en_CA">
     <description/>
     <view zooming-state="default:1" id="gantt-chart">
-        <field id="tpd3" name="Name" width="226" order="0"/>
-        <field id="tpd4" name="Begin date" width="130" order="1"/>
-        <field id="tpd5" name="End date" width="129" order="2"/>
+        <field id="tpd3" name="Name" width="219" order="0"/>
+        <field id="tpd4" name="Begin date" width="126" order="1"/>
+        <field id="tpd5" name="End date" width="125" order="2"/>
         <option id="color.recent"><![CDATA[#000000]]></option>
     </view>
     <view id="resource-table">
@@ -92,7 +92,7 @@
             <task id="189" name="M5 - Output Format" color="#8cb6ce" meeting="false" start="2020-03-16" duration="8" complete="100" thirdDate="2020-03-14" thirdDate-constraint="0" expand="true"/>
             <task id="191" name="M6 - Main" color="#8cb6ce" meeting="false" start="2020-03-14" duration="5" complete="100" thirdDate="2020-03-14" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="170" name="Testing" meeting="false" start="2020-03-14" duration="18" complete="88" expand="true">
+        <task id="170" name="Testing" meeting="false" start="2020-03-14" duration="18" complete="100" expand="true">
             <depend id="139" type="2" difference="0" hardness="Strong"/>
             <task id="168" name="Unit Testing" color="#000000" meeting="false" start="2020-03-14" duration="10" complete="100" thirdDate="2020-03-12" thirdDate-constraint="0" expand="true">
                 <depend id="156" type="2" difference="0" hardness="Strong"/>
@@ -110,20 +110,20 @@
                 <task id="232" name="Integration Test M5" color="#8cb6ce" meeting="false" start="2020-03-25" duration="3" complete="100" thirdDate="2020-03-24" thirdDate-constraint="0" expand="true"/>
                 <task id="234" name="Integration Test M6" color="#8cb6ce" meeting="false" start="2020-03-25" duration="3" complete="100" thirdDate="2020-03-24" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="157" name="System Testing" color="#000000" meeting="false" start="2020-03-28" duration="4" complete="51" thirdDate="2020-03-28" thirdDate-constraint="0" expand="true">
-                <task id="158" name="Tests for Functional Requirements" color="#8cb6ce" meeting="false" start="2020-03-28" duration="4" complete="90" thirdDate="2020-03-09" thirdDate-constraint="0" expand="true"/>
-                <task id="159" name="Tests for Non-Functional Requirements" color="#8cb6ce" meeting="false" start="2020-03-29" duration="3" complete="0" thirdDate="2020-03-09" thirdDate-constraint="0" expand="true"/>
+            <task id="157" name="System Testing" color="#000000" meeting="false" start="2020-03-28" duration="4" complete="100" thirdDate="2020-03-28" thirdDate-constraint="0" expand="true">
+                <task id="158" name="Tests for Functional Requirements" color="#8cb6ce" meeting="false" start="2020-03-28" duration="4" complete="100" thirdDate="2020-03-09" thirdDate-constraint="0" expand="true"/>
+                <task id="159" name="Tests for Non-Functional Requirements" color="#8cb6ce" meeting="false" start="2020-03-29" duration="3" complete="100" thirdDate="2020-03-09" thirdDate-constraint="0" expand="true"/>
             </task>
         </task>
-        <task id="139" name="Final Documentation" color="#000000" meeting="false" start="2020-04-01" duration="6" complete="12" thirdDate="2020-04-01" thirdDate-constraint="0" expand="true">
+        <task id="139" name="Final Documentation" color="#000000" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-04-01" thirdDate-constraint="0" expand="true">
             <task id="140" name="Problem Statement" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="141" name="Development Plan" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="142" name="Requirements Document" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="143" name="Design Document" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="144" name="Test Plan" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="145" name="Test Report" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="146" name="Users Guide" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
-            <task id="147" name="Source Code" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="141" name="Development Plan" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="142" name="Requirements Document" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="143" name="Design Document" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="144" name="Test Plan" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="145" name="Test Report" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="146" name="Users Guide" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
+            <task id="147" name="Source Code" color="#8cb6ce" meeting="false" start="2020-04-01" duration="6" complete="100" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true"/>
         </task>
     </tasks>
     <resources>
