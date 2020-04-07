@@ -13,7 +13,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
 
-# Helper class to determine whether element is loaded correctly
+## @brief Helper class to determine whether 
+# element is loaded correctly
+#  @details makes selenium wait until src
+#  element in HTML has http and is not
+#  https://encrypted. This ensures that an
+#  actual image URL is added to the list
+#  @param object HTML element
+#  @return The URL in the src if it exists
 class ElementHasSrc(object):
     """An expectation for checking that an element has a src with regex: http*
 
@@ -111,9 +118,13 @@ def getImageURL(url, limit, blacklist):
             # Get what is in the src attribute. This is the full image URL
             image_url = image.get_attribute("src")
 
+            # If not blacklist, simply add image URL to list
             if (blacklist == ""):
                 urls.append(image_url)
+            # If blacklist, then confirm that the blacklist
+            # is not present in the image URL
             else:
+                # Regex search
                 result = search(blacklist, image_url)
                 if result is None:
                     urls.append(image_url)
