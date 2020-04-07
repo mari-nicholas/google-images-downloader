@@ -107,6 +107,7 @@ def moveToServer(key, direc, shost, suser, spass):
         p = float(sent) / float(size) * 100
         stdout.write("%s\'s progress: %.2f%%   \r" % (filename, p))
 
+    # Creates an SSHClient object
     ssh = createSSH(key, direc, shost, suser, spass)
 
     try:
@@ -123,6 +124,7 @@ def moveToServer(key, direc, shost, suser, spass):
         deleteLocalImageFolder(direc, key)
         raise
 
+    # Closes connection
     scp.close()
 
     # Delete the local copy of the images
